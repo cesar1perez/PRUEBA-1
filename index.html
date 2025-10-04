@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz de Ventas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f4f7fa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .seller-section {
+            margin-bottom: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .seller-header {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #e0f7fa;
+        }
+        #content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interfaz de Ventas</h1>
+    <div id="content">
+        <p>Cargando datos...</p>
+    </div>
+
+    <script>
+        const sellerMap = {
+            '001': 'VENTAS PISO',
+            '003': 'CARLOS C.',
+            '004': 'MARCO 1',
+            '005': 'ULISES A.',
+            '006': 'MIGUEL L.',
+            '007': 'ALFREDO T.',
+            '008': 'EMPRESARIAL/TALLERES',
+            '010': 'SERV PESADO',
+            '012': 'RUBEN L.',
+            '014': 'MARCO 2',
+            '018': 'GARANTIAS',
+            '019': 'GARANTIAS 2',
+            '020': 'RIO PISO',
+            '022': 'AUTOELECTRICA ROMA',
+            '023': 'RIO MAYOREO'
+        };
+
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ46pa64GfMpCe4erOekntUGd3k4L551YsqXStJtf_CIudjv586A3Bmh3uanIXfEXx2-aDPHwhG-jKi/pub?output=csv';
+
+        // Función para parsear líneas CSV manejando comillas y comas dentro de campos
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuote = false;
+            for (let char of line) {
+                if (char === '"') {
+                    inQuote = !inQuote;
+                } else if (char === ',' && !inQuote) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+
+        fetch(csvUrl)
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split('\n').map(parseCSVLine);
+                if (rows.length < 1) return;
+
+                const headers = rows[0];
+                const codVend1Idx = headers.indexOf('COD VEND 1');
+                const cantIdx = headers.indexOf('CANT');
+                const clasifIdx = headers.indexOf('CLASIFICACION');
+
+                if (codVend1Idx === -1 || cantIdx === -1 || clasifIdx === -1) {
+                    document.getElementById('content').innerHTML = '<p>Error: Columnas no encontradas.</p>';
+                    return;
+                }
+
+                const salesData = {};
+
+                for (let i = 1; i < rows.length; i++) {
+                    if (rows[i].length < headers.length) continue;
+                    let codVend = rows[i][codVend1Idx].trim();
+                    // Normalizar código agregando ceros a la izquierda si es necesario
+                    codVend = codVend.padStart(3, '0');
+                    const seller = sellerMap[codVend] || codVend; // Usa mapping o código si no existe
+                    const clasif = rows[i][clasifIdx] || 'Sin Clasificación';
+                    const cant = parseFloat(rows[i][cantIdx]) || 0;
+
+                    if (!salesData[seller]) salesData[seller] = {};
+                    if (!salesData[seller][clasif]) salesData[seller][clasif] = 0;
+                    salesData[seller][clasif] += cant;
+                }
+
+                const content = document.getElementById('content');
+                content.innerHTML = ''; // Limpia el mensaje de carga
+
+                Object.keys(salesData).sort().forEach(seller => {
+                    const section = document.createElement('div');
+                    section.className = 'seller-section';
+
+                    const header = document.createElement('div');
+                    header.className = 'seller-header';
+                    header.textContent = seller;
+                    section.appendChild(header);
+
+                    const clasifs = Object.entries(salesData[seller]);
+                    clasifs.sort((a, b) => b[1] - a[1]); // Ordena descendente por cantidad
+
+                    const table = document.createElement('table');
+                    const thead = document.createElement('thead');
+                    const trHead = document.createElement('tr');
+                    const thClasif = document.createElement('th');
+                    thClasif.textContent = 'Clasificación';
+                    const thCant = document.createElement('th');
+                    thCant.textContent = 'Cantidad';
+                    trHead.appendChild(thClasif);
+                    trHead.appendChild(thCant);
+                    thead.appendChild(trHead);
+                    table.appendChild(thead);
+
+                    const tbody = document.createElement('tbody');
+                    clasifs.forEach(([clasif, total]) => {
+                        const tr = document.createElement('tr');
+                        const tdClasif = document.createElement('td');
+                        tdClasif.textContent = clasif;
+                        const tdCant = document.createElement('td');
+                        tdCant.textContent = `${total} unidades`;
+                        tr.appendChild(tdClasif);
+                        tr.appendChild(tdCant);
+                        tbody.appendChild(tr);
+                    });
+                    table.appendChild(tbody);
+
+                    section.appendChild(table);
+                    content.appendChild(section);
+                });
+            })
+            .catch(error => {
+                document.getElementById('content').innerHTML = '<p>Error al cargar los datos: ' + error.message + '</p>';
+            });
+    </script>
+</body>
+</html>
