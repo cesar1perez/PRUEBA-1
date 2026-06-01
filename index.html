@@ -3,331 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Ejecutivo - Reporte Diario de Visitas</title>
+    <title>Reporte Diario de Visitas a Detalle por Cliente</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans min-h-screen antialiased">
+<body class="bg-gray-100 text-gray-800 font-sans p-4 md:p-8">
 
-    <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-50 px-6 py-4 shadow-xl">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-blue-600 rounded-lg text-white shadow-lg shadow-blue-500/20">
-                    <i class="ph ph-chart-line-up text-2xl font-bold"></i>
-                </div>
+    <div class="max-w-7xl mx-auto bg-white shadow-xl rounded-lg border border-gray-200 overflow-hidden">
+        
+        <header class="bg-gray-900 text-white p-6 border-b-4 border-blue-600">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-                        CONTROL COMERCIAL Y RUTAS <span class="text-xs font-normal px-2 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full">2026</span>
-                    </h1>
-                    <p class="text-xs text-slate-400">Consolidado Nacional de Venta y Presencia de Marca</p>
+                    <span class="text-xs uppercase tracking-wider font-semibold text-gray-400">Reporte Diario de Visitas a Detalle</span>
+                    <h1 class="text-2xl font-bold tracking-tight">Ficha Ejecutiva por Cliente</h1>
                 </div>
-            </div>
-            
-            <div class="flex flex-wrap items-center gap-3">
-                <div>
-                    <label class="block text-[10px] text-slate-400 uppercase font-semibold mb-1">Empresa</label>
-                    <select class="bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 pr-8 cursor-pointer">
-                        <option>Llanterama</option>
-                        <option>Autoelectrica</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] text-slate-400 uppercase font-semibold mb-1">Vendedor</label>
-                    <select class="bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 cursor-pointer">
-                        <option>Carlos Mendoza (Zona Norte)</option>
-                        <option>Alejandro Silva (Zona Centro)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] text-slate-400 uppercase font-semibold mb-1">Cliente Seleccionado</label>
-                    <select class="bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2 max-w-xs cursor-pointer">
-                        <option>COD-045 - Acumuladores del Centro S.A.</option>
-                        <option>COD-102 - Refaccionaria El Rayo</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl shadow-md">
-                <div class="flex items-center justify-between text-slate-400 mb-2">
-                    <span class="text-xs font-semibold uppercase tracking-wider">Objetivo Total Cuenta</span>
-                    <i class="ph ph-target text-xl text-blue-400"></i>
-                </div>
-                <div class="text-2xl font-bold">$185,000</div>
-                <p class="text-xs text-slate-500 mt-1">Cuota asignada para el mes</p>
-            </div>
-            <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl shadow-md">
-                <div class="flex items-center justify-between text-slate-400 mb-2">
-                    <span class="text-xs font-semibold uppercase tracking-wider">Real Facturado</span>
-                    <i class="ph ph-receipt text-xl text-emerald-400"></i>
-                </div>
-                <div class="text-2xl font-bold text-emerald-400">$142,500</div>
-                <p class="text-xs text-slate-500 mt-1">Suma total de líneas al día de hoy</p>
-            </div>
-            <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl shadow-md">
-                <div class="flex items-center justify-between text-slate-400 mb-2">
-                    <span class="text-xs font-semibold uppercase tracking-wider">% Avance Global</span>
-                    <i class="ph ph-chart-pie-slice text-xl text-amber-400"></i>
-                </div>
-                <div class="text-2xl font-bold text-amber-400">77.02%</div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5 mt-2">
-                    <div class="bg-amber-400 h-1.5 rounded-full" style="width: 77%"></div>
-                </div>
-            </div>
-            <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl shadow-md">
-                <div class="flex items-center justify-between text-slate-400 mb-2">
-                    <span class="text-xs font-semibold uppercase tracking-wider">Utilidad Generada (Dif)</span>
-                    <i class="ph ph-currency-dollar text-xl text-indigo-400"></i>
-                </div>
-                <div class="text-2xl font-bold text-indigo-400">$38,200</div>
-                <p class="text-xs text-indigo-400/70 mt-1">Margen bruto vs. Costo: <span class="font-bold">26.8%</span></p>
-            </div>
-        </section>
-
-        <section class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
-            <div class="border-b border-slate-800 bg-slate-950/50 px-6 py-4 flex items-center gap-2">
-                <i class="ph ph-user-focus text-blue-400 text-lg"></i>
-                <h2 class="text-sm font-bold uppercase tracking-wider text-white">Expediente General y Condiciones del Cliente</h2>
-            </div>
-            <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="space-y-3">
-                    <h3 class="text-xs font-bold text-blue-400 uppercase tracking-widest border-b border-slate-800 pb-1">Identificación Básica</h3>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="text-slate-400">Nombre de Negocio:</div>
-                        <div class="font-medium text-slate-200">Acumuladores del Centro</div>
-                        <div class="text-slate-400">Encargado de Compras:</div>
-                        <div class="font-medium text-slate-200">Ing. Juan Pablo Pérez</div>
-                        <div class="text-slate-400">Contacto Directo:</div>
-                        <div class="font-medium text-emerald-400"><i class="ph ph-whatsapp-logo mr-1"></i>555-123-4567</div>
-                        <div class="text-slate-400">Giro / Zona:</div>
-                        <div class="font-medium text-slate-200">Refaccionaria Mayorista / Zona Bajío</div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm bg-gray-800 p-3 rounded border border-gray-700 w-full md:w-auto">
+                    <div>
+                        <span class="block text-xs text-gray-400 font-medium">MES:</span>
+                        <span class="font-bold text-blue-400">JUNIO</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-gray-400 font-medium">AÑO:</span>
+                        <span class="font-bold text-blue-400">2026</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-gray-400 font-medium">EMPRESA:</span>
+                        <select class="bg-gray-700 text-white font-bold rounded px-1 py-0.5 border border-gray-600 focus:outline-none">
+                            <option>Llanterama</option>
+                            <option>Autoelectrica</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-gray-400 font-medium">VENDEDOR:</span>
+                        <span class="font-bold text-white">Carlos Mendoza</span>
                     </div>
                 </div>
+            </div>
+        </header>
 
-                <div class="space-y-3">
-                    <h3 class="text-xs font-bold text-purple-400 uppercase tracking-widest border-b border-slate-800 pb-1">Finanzas y Crédito</h3>
-                    <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="text-slate-400">Tipo de Cliente:</div>
-                        <div class="font-medium px-2 py-0.5 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded w-max">Crédito Distribuidor</div>
-                        <div class="text-slate-400">Días de Crédito:</div>
-                        <div class="font-medium text-slate-200">30 Días</div>
-                        <div class="text-slate-400">Límite Otorgado:</div>
-                        <div class="font-medium text-slate-200">$150,000.00</div>
-                        <div class="text-slate-400">Estatus PLR (Ruta):</div>
-                        <div class="font-medium text-emerald-400 flex items-center gap-1"><i class="ph ph-check-circle-bold"></i> Activo con Descuento</div>
+        <div class="p-6 space-y-6">
+
+            <section class="border border-gray-200 rounded">
+                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
+                    1. Identificación del Cliente y Condiciones de Crédito
+                </div>
+                <div class="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Cod Cliente:</span>
+                        <span class="font-medium">COD-045</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Cliente:</span>
+                        <span class="font-medium">Acumuladores del Centro S.A. de C.V.</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Nombre de Negocio:</span>
+                        <span class="font-medium">Refaccionaria El Centro</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Encargado de Compras:</span>
+                        <span class="font-medium">Ing. Juan Pablo Pérez</span>
+                    </div>
+                    <div class="md:col-span-2">
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Dirección:</span>
+                        <span class="font-medium">Av. Benito Juárez #405, Col. Centro, CP 37000</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Zona:</span>
+                        <span class="font-medium">Zona Bajío</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Giro:</span>
+                        <span class="font-medium">Mayorista Eléctrico</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Número Celular:</span>
+                        <span class="font-medium">555-123-4567</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Fecha de Alta:</span>
+                        <span class="font-medium">12 / 04 / 2021</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Tipo:</span>
+                        <span class="font-medium">Crédito Distribuidor</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Días:</span>
+                        <span class="font-medium">30 Días</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">Límite:</span>
+                        <span class="font-medium font-mono text-gray-900">$150,000.00</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">PLR (Libro de ruta con descto):</span>
+                        <span class="font-bold text-emerald-600">SÍ TIENE</span>
                     </div>
                 </div>
+            </section>
 
-                <div class="space-y-3">
-                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-widest border-b border-slate-800 pb-1">Georreferenciación</h3>
-                    <div class="text-xs space-y-2">
-                        <div>
-                            <span class="text-slate-400 block mb-0.5">Dirección Física:</span>
-                            <span class="text-slate-200 font-medium">Av. Benito Juárez #405, Col. Centro, CP 37000</span>
-                        </div>
-                        <div class="flex items-center gap-3 mt-2">
-                            <div>
-                                <span class="text-slate-400 block text-[10px]">Coordenadas (Lat, Long):</span>
-                                <span class="text-slate-300 font-mono text-[11px]">21.12345, -101.67890</span>
+            <section class="border border-gray-200 rounded">
+                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
+                    2. Agenda de Visitas y Ubicación GPS
+                </div>
+                <div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="block text-xs font-semibold text-gray-500 uppercase mb-2">Día de la semana programado para visita (Marcado con X):</span>
+                        <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold">
+                            <div class="border p-2 bg-emerald-50 border-emerald-200 text-emerald-800 rounded">
+                                <span class="block text-[10px] text-gray-500 font-normal">LUNES</span>
+                                <span class="text-base">X</span>
                             </div>
-                            <a href="https://maps.google.com" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-400 rounded-lg font-semibold flex items-center gap-1 transition text-[11px]">
-                                <i class="ph ph-map-pin-line"></i> Ver Mapa GPS
-                            </a>
+                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-300 rounded">
+                                <span class="block text-[10px] text-gray-400 font-normal">MARTES</span>
+                                <span class="text-base">-</span>
+                            </div>
+                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-300 rounded">
+                                <span class="block text-[10px] text-gray-400 font-normal">MIERCOLES</span>
+                                <span class="text-base">-</span>
+                            </div>
+                            <div class="border p-2 bg-emerald-50 border-emerald-200 text-emerald-800 rounded">
+                                <span class="block text-[10px] text-gray-500 font-normal">JUEVES</span>
+                                <span class="text-base">X</span>
+                            </div>
+                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-300 rounded">
+                                <span class="block text-[10px] text-gray-400 font-normal">VIERNES</span>
+                                <span class="text-base">-</span>
+                            </div>
+                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-300 rounded">
+                                <span class="block text-[10px] text-gray-400 font-normal">SABADO</span>
+                                <span class="text-base">-</span>
+                            </div>
+                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-400 rounded">
+                                <span class="block text-[10px] text-gray-500 font-normal text-center">ESPORADICO</span>
+                                <span class="text-sm font-medium">Sin data</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="bg-slate-900 border-t border-slate-800 px-6 py-4">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                    <span class="text-xs font-bold uppercase text-slate-400 tracking-wider flex items-center gap-1">
-                        <i class="ph ph-calendar-check text-blue-400"></i> Frecuencia de Ruta Semanal:
-                    </span>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs rounded-full font-bold">Lunes: Activo (X)</span>
-                        <span class="px-3 py-1 bg-slate-800 text-slate-500 text-xs rounded-full line-through">Martes</span>
-                        <span class="px-3 py-1 bg-slate-800 text-slate-500 text-xs rounded-full line-through">Miércoles</span>
-                        <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs rounded-full font-bold">Jueves: Activo (X)</span>
-                        <span class="px-3 py-1 bg-slate-800 text-slate-500 text-xs rounded-full line-through">Viernes</span>
-                        <span class="px-3 py-1 bg-slate-800 text-slate-500 text-xs rounded-full line-through">Sábado</span>
-                        <span class="px-3 py-1 bg-slate-800 text-slate-400 text-xs rounded-full">Esporádico: No</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
-            <div class="border-b border-slate-800 bg-slate-950/50 px-6 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <i class="ph ph-gauge text-emerald-400 text-lg"></i>
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-white">Scorecard de Ventas por Línea de Producto</h2>
-                </div>
-                <div class="flex items-center gap-4 text-xs text-slate-400">
-                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 block"></span> Meta (&gt;95%)</span>
-                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 block"></span> En Rango (80%-94%)</span>
-                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 block"></span> Crítico (&lt;80%)</span>
-                </div>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[11px] uppercase tracking-wider">
-                            <th class="p-4 font-bold">Línea de Producto</th>
-                            <th class="p-4 text-right">Objetivo Financiero</th>
-                            <th class="p-4 text-right">Real Facturado</th>
-                            <th class="p-4 text-center">Porcentaje Avance</th>
-                            <th class="p-4 text-center">Descuento Otorgado</th>
-                            <th class="p-4 text-center">Estatus Semáforo</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-800 text-xs text-slate-300">
-                        <tr class="hover:bg-slate-900/50 transition">
-                            <td class="p-4 font-bold text-white">Baterías LTH PREMIUM (Hi Tec)</td>
-                            <td class="p-4 text-right font-mono">$40,000</td>
-                            <td class="p-4 text-right font-mono text-emerald-400">$42,500</td>
-                            <td class="p-4 text-center font-bold text-emerald-400">106.25%</td>
-                            <td class="p-4 text-center font-medium text-slate-400">15% (PLR)</td>
-                            <td class="p-4 text-center">
-                                <span class="inline-flex items-center px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold text-[10px]">CUMPLIDO</span>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-900/50 transition">
-                            <td class="p-4 font-bold text-white">Baterías AGM (Alta Gama)</td>
-                            <td class="p-4 text-right font-mono">$30,000</td>
-                            <td class="p-4 text-right font-mono text-amber-400">$27,000</td>
-                            <td class="p-4 text-center font-bold text-amber-400">90.00%</td>
-                            <td class="p-4 text-center font-medium text-slate-400">12%</td>
-                            <td class="p-4 text-center">
-                                <span class="inline-flex items-center px-2 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-semibold text-[10px]">EN RANGO</span>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-900/50 transition">
-                            <td class="p-4 font-bold text-white">Baterías ESTÁNDAR (América)</td>
-                            <td class="p-4 text-right font-mono">$50,000</td>
-                            <td class="p-4 text-right font-mono text-rose-400">$22,000</td>
-                            <td class="p-4 text-center font-bold text-rose-400">44.00%</td>
-                            <td class="p-4 text-center font-medium text-slate-400">10%</td>
-                            <td class="p-4 text-center">
-                                <span class="inline-flex items-center px-2 py-1 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 font-semibold text-[10px]">CRÍTICO</span>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-900/50 transition">
-                            <td class="p-4 font-bold text-white">Filtros LTH</td>
-                            <td class="p-4 text-right font-mono">$15,000</td>
-                            <td class="p-4 text-right font-mono text-emerald-400">$16,200</td>
-                            <td class="p-4 text-center font-bold text-emerald-400">108.00%</td>
-                            <td class="p-4 text-center font-medium text-slate-400">8%</td>
-                            <td class="p-4 text-center">
-                                <span class="inline-flex items-center px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold text-[10px]">EXCEDIDO</span>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-900/50 transition">
-                            <td class="p-4 font-bold text-white">Lubricantes / Aceite LTH</td>
-                            <td class="p-4 text-right font-mono">$20,000</td>
-                            <td class="p-4 text-right font-mono text-amber-400">$18,800</td>
-                            <td class="p-4 text-center font-bold text-amber-400">94.00%</td>
-                            <td class="p-4 text-center font-medium text-slate-400">5%</td>
-                            <td class="p-4 text-center">
-                                <span class="inline-flex items-center px-2 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-semibold text-[10px]">EN RANGO</span>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-900/50 transition">
-                            <td class="p-4 font-bold text-white">Motobaterías</td>
-                            <td class="p-4 text-right font-mono">$10,000</td>
-                            <td class="p-4 text-right font-mono text-rose-400">$4,500</td>
-                            <td class="p-4 text-center font-bold text-rose-400">45.00%</td>
-                            <td class="p-4 text-center font-medium text-slate-400">Sin data</td>
-                            <td class="p-4 text-center">
-                                <span class="inline-flex items-center px-2 py-1 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 font-semibold text-[10px]">CRÍTICO</span>
-                            </td>
-                        </tr>
-                        <tr class="hover:bg-slate-900/50 transition bg-slate-900/20">
-                            <td class="p-4 font-bold text-slate-400">Otras líneas (Usados, Auto, CTA, Camión, Alcalina)</td>
-                            <td class="p-4 text-right font-mono">$20,000</td>
-                            <td class="p-4 text-right font-mono text-slate-300">$11,500</td>
-                            <td class="p-4 text-center font-bold text-slate-300">57.50%</td>
-                            <td class="p-4 text-center font-medium text-slate-500">-</td>
-                            <td class="p-4 text-center">
-                                <span class="inline-flex items-center px-2 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700 font-semibold text-[10px]">BAJO VOLUMEN</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            
-            <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-xl flex flex-col">
-                <div class="border-b border-slate-800 bg-slate-950/50 px-6 py-4 flex items-center gap-2">
-                    <i class="ph ph-storefront text-purple-400 text-lg"></i>
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-white">Auditoría Visual y Apoyo de Mercado</h2>
-                </div>
-                <div class="p-6 grid grid-cols-2 gap-4 text-xs flex-1">
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
-                        <span class="text-slate-400 block mb-1">Estado de Fachada:</span>
-                        <span class="font-bold text-emerald-400 flex items-center gap-1"><i class="ph ph-check-square"></i> Con Identificación LTH</span>
-                    </div>
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
-                        <span class="text-slate-400 block mb-1">Exhibidor LTH / LUB:</span>
-                        <span class="font-bold text-emerald-400 flex items-center gap-1"><i class="ph ph-check-square"></i> Ambos instalados</span>
-                    </div>
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
-                        <span class="text-slate-400 block mb-1">Exhibidor Motobaterías:</span>
-                        <span class="font-bold text-rose-400 flex items-center gap-1"><i class="ph ph-x-square"></i> Sin Espacio / No Tiene</span>
-                    </div>
-                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
-                        <span class="text-slate-400 block mb-1">Activaciones BTL:</span>
-                        <span class="font-bold text-slate-300">1 Evento en el mes</span>
-                    </div>
-                    <div class="col-span-2 bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1">
-                        <span class="text-slate-400 font-semibold block text-[11px] uppercase tracking-wide text-purple-400">Minutas Comerciales Registradas</span>
-                        <p class="text-slate-300"><strong class="text-white">Crédito/Descuento:</strong> Se autorizó el ajuste de descuento en lubricantes.</p>
-                        <p class="text-slate-300"><strong class="text-white">Material POP:</strong> Cliente solicita renovación de lona exterior urgente.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-xl flex flex-col">
-                <div class="border-b border-slate-800 bg-slate-950/50 px-6 py-4 flex items-center gap-2">
-                    <i class="ph ph-chats-teardrop text-amber-400 text-lg"></i>
-                    <h2 class="text-sm font-bold uppercase tracking-wider text-white">Comentarios y Seguimiento del Vendedor</h2>
-                </div>
-                <div class="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                    <div class="bg-slate-900 p-4 rounded-lg border-l-4 border-amber-500 border-t border-r border-b border-slate-800 shadow-inner">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[11px] font-bold uppercase tracking-wide text-amber-400">Comentario de Mitad de Mes</span>
-                            <span class="text-[10px] text-slate-500">Día 15</span>
+                    <div class="bg-gray-50 p-3 border rounded text-xs">
+                        <span class="block font-semibold text-gray-600 uppercase mb-1">Coordenadas del Mapa:</span>
+                        <div class="space-y-1 font-mono text-gray-700">
+                            <div>LATITUD: <span class="font-bold">21.12345</span></div>
+                            <div>LONGITUD: <span class="font-bold">-101.67890</span></div>
                         </div>
-                        <p class="text-xs text-slate-300 leading-relaxed italic">
-                            "El cliente reportó retraso en compras de línea América (Estándar) debido a un sobreinventario del mes pasado de la competencia. Se acordó empujar la línea Premium otorgando el beneficio total del PLR. Se instaló el exhibidor de lubricante para incentivar la venta cruzada."
-                        </p>
-                    </div>
-
-                    <div class="bg-slate-900 p-4 rounded-lg border-l-4 border-blue-500 border-t border-r border-b border-slate-800 shadow-inner">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[11px] font-bold uppercase tracking-wide text-blue-400">Comentarios a Final de Mes</span>
-                            <span class="text-[10px] text-slate-500">Día 30</span>
-                        </div>
-                        <p class="text-xs text-slate-300 leading-relaxed italic">
-                            "Cierre fuerte en Premium superando el objetivo. Filtros se movió excelente gracias a la venta condicionada. Queda pendiente resolver la caída drástica en Motobaterías; el cliente alega que requiere el exhibidor de mostrador para esa línea porque el producto no está visible al público general."
-                        </p>
+                        <a href="#" class="mt-2 block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-[11px] uppercase transition">
+                            Abrir Ubicación en Google Maps
+                        </a>
                     </div>
                 </div>
+            </section>
+
+            <section class="border border-gray-200 rounded overflow-hidden">
+                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
+                    3. Avance de Objetivos por Línea de Producto (Métricas en Unidades / Pzas)
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-600 text-[11px] uppercase tracking-wider border-b border-gray-200">
+                                <th class="p-3 font-bold">Línea de Producto</th>
+                                <th class="p-3 text-right">Objetivo (Uds)</th>
+                                <th class="p-3 text-right">Real Facturado (Uds)</th>
+                                <th class="p-3 text-center">% de Avance</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 text-gray-700">
+                            <tr>
+                                <td class="p-3 font-semibold">PREM</td>
+                                <td class="p-3 text-right font-mono">50</td>
+                                <td class="p-3 text-right font-mono text-emerald-600">55</td>
+                                <td class="p-3 text-center font-bold text-emerald-600 bg-emerald-50">110.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">AGM</td>
+                                <td class="p-3 text-right font-mono">15</td>
+                                <td class="p-3 text-right font-mono text-gray-900">12</td>
+                                <td class="p-3 text-center font-bold text-gray-900 bg-gray-50">80.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">ESTANDAR</td>
+                                <td class="p-3 text-right font-mono">100</td>
+                                <td class="p-3 text-right font-mono text-red-600">45</td>
+                                <td class="p-3 text-center font-bold text-red-600 bg-red-50">45.0%</td>
+                            </tr>
+                            <tr class="bg-gray-50 font-bold">
+                                <td class="p-3 text-gray-900">TOTAL ACUM</td>
+                                <td class="p-3 text-right font-mono text-gray-900">165</td>
+                                <td class="p-3 text-right font-mono text-gray-900">112</td>
+                                <td class="p-3 text-center font-mono text-gray-900">67.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">FILTRO</td>
+                                <td class="p-3 text-right font-mono">30</td>
+                                <td class="p-3 text-right font-mono text-emerald-600">35</td>
+                                <td class="p-3 text-center font-bold text-emerald-600 bg-emerald-50">116.6%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">LUB</td>
+                                <td class="p-3 text-right font-mono">40</td>
+                                <td class="p-3 text-right font-mono text-gray-900">38</td>
+                                <td class="p-3 text-center font-bold text-gray-900 bg-gray-50">95.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">MOTO</td>
+                                <td class="p-3 text-right font-mono">10</td>
+                                <td class="p-3 text-right font-mono text-red-600">2</td>
+                                <td class="p-3 text-center font-bold text-red-600 bg-red-50">20.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">USADO</td>
+                                <td class="p-3 text-right font-mono">5</td>
+                                <td class="p-3 text-right font-mono text-gray-400">0</td>
+                                <td class="p-3 text-center text-gray-400 bg-gray-50">0.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">AUTO</td>
+                                <td class="p-3 text-right font-mono">20</td>
+                                <td class="p-3 text-right font-mono text-gray-900">15</td>
+                                <td class="p-3 text-center font-bold text-gray-900 bg-gray-50">75.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">CTA</td>
+                                <td class="p-3 text-right font-mono">Sin data</td>
+                                <td class="p-3 text-right font-mono text-gray-400">0</td>
+                                <td class="p-3 text-center text-gray-400 bg-gray-50">-</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">CAMION</td>
+                                <td class="p-3 text-right font-mono">15</td>
+                                <td class="p-3 text-right font-mono text-gray-900">12</td>
+                                <td class="p-3 text-center font-bold text-gray-900 bg-gray-50">80.0%</td>
+                            </tr>
+                            <tr class="bg-gray-50 font-bold">
+                                <td class="p-3 text-gray-900">TOTAL LLANTAS</td>
+                                <td class="p-3 text-right font-mono text-gray-900">35</td>
+                                <td class="p-3 text-right font-mono text-gray-900">27</td>
+                                <td class="p-3 text-center font-mono text-gray-900">77.1%</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold">ALCALIN</td>
+                                <td class="p-3 text-right font-mono">200</td>
+                                <td class="p-3 text-right font-mono text-emerald-600">250</td>
+                                <td class="p-3 text-center font-bold text-emerald-600 bg-emerald-50">125.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="border border-gray-200 rounded bg-gray-50">
+                <div class="bg-gray-200 px-4 py-2 border-b border-gray-300 font-bold text-xs uppercase tracking-wider text-gray-700">
+                    4. Análisis Financiero Global (Factura vs Costo y Utilidad)
+                </div>
+                <div class="p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="bg-white p-3 border rounded">
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">OBJ FACT:</span>
+                        <span class="text-lg font-bold font-mono text-gray-900">$180,000.00</span>
+                    </div>
+                    <div class="bg-white p-3 border rounded">
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">REAL FACT:</span>
+                        <span class="text-lg font-bold font-mono text-emerald-700">$142,500.00</span>
+                    </div>
+                    <div class="bg-white p-3 border rounded">
+                        <span class="block text-xs font-semibold text-gray-500 uppercase">COSTO:</span>
+                        <span class="text-lg font-bold font-mono text-gray-700">$104,300.00</span>
+                    </div>
+                    <div class="bg-white p-3 border rounded bg-blue-50 border-blue-200">
+                        <span class="block text-xs font-semibold text-blue-700 uppercase">DIF (Utilidad):</span>
+                        <span class="text-lg font-bold font-mono text-blue-900">$38,200.00</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <section class="border border-gray-200 rounded">
+                    <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
+                        5. Apoyo de Mercado
+                    </div>
+                    <div class="p-4 space-y-2 text-sm">
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">FACHADA:</span>
+                            <span class="font-medium text-gray-900">Con Lona LTH Nueva</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">EXHIBIDOR LTH:</span>
+                            <span class="font-medium text-emerald-600">Instalado</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">EXHIBIDOR LUB:</span>
+                            <span class="font-medium text-emerald-600">Instalado</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">EXHIBIDOR MOT:</span>
+                            <span class="font-medium text-red-600">No tiene / Sin espacio</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">ACTIVACIONES:</span>
+                            <span class="font-medium text-gray-900">1 Evento BTL en el mes</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">MINUTA CREDITO / DESCUENTO:</span>
+                            <span class="font-medium text-gray-900">Se autorizó 5% extra en Lubricante</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">MINUTA DE POP:</span>
+                            <span class="font-medium text-gray-900">Pendiente bandera exterior</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="border border-gray-200 rounded">
+                    <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
+                        6. Descuentos Otorgados por Cliente
+                    </div>
+                    <div class="p-4 space-y-2 text-sm">
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">LTH:</span>
+                            <span class="font-mono font-bold text-gray-900">12%</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">AMERICA:</span>
+                            <span class="font-mono font-bold text-gray-900">10%</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">PREMIUM (HI TEC):</span>
+                            <span class="font-mono font-bold text-emerald-600">15% (Aplica PLR)</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">AGM:</span>
+                            <span class="font-mono font-bold text-gray-900">8%</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">LUBRICANTE / ACEITE:</span>
+                            <span class="font-mono font-bold text-gray-900">5%</span>
+                        </div>
+                        <div class="flex justify-between border-b pb-1">
+                            <span class="text-gray-500">MOTOBATERIA:</span>
+                            <span class="font-mono text-gray-400">Sin data</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">FILTROS LTH:</span>
+                            <span class="font-mono font-bold text-gray-900">7%</span>
+                        </div>
+                    </div>
+                </section>
+
             </div>
 
-        </section>
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="border border-gray-200 rounded p-4 bg-amber-50/50">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-amber-800 mb-2">COMENTARIO A MITAD DE MES:</span>
+                    <p class="text-sm text-gray-700 italic">
+                        "El cliente reportó retraso en compras de línea América (Estándar) debido a un sobreinventario de la competencia. Se acordó empujar la línea Premium otorgando el beneficio del PLR."
+                    </p>
+                </div>
+                <div class="border border-gray-200 rounded p-4 bg-blue-50/50">
+                    <span class="block text-xs font-bold uppercase tracking-wider text-blue-800 mb-2">COMENTARIOS A FINAL DE MES:</span>
+                    <p class="text-sm text-gray-700 italic">
+                        "Cierre fuerte en Premium superando el objetivo. Filtros se movió excelente gracias a la venta cruzada. Queda pendiente resolver la caída drástica en Motobaterías por falta de exhibición."
+                    </p>
+                </div>
+            </section>
 
-    </main>
-
-    <footer class="text-center py-8 text-xs text-slate-600 border-t border-slate-800 bg-slate-950 mt-12">
-        Generado automáticamente por el Sistema de Rutas y Distribución. Todos los derechos reservados &copy; 2026.
-    </footer>
+        </div>
+        
+    </div>
 
 </body>
 </html>
