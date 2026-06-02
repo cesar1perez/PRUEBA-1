@@ -3,240 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Control de Rutas y Objetivos Comerciales</title>
+    <title>Consolidado de Rutas y Objetivos Comerciales - Alta Dirección</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col antialiased">
 
-    <nav class="bg-slate-900 text-white p-4 sticky top-0 z-50 shadow-sm border-b border-slate-700">
-        <div class="max-w-7xl mx-auto flex justify-between items-center text-xs">
-            <div class="flex items-center space-x-2 tracking-wide font-mono">
-                <button onclick="irAInicio()" class="hover:text-blue-400 font-bold uppercase">Inicio</button>
-                <span class="text-slate-600 dynamic-sep hidden">/</span>
-                <button onclick="irAEmpresa()" id="nav-empresa" class="hover:text-blue-400 font-semibold text-slate-300 hidden uppercase"></button>
-                <span class="text-slate-600 dynamic-sep-2 hidden">/</span>
-                <button onclick="irAVendedor()" id="nav-vendedor" class="hover:text-blue-400 font-semibold text-slate-300 hidden uppercase"></button>
-                <span class="text-slate-600 dynamic-sep-3 hidden">/</span>
-                <span id="nav-cliente" class="text-blue-400 font-bold hidden uppercase"></span>
-            </div>
-            <div class="font-bold text-slate-400 uppercase tracking-wider hidden sm:block">
-                Reporte Diario de Visitas a Detalle
-            </div>
-        </div>
-    </nav>
-
-    <main class="max-w-7xl mx-auto p-4 md:p-8">
-
-        <div id="vista-inicio" class="space-y-8 py-16">
-            <div class="text-center space-y-2 max-w-2xl mx-auto">
-                <h1 class="text-3xl font-black text-slate-900 tracking-tight uppercase">Auditoría y Control Comercial 2026</h1>
-                <p class="text-slate-500 text-sm">Filtro de visualización ejecutiva por unidad de negocio o empresa operativa.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto pt-4">
-                <button onclick="seleccionarEmpresa('Llanterama')" class="bg-white border-2 border-slate-200 hover:border-blue-600 rounded-xl p-8 text-center shadow-sm hover:shadow-lg transition-all group">
-                    <span class="block text-4xl mb-3 group-hover:scale-105 transition-transform">🛞</span>
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight uppercase group-hover:text-blue-600">LLANTERAMA</h2>
-                    <div class="text-[10px] text-slate-400 font-mono mt-2 uppercase tracking-widest border-t pt-2 border-slate-100">Consolidado Acumuladores y Pesado</div>
-                </button>
-                
-                <button onclick="seleccionarEmpresa('Autoelectrica')" class="bg-white border-2 border-slate-200 hover:border-blue-600 rounded-xl p-8 text-center shadow-sm hover:shadow-lg transition-all group">
-                    <span class="block text-4xl mb-3 group-hover:scale-105 transition-transform">⚡</span>
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight uppercase group-hover:text-blue-600">AUTOELECTRICA</h2>
-                    <div class="text-[10px] text-slate-400 font-mono mt-2 uppercase tracking-widest border-t pt-2 border-slate-100">Consolidado Eléctrico y Distribución</div>
-                </button>
-            </div>
-        </div>
-
-        <div id="vista-empresa" class="space-y-6 hidden">
-            <div class="border-b border-slate-200 pb-4">
-                <h2 class="text-xl font-bold text-slate-900 tracking-tight uppercase">
-                    Asesores Comerciales - <span id="titulo-empresa" class="text-blue-600"></span>
-                </h2>
-                <p class="text-xs text-slate-500">Porcentajes promediados de efectividad real calculados sobre las cuotas asignadas en la línea principal.</p>
-            </div>
-
-            <div id="contenedor-vendedores" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                </div>
-        </div>
-
-        <div id="vista-vendedor" class="space-y-6 hidden">
-            <div class="border-b border-slate-200 pb-4">
-                <h2 class="text-xl font-bold text-slate-900 uppercase">
-                    Cartera del Asesor: <span id="titulo-vendedor" class="text-blue-600"></span>
-                </h2>
-                <p class="text-xs text-slate-500">Seleccione un cliente para evaluar su expediente general, geolocalización, minutas de crédito y estatus de POP.</p>
-            </div>
-
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-xs">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-600 uppercase tracking-wider border-b border-slate-200 font-bold">
-                                <th class="p-3">COD CLIENTE</th>
-                                <th class="p-3">CLIENTE / NEGOCIO</th>
-                                <th class="p-3">ZONA / GIRO</th>
-                                <th class="p-3 text-center">RUTAS PROGRAMADAS</th>
-                                <th class="p-3 text-right">VOLUMEN REAL (UDS)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-clientes" class="divide-y divide-slate-200 text-slate-700">
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="vista-cliente" class="space-y-6 hidden">
-            
-            <div class="bg-slate-900 text-white p-6 rounded-xl shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md bg-opacity-95">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">📊</span>
                 <div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span id="f-cod-cliente" class="px-2 py-0.5 bg-blue-600 text-white font-mono text-[11px] font-bold rounded"></span>
-                        <h2 id="f-cliente" class="text-lg font-bold tracking-tight"></h2>
-                    </div>
-                    <p id="f-nombre-negocio" class="text-slate-400 text-xs mt-1 font-medium"></p>
+                    <h1 class="text-sm font-black tracking-widest text-white uppercase font-mono">SISTEMA INTEGRAL DE AUDITORÍA COMERCIAL</h1>
+                    <p class="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Control de Rutas, POP, Descuentos y Objetivos por Línea</p>
                 </div>
-                <div class="text-right font-mono text-[11px] bg-slate-800 border border-slate-700 px-4 py-2 rounded-lg space-y-0.5 w-full md:w-auto">
-                    <div>MES CONTROL: <span id="f-mes" class="text-blue-400 font-bold uppercase"></span></div>
-                    <div>AÑO REPORTE: <span id="f-ano" class="text-slate-200 font-bold"></span></div>
+            </div>
+            <nav class="flex items-center space-x-2 text-xs font-mono bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+                <button onclick="irA('carga')" class="text-blue-400 hover:underline font-bold">📥 CARGAR DATOS</button>
+                <span class="text-slate-600">/</span>
+                <button onclick="irA('inicio')" class="text-slate-400 hover:text-white">INICIO</button>
+                <span class="text-slate-600 nav-sep hidden">/</span>
+                <span id="nav-empresa" class="text-slate-400 hidden uppercase"></span>
+                <span class="text-slate-600 nav-sep2 hidden">/</span>
+                <span id="nav-vendedor" class="text-slate-400 hidden uppercase"></span>
+                <span class="text-slate-600 nav-sep3 hidden">/</span>
+                <span id="nav-cliente" class="text-blue-400 font-bold hidden"></span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl w-full mx-auto p-4 md:p-8 flex-1">
+
+        <div id="vista-carga" class="max-w-3xl mx-auto space-y-6">
+            <div class="bg-gradient-to-br from-slate-950 to-slate-900 p-6 rounded-2xl border border-slate-800 space-y-4 shadow-xl">
+                <div class="space-y-1">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-tight">📥 Importador Directo de Excel / Google Sheets</h2>
+                    <p class="text-xs text-slate-400">Pega tus filas con datos reales respetando exactamente el orden de las columnas que definiste.</p>
+                </div>
+                
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">1. Selecciona a qué canal pertenecen estos datos:</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="flex items-center gap-2 bg-slate-900 p-3 rounded-xl border border-slate-800 cursor-pointer hover:bg-slate-850">
+                            <input type="radio" name="canal-importar" value="Llanterama" checked class="text-blue-500 focus:ring-0">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-200">🛞 LLANTERAMA</span>
+                        </label>
+                        <label class="flex items-center gap-2 bg-slate-900 p-3 rounded-xl border border-slate-800 cursor-pointer hover:bg-slate-850">
+                            <input type="radio" name="canal-importar" value="Autoelectrica" class="text-blue-500 focus:ring-0">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-200">⚡ AUTOELECTRICA</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">2. Pega tus filas de datos aquí (No incluyas la fila de títulos, solo los registros):</label>
+                    <textarea id="excel-raw-data" rows="8" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono text-emerald-400 focus:outline-none focus:border-blue-500 placeholder-slate-700" placeholder="Copia los renglones desde tu archivo de Excel y pégalos directamente aquí..."></textarea>
+                </div>
+
+                <button onclick="procesarPegadoExcel()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-widest py-3 rounded-xl shadow-lg transition-all">
+                    ⚡ Procesar y Actualizar Tablero Visual
+                </button>
+            </div>
+            
+            <div class="bg-slate-950/40 border border-slate-850 p-4 rounded-xl text-[11px] text-slate-400 space-y-1 font-mono">
+                <span class="text-amber-400 font-bold uppercase block mb-1">⚠️ Recordatorio del orden esperado de tus columnas:</span>
+                <p>MES, AÑO, FECHA ALTA, VENDEDOR, TIPO, DIAS, LIMITE, PLR, COD CLIENTE, CLIENTE, NOMBRE NEGOCIO, ENCARGADO, DIRECCION, LATITUD, LONGITUD (FOTO), ZONA, GIRO, CELULAR, [LUN a ESP], [Las 13 Líneas con OBJ, REAL, %], OBJ FACT, REAL FACT, COSTO, DIF, [Datos POP], [Los 7 Descuentos], COMENTARIO MID, COMENTARIO END.</p>
+            </div>
+        </div>
+
+        <div id="vista-inicio" class="hidden space-y-8 py-12">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl font-black tracking-tight text-white uppercase">Unidades de Negocio Auditadas</h2>
+                <p class="text-slate-400 text-sm">Selecciona la división comercial para evaluar promedios y carteras reales.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto pt-6">
+                <button onclick="abrirDivision('Llanterama')" class="bg-gradient-to-b from-slate-950 to-slate-900 border border-slate-800 hover:border-blue-500 rounded-2xl p-8 text-center shadow-xl transition-all group">
+                    <span class="block text-5xl mb-4 group-hover:scale-110 transition-transform">🛞</span>
+                    <h3 class="text-xl font-black text-white tracking-wider uppercase group-hover:text-blue-400">Llanterama</h3>
+                    <p id="count-llanterama" class="text-xs text-slate-500 mt-2 font-mono uppercase tracking-widest">0 Registros Cargados</p>
+                </button>
+                <button onclick="abrirDivision('Autoelectrica')" class="bg-gradient-to-b from-slate-950 to-slate-900 border border-slate-800 hover:border-blue-500 rounded-2xl p-8 text-center shadow-xl transition-all group">
+                    <span class="block text-5xl mb-4 group-hover:scale-110 transition-transform">⚡</span>
+                    <h3 class="text-xl font-black text-white tracking-wider uppercase group-hover:text-blue-400">Autoelectrica</h3>
+                    <p id="count-autoelectrica" class="text-xs text-slate-500 mt-2 font-mono uppercase tracking-widest">0 Registros Cargados</p>
+                </button>
+            </div>
+        </div>
+
+        <div id="vista-empresa" class="hidden space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-lg font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <span>Fuerza de Ventas de:</span> <span id="title-empresa" class="text-blue-400"></span>
+                </h2>
+                <p class="text-xs text-slate-400">Efectividad general promediada calculada con base en los objetivos totales facturados.</p>
+            </div>
+            <div id="grid-vendedores" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+        </div>
+
+        <div id="vista-vendedor" class="hidden space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-lg font-bold text-white uppercase">
+                    Clientes del Asesor: <span id="title-vendedor" class="text-blue-400"></span>
+                </h2>
+                <p class="text-xs text-slate-400">Lista consolidada de visitas diarias programadas y su efectividad total acumulada.</p>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="bg-slate-900 text-slate-400 border-b border-slate-800 font-bold uppercase tracking-wider">
+                            <th class="p-3 pl-4">COD CLIENTE</th>
+                            <th class="p-3">CLIENTE / NEGOCIO</th>
+                            <th class="p-3">ZONA / GIRO</th>
+                            <th class="p-3 text-center">RUTA SEMANAL</th>
+                            <th class="p-3 text-right pr-4">REAL FACT (MZN)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-clientes" class="divide-y divide-slate-900 text-slate-300"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="vista-cliente" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-slate-950 to-slate-900 p-6 rounded-xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-xl">
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span id="fc-codigo" class="px-2 py-0.5 bg-blue-600 text-white font-mono text-[10px] font-bold rounded"></span>
+                        <h2 id="fc-cliente" class="text-base font-black text-white tracking-tight uppercase"></h2>
+                    </div>
+                    <p id="fc-negocio" class="text-xs text-slate-400 font-medium"></p>
+                </div>
+                <div class="font-mono text-[11px] bg-slate-950 border border-slate-800 px-4 py-2 rounded-lg text-slate-400 w-full md:w-auto">
+                    <div>PERIODO: <span id="fc-periodo" class="text-blue-400 font-bold uppercase"></span></div>
+                    <div>ALTA: <span id="fc-alta" class="text-slate-200"></span></div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="space-y-6 lg:col-span-1">
-                    <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm text-xs">
-                        <h3 class="font-bold uppercase tracking-wider text-purple-700 border-b pb-1 mb-2">Condiciones de Crédito</h3>
-                        <div class="space-y-1.5">
-                            <div class="flex justify-between"><span class="text-slate-500 font-medium">FECHA DE ALTA:</span> <span id="f-alta" class="font-bold text-slate-900"></span></div>
-                            <div class="flex justify-between"><span class="text-slate-500 font-medium">VENDEDOR ASIGNADO:</span> <span id="f-vendedor-nom" class="font-bold text-slate-900"></span></div>
-                            <div class="flex justify-between"><span class="text-slate-500 font-medium">TIPO:</span> <span id="f-tipo" class="font-bold"></span></div>
-                            <div class="flex justify-between"><span class="text-slate-500 font-medium">DIAS:</span> <span id="f-dias" class="font-mono font-bold text-slate-900"></span></div>
-                            <div class="flex justify-between"><span class="text-slate-500 font-medium">LIMITE:</span> <span id="f-limite" class="font-mono font-bold text-slate-900"></span></div>
-                            <div class="flex justify-between"><span class="text-slate-500 font-medium">PLR (Ruta con Descto):</span> <span id="f-plr" class="font-bold"></span></div>
+                <div class="space-y-6">
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 text-xs shadow-md">
+                        <h4 class="font-bold text-purple-400 uppercase tracking-widest border-b border-slate-800 pb-1 mb-2">Estatus Financiero</h4>
+                        <div class="space-y-1.5 font-mono">
+                            <div class="flex justify-between"><span class="text-slate-500">ESQUEMA:</span> <span id="fc-tipo" class="font-bold text-white"></span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">PLAZO:</span> <span id="fc-dias" class="font-bold text-white"></span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">LÍMITE:</span> <span id="fc-limite" class="font-bold text-white"></span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">ESTATUS PLR:</span> <span id="fc-plr" class="font-bold"></span></div>
                         </div>
                     </div>
 
-                    <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm text-xs">
-                        <h3 class="font-bold uppercase tracking-wider text-slate-700 border-b pb-1 mb-2">Información del Establecimiento</h3>
-                        <div class="space-y-1.5">
-                            <div><span class="text-slate-500 block font-medium">ENCARGADO DE COMPRAS:</span> <span id="f-encargado" class="font-bold text-slate-900"></span></div>
-                            <div><span class="text-slate-500 block font-medium">NÚMERO CELULAR:</span> <span id="f-celular" class="font-bold text-slate-900 font-mono"></span></div>
-                            <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-100">
-                                <div><span class="text-slate-500 block font-medium">ZONA COMERCIAL:</span> <span id="f-zona" class="font-bold text-slate-900"></span></div>
-                                <div><span class="text-slate-500 block font-medium">GIRO DEL NEGOCIO:</span> <span id="f-giro" class="font-bold text-slate-900"></span></div>
-                            </div>
-                            <div class="pt-2 border-t border-slate-100"><span class="text-slate-500 block font-medium">DIRECCIÓN FÍSICA:</span> <span id="f-direccion" class="text-slate-700 block leading-tight mt-0.5"></span></div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 text-xs shadow-md">
+                        <h4 class="font-bold text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-1 mb-2">Datos de Contacto</h4>
+                        <div class="space-y-1">
+                            <p><span class="text-slate-500 uppercase font-medium">COMPRADOR:</span> <span id="fc-encargado" class="text-white font-bold block mt-0.5"></span></p>
+                            <p><span class="text-slate-500 uppercase font-medium">CELULAR:</span> <span id="fc-celular" class="text-slate-200 font-mono block"></span></p>
+                            <p><span class="text-slate-500 uppercase font-medium">ZONA / GIRO:</span> <span id="fc-zona-giro" class="text-slate-200 block"></span></p>
+                            <p class="pt-1.5 border-t border-slate-900 text-slate-400 leading-normal"><span class="text-slate-500 uppercase font-medium block text-[10px]">DIRECCIÓN:</span> <span id="fc-direccion"></span></p>
                         </div>
                     </div>
 
-                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm text-xs">
-                        <h3 class="font-bold uppercase tracking-wider text-blue-700 border-b pb-1 mb-3">Rutero Semanal de Visita</h3>
-                        <div id="f-rutero-semana" class="grid grid-cols-4 gap-1 text-center font-bold text-[10px]">
-                            </div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs shadow-md">
+                        <h4 class="font-bold text-blue-400 uppercase tracking-widest border-b border-slate-800 pb-1 mb-3">Rutero Semanal de Visita</h4>
+                        <div id="fc-rutero-grid" class="grid grid-cols-4 gap-1 text-center font-bold text-[10px] font-mono"></div>
                     </div>
                 </div>
 
-                <div class="space-y-6 lg:col-span-2">
-                    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-                        <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-200 font-bold text-xs uppercase tracking-wider text-slate-700">
-                            Objetivos vs Real Facturado (Métricas en Unidades / Pzas)
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl shadow-xl overflow-hidden">
+                        <div class="bg-slate-900 px-4 py-2.5 border-b border-slate-800 text-xs font-bold uppercase tracking-wider text-slate-300">
+                            Desempeño Operativo de Ventas por Línea (Unidades / Pzas)
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-xs border-collapse">
                                 <thead>
-                                    <tr class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider font-semibold border-b border-slate-200">
+                                    <tr class="bg-slate-950 text-slate-500 border-b border-slate-900 uppercase font-bold text-[10px] tracking-wider">
                                         <th class="p-2.5 pl-4">Línea de Producto</th>
                                         <th class="p-2.5 text-right">Objetivo</th>
-                                        <th class="p-2.5 text-right">Real Facturado</th>
+                                        <th class="p-2.5 text-right">Venta Real</th>
                                         <th class="p-2.5 text-center">% Progreso</th>
                                     </tr>
                                 </thead>
-                                <tbody id="f-tabla-unidades" class="divide-y divide-slate-100 text-slate-700">
-                                    </tbody>
+                                <tbody id="fc-tbody-lineas" class="divide-y divide-slate-900 text-slate-300"></tbody>
                             </table>
                         </div>
                     </div>
 
-                    <div class="bg-slate-900 text-white rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center font-mono shadow-inner">
-                        <div class="border border-slate-800 p-2 rounded-lg">
-                            <span class="block text-[9px] text-slate-400 font-bold uppercase">OBJ FACT</span>
-                            <span id="f-obj-fact" class="text-sm font-black text-slate-200"></span>
+                    <div class="bg-slate-950 rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center font-mono border border-slate-800 shadow-inner">
+                        <div class="bg-slate-900 p-2 border border-slate-800 rounded-lg">
+                            <span class="block text-[9px] text-slate-500 font-bold uppercase">OBJ FACT</span>
+                            <span id="fc-obj-fact" class="text-xs font-bold text-slate-300"></span>
                         </div>
-                        <div class="border border-slate-800 p-2 rounded-lg">
-                            <span class="block text-[9px] text-slate-400 font-bold uppercase">REAL FACT</span>
-                            <span id="f-real-fact" class="text-sm font-black text-emerald-400"></span>
+                        <div class="bg-slate-900 p-2 border border-slate-800 rounded-lg">
+                            <span class="block text-[9px] text-slate-500 font-bold uppercase">REAL FACT</span>
+                            <span id="fc-real-fact" class="text-xs font-bold text-emerald-400"></span>
                         </div>
-                        <div class="border border-slate-800 p-2 rounded-lg">
-                            <span class="block text-[9px] text-slate-400 font-bold uppercase">COSTO</span>
-                            <span id="f-costo" class="text-sm font-black text-slate-300"></span>
+                        <div class="bg-slate-900 p-2 border border-slate-800 rounded-lg">
+                            <span class="block text-[9px] text-slate-500 font-bold uppercase">COSTO</span>
+                            <span id="fc-costo" class="text-xs font-bold text-slate-400"></span>
                         </div>
-                        <div class="bg-blue-950/50 border border-blue-900 p-2 rounded-lg">
-                            <span class="block text-[9px] text-blue-300 font-bold uppercase">DIF (Utilidad)</span>
-                            <span id="f-dif" class="text-sm font-black text-blue-400"></span>
+                        <div class="bg-blue-950/40 p-2 border border-blue-900/50 rounded-lg">
+                            <span class="block text-[9px] text-blue-400 font-bold uppercase">DIF (Utilidad)</span>
+                            <span id="fc-dif" class="text-xs font-bold text-blue-400"></span>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white border border-slate-200 rounded-xl p-4 text-xs space-y-2 shadow-sm">
-                            <h3 class="font-bold uppercase tracking-wider text-emerald-700 border-b pb-1 mb-2">Apoyo de Mercado</h3>
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs space-y-2 shadow-md">
+                            <h4 class="font-bold text-emerald-400 uppercase tracking-widest border-b border-slate-800 pb-1 mb-2">Apoyo de Mercado</h4>
                             <div class="space-y-1.5">
-                                <div class="flex justify-between border-b border-slate-50 pb-1"> <span class="text-slate-500 font-medium">FACHADA:</span> <span id="f-pop-fachada" class="font-bold text-slate-900"></span> </div>
-                                <div class="flex justify-between border-b border-slate-50 pb-1"> <span class="text-slate-500 font-medium">EXHIBIDOR LTH:</span> <span id="f-pop-lth" class="font-bold text-slate-900"></span> </div>
-                                <div class="flex justify-between border-b border-slate-50 pb-1"> <span class="text-slate-500 font-medium">EXHIBIDOR LUB:</span> <span id="f-pop-lub" class="font-bold text-slate-900"></span> </div>
-                                <div class="flex justify-between border-b border-slate-50 pb-1"> <span class="text-slate-500 font-medium">EXHIBIDOR MOT:</span> <span id="f-pop-mot" class="font-bold text-slate-900"></span> </div>
-                                <div class="flex justify-between"> <span class="text-slate-500 font-medium">ACTIVACIONES:</span> <span id="f-pop-activaciones" class="font-bold text-slate-900"></span> </div>
+                                <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-500">FACHADA:</span> <span id="fc-pop-fachada" class="text-white font-bold"></span></div>
+                                <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-500">EXHIBIDOR LTH:</span> <span id="fc-pop-lth" class="text-white font-bold"></span></div>
+                                <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-500">EXHIBIDOR LUB:</span> <span id="fc-pop-lub" class="text-white font-bold"></span></div>
+                                <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-500">EXHIBIDOR MOT:</span> <span id="fc-pop-mot" class="text-white font-bold"></span></div>
+                                <div class="flex justify-between"><span class="text-slate-500">ACTIVACIONES:</span> <span id="fc-pop-act" class="text-white font-bold"></span></div>
                             </div>
                         </div>
 
-                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
-                            <div class="bg-slate-50 px-4 py-2 border-b border-slate-200 text-xs font-bold uppercase text-slate-700">
-                                Captura / Enlace de Fachada (Google Maps)
-                            </div>
-                            <div class="p-4 flex-1 flex flex-col justify-center items-center bg-slate-100 min-h-[110px] text-center">
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between shadow-md">
+                            <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 text-[11px] font-bold text-slate-400 uppercase">Fachada de Google Maps</div>
+                            <div class="p-4 flex-1 flex flex-col justify-center items-center bg-slate-900/50 min-h-[100px] text-center">
                                 <span class="text-2xl mb-1">🏪</span>
-                                <div id="f-foto-placeholder" class="text-[10px] font-mono text-slate-500 whitespace-pre-line leading-tight"></div>
+                                <div id="fc-longitud-link-text" class="text-[10px] font-mono text-slate-500 truncate max-w-xs"></div>
                             </div>
-                            <div class="p-2 bg-slate-50 border-t border-slate-200">
-                                <a id="f-maps-link" href="#" target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] uppercase py-1.5 rounded transition">
-                                    Ver en Google Street View / GPS
-                                </a>
+                            <div class="p-2 bg-slate-900 border-t border-slate-800">
+                                <a id="fc-gps-btn" href="#" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] uppercase py-1.5 rounded font-mono transition-colors">ABRIR GOOGLE STREET VIEW</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white border border-slate-200 rounded-xl p-4 text-xs shadow-sm">
-                        <h3 class="font-bold uppercase tracking-wider text-slate-700 border-b pb-1 mb-2">Descuentos Otorgados de Línea Comercial</h3>
-                        <div id="f-lista-descuentos" class="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono pt-1 text-slate-600">
-                            </div>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs shadow-md">
+                        <h4 class="font-bold text-slate-400 uppercase tracking-widest border-b border-slate-800 pb-1 mb-2">Descuentos Otorgados por Línea</h4>
+                        <div id="fc-descuentos-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono pt-1 text-slate-400"></div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-sm">
-                            <h3 class="font-bold uppercase tracking-wider text-red-700 border-b pb-1">Minutas Oficiales Registradas</h3>
-                            <div class="bg-red-50/60 p-2.5 rounded border border-red-100">
-                                <span class="block text-[9px] font-bold text-red-800 uppercase tracking-wider mb-0.5">Minuta Crédito / Descuento</span>
-                                <p id="f-minuta-credito" class="text-slate-700 font-medium"></p>
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 shadow-md">
+                            <h4 class="font-bold text-red-400 uppercase tracking-widest border-b border-slate-800 pb-1">Minutas Oficiales</h4>
+                            <div class="bg-red-950/20 p-2 rounded border border-red-900/30">
+                                <span class="text-[9px] text-red-400 font-bold block uppercase tracking-wider mb-0.5">Crédito y Descuento</span>
+                                <p id="fc-minuta-cred" class="text-slate-300 font-medium"></p>
                             </div>
-                            <div class="bg-purple-50/60 p-2.5 rounded border border-purple-100">
-                                <span class="block text-[9px] font-bold text-purple-800 uppercase tracking-wider mb-0.5">Minuta de POP</span>
-                                <p id="f-minuta-pop" class="text-slate-700 font-medium"></p>
+                            <div class="bg-purple-950/20 p-2 rounded border border-purple-900/30">
+                                <span class="text-[9px] text-purple-400 font-bold block uppercase tracking-wider mb-0.5">Acuerdos POP</span>
+                                <p id="fc-minuta-pop" class="text-slate-300 font-medium"></p>
                             </div>
                         </div>
 
-                        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-sm">
-                            <h3 class="font-bold uppercase tracking-wider text-amber-700 border-b pb-1">Bitácora de Comentarios del Vendedor</h3>
-                            <div class="bg-amber-50/60 p-2.5 rounded border border-amber-100">
-                                <span class="block text-[9px] font-bold text-amber-800 uppercase tracking-wider mb-0.5">Comentario a Mitad de Mes</span>
-                                <p id="f-comentario-mid" class="text-slate-700 italic"></p>
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 shadow-md">
+                            <h4 class="font-bold text-amber-400 uppercase tracking-widest border-b border-slate-800 pb-1">Bitácora Quincenal</h4>
+                            <div class="bg-amber-950/20 p-2 rounded border border-amber-900/30">
+                                <span class="text-[9px] text-amber-400 font-bold block uppercase tracking-wider mb-0.5">Mitad de Mes</span>
+                                <p id="fc-com-mid" class="text-slate-300 italic"></p>
                             </div>
-                            <div class="bg-blue-50/60 p-2.5 rounded border border-blue-100">
-                                <span class="block text-[9px] font-bold text-blue-800 uppercase tracking-wider mb-0.5">Comentarios a Final de Mes</span>
-                                <p id="f-comentario-end" class="text-slate-700 italic"></p>
+                            <div class="bg-blue-950/20 p-2 rounded border border-blue-900/30">
+                                <span class="text-[9px] text-blue-400 font-bold block uppercase tracking-wider mb-0.5">Fin de Mes</span>
+                                <p id="fc-com-end" class="text-slate-300 italic"></p>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -244,190 +265,149 @@
     </main>
 
     <script>
-        // DATA MAESTRA ESTRUCTURADA SIGUIENDO TUS COLUMNAS EXACTAS
-        const BaseDatos = {
-            "Llanterama": {
-                "Carlos Mendoza": [
-                    {
-                        // Identificación del reporte
-                        mes: "Junio", ano: "2026",
-                        // Condición de crédito
-                        fecha_de_alta: "12/04/2021", vendedor: "Carlos Mendoza", tipo: "Crédito Distribuidor", dias: "30", limite: "$150,000.00", plr: "SÍ TIENE",
-                        // Información general del cliente
-                        cod_cliente: "COD-045", cliente: "Acumuladores del Centro S.A. de C.V.", nombre_de_negocio: "Refaccionaria El Centro", encargado_de_compras: "Ing. Juan Pablo Pérez", direccion: "Av. Benito Juárez #405, Col. Centro, CP 37000", latitud: "21.12345", longitud: "https://maps.google.com/?q=21.12345,-101.67890&layer=c", zona: "Zona Bajío", giro: "Mayorista Eléctrico", numero_celular: "555-123-4567",
-                        // Rutas de visitas
-                        rutas: { lunes: "X", martes: "-", miercoles: "-", jueves: "X", viernes: "-", sabado: "-", esporadico: "-" },
-                        // Objetivos, real facturados + % de progreso
-                        unidades: [
-                            { l: "PREM", obj: 50, real: 55 },
-                            { l: "AGM", obj: 15, real: 12 },
-                            { l: "ESTANDAR", obj: 100, real: 45 },
-                            { l: "TOTAL ACUM", obj: 165, real: 112 },
-                            { l: "FILTRO", obj: 30, real: 35 },
-                            { l: "LUB", obj: 40, real: 38 },
-                            { l: "MOTO", obj: 0, real: 5 }, // Venta real pero sin objetivo planteado
-                            { l: "USADO", obj: 5, real: 0 },
-                            { l: "AUTO", obj: 20, real: 15 },
-                            { l: "CTA", obj: 0, real: 0 },
-                            { l: "CAMION", obj: 15, real: 12 },
-                            { l: "TOTAL LLANTAS", obj: 35, real: 27 },
-                            { l: "ALCALIN", obj: 200, real: 250 }
-                        ],
-                        // Factura vs Costo y Utilidad (Monetario)
-                        dinero: { obj_fact: "$180,000.00", real_fact: "$142,500.00", costo: "$104,300.00", dif: "$38,200.00" },
-                        // Apoyo de mercado
-                        mercado: { fachada: "Con Lona LTH Nueva", exhibidor_lth: "Instalado", exhibidor_lub: "Instalado", exhibidor_mot: "No tiene / Sin espacio", activaciones: "1 Evento BTL en el mes", minuta_credito_descuento: "Se autorizó 5% extra en Lubricante", minuta_de_pop: "Pendiente bandera exterior" },
-                        // Descuentos otorgados por tipo de línea
-                        descuentos: { lth: "12%", america: "10%", premium_hi_tec: "15% (Aplica PLR)", agm: "8%", lubricante_aceite: "5%", motobateria: "Sin data", filtros_lth: "7%" },
-                        // Comentarios del progreso de venta
-                        comentarios: { mid: "El cliente reportó retraso en compras de línea América debido a un sobreinventario de la competencia. Se acordó empujar Premium.", end: "Cierre fuerte en Premium superando el objetivo. Filtros se movió excelente. Queda pendiente resolver la caída en Motobaterías." }
-                    },
-                    {
-                        mes: "Junio", ano: "2026",
-                        // Prueba sin info de crédito (Debe salir Contado)
-                        fecha_de_alta: "20/11/2025", vendedor: "Carlos Mendoza", tipo: "", dias: "", limite: "", plr: "",
-                        cod_cliente: "COD-102", cliente: "Refaccionaria El Rayo Mecánico", nombre_de_negocio: "El Rayo", encargado_de_compras: "Pedro Fuentes", direccion: "Blvd. Torres Landa #12, Silao, Gto.", latitud: "20.9412", longitud: "LINK_SIMULADO_FACHADA_RAW_DATA", zona: "Silao", giro: "Taller Eléctrico", numero_celular: "472-111-2233",
-                        rutas: { lunes: "-", martes: "X", miercoles: "-", jueves: "-", viernes: "X", sabado: "-", esporadico: "X" },
-                        unidades: [
-                            { l: "PREM", obj: 10, real: 8 }, { l: "AGM", obj: 0, real: 0 }, { l: "ESTANDAR", obj: 40, real: 32 }, { l: "TOTAL ACUM", obj: 50, real: 40 }, { l: "FILTRO", obj: 10, real: 5 }, { l: "LUB", obj: 10, real: 10 }, { l: "MOTO", obj: 5, real: 0 }, { l: "USADO", obj: 0, real: 0 }, { l: "AUTO", obj: 0, real: 0 }, { l: "CTA", obj: 0, real: 0 }, { l: "CAMION", obj: 0, real: 0 }, { l: "TOTAL LLANTAS", obj: 0, real: 0 }, { l: "ALCALIN", obj: 50, real: 45 }
-                        ],
-                        dinero: { obj_fact: "$35,000.00", real_fact: "$29,500.00", costo: "$22,000.00", dif: "$7,500.00" },
-                        mercado: { fachada: "No tiene", exhibidor_lth: "No tiene", exhibidor_lub: "Mesa Genérica", exhibidor_mot: "No tiene", activaciones: "Ninguna", minuta_credito_descuento: "Sin acuerdos de crédito", minuta_de_pop: "Solicita exhibidor básico" },
-                        descuentos: { lth: "5%", america: "5%", premium_hi_tec: "Sin data", agm: "Sin data", lubricante_aceite: "0%", motobateria: "Sin data", filtros_lth: "3%" },
-                        comentarios: { mid: "Mantiene flujo continuo al contado.", end: "Al cierre solicita evaluar cuenta de crédito para subir volumen el próximo mes." }
-                    }
-                ],
-                "Alejandro Silva": [
-                    {
-                        mes: "Junio", ano: "2026",
-                        fecha_de_alta: "05/01/2023", vendedor: "Alejandro Silva", tipo: "Crédito Platino", dias: "45", limite: "$400,000.00", plr: "SÍ TIENE",
-                        cod_cliente: "COD-009", cliente: "Refaccionaria Mayorista del Centro", nombre_de_negocio: "Grupo REFACEN", encargado_de_compras: "Lic. Miguel Sosa", direccion: "Blvd. López Mateos #1200, Celaya, Gto.", latitud: "20.5214", longitud: "https://maps.google.com/?q=20.5214,-100.8145", zona: "Celaya Laja", giro: "Mayorista Cadena", numero_celular: "461-445-5667",
-                        rutas: { lunes: "-", martes: "-", miercoles: "X", jueves: "-", viernes: "-", sabado: "X", esporadico: "-" },
-                        unidades: [
-                            { l: "PREM", obj: 120, real: 135 }, { l: "AGM", obj: 25, real: 20 }, { l: "ESTANDAR", obj: 200, real: 195 }, { l: "TOTAL ACUM", obj: 345, real: 350 }, { l: "FILTRO", obj: 80, real: 95 }, { l: "LUB", obj: 100, real: 110 }, { l: "MOTO", obj: 20, real: 15 }, { l: "USADO", obj: 10, real: 8 }, { l: "AUTO", obj: 50, real: 48 }, { l: "CTA", obj: 10, real: 12 }, { l: "CAMION", obj: 40, real: 35 }, { l: "TOTAL LLANTAS", obj: 100, real: 95 }, { l: "ALCALIN", obj: 500, real: 480 }
-                        ],
-                        dinero: { obj_fact: "$490,000.00", real_fact: "$512,000.00", costo: "$375,000.00", dif: "$137,000.00" },
-                        mercado: { fachada: "Fachada Corporativa Premium", exhibidor_lth: "2 Unidades", exhibidor_lub: "Rack Completo", exhibidor_mot: "Instalado", activaciones: "2 Eventos en el mes", minuta_credito_descuento: "Límite ampliado temporalmente", minuta_de_pop: "Entrega completa de material" },
-                        descuentos: { lth: "15%", america: "12%", premium_hi_tec: "18%", agm: "10%", lubricante_aceite: "8%", motobateria: "5%", filtros_lth: "10%" },
-                        comentarios: { mid: "Ritmo fuerte de compra en familias pesadas.", end: "Cierre de mes récord. Cartera completamente sana." }
-                    }
-                ]
-            },
-            "Autoelectrica": {
-                "Héctor Ortega": [
-                    {
-                        mes: "Junio", ano: "2026",
-                        fecha_de_alta: "11/11/2023", vendedor: "Héctor Ortega", tipo: "Crédito Regular", dias: "15", limite: "$60,000.00", plr: "No",
-                        cod_cliente: "COD-321", cliente: "Eléctrica y Motores de Irapuato", nombre_de_negocio: "AutoEléctrico El Chispazo", encargado_de_compras: "Esteban Torres", direccion: "Av. Guerrero #900, Irapuato, Gto.", latitud: "20.6845", longitud: "LINK_DIRECTO_COL_LONGITUD", zona: "Irapuato Sur", giro: "Mayorista Eléctrico", numero_celular: "462-223-1144",
-                        rutas: { lunes: "-", martes: "-", miercoles: "-", jueves: "-", viernes: "X", sabado: "-", esporadico: "X" },
-                        unidades: [
-                            { l: "PREM", obj: 15, real: 10 }, { l: "AGM", obj: 5, real: 2 }, { l: "ESTANDAR", obj: 40, real: 48 }, { l: "TOTAL ACUM", obj: 60, real: 60 }, { l: "FILTRO", obj: 40, real: 20 }, { l: "LUB", obj: 10, real: 15 }, { l: "MOTO", obj: 30, real: 45 }, { l: "USADO", obj: 0, real: 0 }, { l: "AUTO", obj: 0, real: 0 }, { l: "CTA", obj: 0, real: 0 }, { l: "CAMION", obj: 0, real: 0 }, { l: "TOTAL LLANTAS", obj: 0, real: 0 }, { l: "ALCALIN", obj: 100, real: 90 }
-                        ],
-                        dinero: { obj_fact: "$75,000.00", real_fact: "$78,400.00", costo: "$58,000.00", dif: "$20,400.00" },
-                        mercado: { fachada: "Pintada Marca Propia", exhibidor_lth: "Instalado", exhibidor_lub: "No tiene", exhibidor_mot: "Exhibidor Mostrador LTH", activaciones: "Ninguna", minuta_credito_descuento: "Solicita ampliación de días", minuta_de_pop: "Falta banderín de Motobaterías" },
-                        descuentos: { lth: "10%", america: "8%", premium_hi_tec: "10%", agm: "5%", lubricante_aceite: "3%", motobateria: "12%", filtros_lth: "5%" },
-                        comentarios: { mid: "Excelente venta de motobaterías por ola de calor.", end: "Meta total de acumuladores al 100%. Filtros caídos por falta de stock." }
-                    }
-                ]
-            }
-        };
+        // Memoria interna del visualizador corporativo
+        const Database = { Llanterama: {}, Autoelectrica: {} };
+        let canalActivo = "";
+        let vendedorActivo = "";
 
-        let empresaActual = "";
-        let vendedorActual = "";
-
-        // Sistema de navegación nativo
-        const panels = {
+        const views = {
+            carga: document.getElementById('vista-carga'),
             inicio: document.getElementById('vista-inicio'),
             empresa: document.getElementById('vista-empresa'),
             vendedor: document.getElementById('vista-vendedor'),
             cliente: document.getElementById('vista-cliente')
         };
 
-        const breadcrumbs = {
-            empresa: document.getElementById('nav-empresa'),
-            vendedor: document.getElementById('nav-vendedor'),
-            cliente: document.getElementById('nav-cliente'),
-            s1: document.querySelector('.dynamic-sep'),
-            s2: document.querySelector('.dynamic-sep-2'),
-            s3: document.querySelector('.dynamic-sep-3')
-        };
-
-        function resetNav() {
-            Object.keys(panels).forEach(p => panels[p].classList.add('hidden'));
+        function irA(destino) {
+            Object.keys(views).forEach(v => views[v].classList.add('hidden'));
+            views[destino].classList.remove('hidden');
         }
 
-        function irAInicio() {
-            resetNav();
-            empresaActual = ""; vendedorActual = "";
-            breadcrumbs.empresa.classList.add('hidden'); breadcrumbs.vendedor.classList.add('hidden'); breadcrumbs.cliente.classList.add('hidden');
-            breadcrumbs.s1.classList.add('hidden'); breadcrumbs.s2.classList.add('hidden'); breadcrumbs.s3.classList.add('hidden');
-            panels.inicio.classList.remove('hidden');
+        // PARSER DEL PEGADO RECTILÍNEO DE TU EXCEL
+        function procesarPegadoExcel() {
+            const raw = document.getElementById('excel-raw-data').value.trim();
+            const canal = document.querySelector('input[name="canal-importar"]:checked').value;
+            
+            if (!raw) {
+                alert("Por favor, copia filas válidas desde tu Excel antes de procesar.");
+                return;
+            }
+
+            const filas = raw.split("\n");
+            let contadores = 0;
+
+            filas.forEach(linea => {
+                const c = linea.split("\t"); // Separación por tabulaciones nativas de Excel
+                if (c.length < 20) return; // Validación básica de integridad de renglón
+
+                const asesor = c[3]?.trim();
+                if (!asesor) return;
+
+                if (!Database[canal][asesor]) {
+                    Database[canal][asesor] = [];
+                }
+
+                // Extracción ordenada celda por celda según tus especificaciones
+                const registroCliente = {
+                    mes: c[0], ano: c[1],
+                    alta: c[2], vendedor: c[3], tipo: c[4], dias: c[5], limite: c[6], plr: c[7],
+                    codigo: c[8], cliente: c[9], negocio: c[10], encargado: c[11], direccion: c[12],
+                    latitud: c[13], longitud: c[14], zona: c[15], giro: c[16], celular: c[17],
+                    rutas: { lunes: c[18], martes: c[19], miercoles: c[20], jueves: c[21], viernes: c[22], sabado: c[23], esporadico: c[24] },
+                    // Inyección y desglose secuencial de tus 13 líneas de negocio
+                    lineas: [
+                        { n: "PREM", obj: Number(c[25])||0, real: Number(c[26])||0 },
+                        { n: "AGM", obj: Number(c[28])||0, real: Number(c[29])||0 },
+                        { n: "ESTANDAR", obj: Number(c[31])||0, real: Number(c[32])||0 },
+                        { n: "TOTAL ACUM", obj: Number(c[34])||0, real: Number(c[35])||0 },
+                        { n: "FILTRO", obj: Number(c[37])||0, real: Number(c[38])||0 },
+                        { n: "LUB", obj: Number(c[40])||0, real: Number(c[41])||0 },
+                        { n: "MOTO", obj: Number(c[43])||0, real: Number(c[44])||0 },
+                        { n: "USADOS", obj: Number(c[46])||0, real: Number(c[47])||0 },
+                        { n: "AUTO", obj: Number(c[49])||0, real: Number(c[50])||0 },
+                        { n: "CTA", obj: Number(c[52])||0, real: Number(c[53])||0 },
+                        { n: "CAMION", obj: Number(c[55])||0, real: Number(c[56])||0 },
+                        { n: "TOTAL LLANTAS", obj: Number(c[58])||0, real: Number(c[59])||0 },
+                        { n: "ALCALINA", obj: Number(c[61])||0, real: Number(c[62])||0 }
+                    ],
+                    financiero: { obj_fact: c[64], real_fact: c[65], costo: c[66], dif: c[67] },
+                    mercado: { fachada: c[68], exh_lth: c[69], exh_lub: c[70], exh_mot: c[71], act: c[72], min_cred: c[73], min_pop: c[74] },
+                    descuentos: { lth: c[75], america: c[76], premium: c[77], agm: c[78], lub: c[79], moto: c[80], filtros: c[81] },
+                    comentarios: { mid: c[82], end: c[83] }
+                };
+
+                Database[canal][asesor].push(registroCliente);
+                contadores++;
+            });
+
+            // Actualizar contadores globales en la interfaz
+            document.getElementById('count-llanterama').textContent = `${Object.values(Database.Llanterama).flat().length} Clientes Cargados`;
+            document.getElementById('count-autoelectrica').textContent = `${Object.values(Database.Autoelectrica).flat().length} Clientes Cargados`;
+
+            alert(`Procesado con éxito: ${contadores} registros añadidos al canal de ${canal}.`);
+            irA('inicio');
         }
 
-        function seleccionarEmpresa(nombreEmpresa) {
-            resetNav();
-            empresaActual = nombreEmpresa;
+        function abrirDivision(nomDivision) {
+            canalActivo = nomDivision;
+            document.getElementById('title-empresa').textContent = nomDivision;
             
-            breadcrumbs.empresa.textContent = nombreEmpresa;
-            breadcrumbs.empresa.classList.remove('hidden');
-            breadcrumbs.s1.classList.remove('hidden');
-            breadcrumbs.vendedor.classList.add('hidden'); breadcrumbs.cliente.classList.add('hidden');
-            breadcrumbs.s2.classList.add('hidden'); breadcrumbs.s3.classList.add('hidden');
+            // Navegación Visual superior
+            const navEmp = document.getElementById('nav-empresa');
+            navEmp.textContent = nomDivision; navEmp.classList.remove('hidden');
+            document.querySelector('.nav-sep').classList.remove('hidden');
 
-            document.getElementById('titulo-empresa').textContent = nombreEmpresa;
-            
-            const asesores = BaseDatos[nombreEmpresa];
-            const contenedor = document.getElementById('contenedor-vendedores');
-            contenedor.innerHTML = "";
+            const asesores = Database[nomDivision];
+            const grid = document.getElementById('grid-vendedores');
+            grid.innerHTML = "";
 
-            Object.keys(asesores).forEach(nomAsesor => {
-                const clientes = asesores[nomAsesor];
-                let objSuma = 0; let realSuma = 0;
+            if(Object.keys(asesores).length === 0) {
+                grid.innerHTML = `<div class="col-span-full p-8 text-center text-xs text-slate-500 font-mono">NO HAY REGLONES DE EXCEL CARGADOS PARA ESTA COMPAÑÍA.</div>`;
+                irA('empresa');
+                return;
+            }
 
-                clientes.forEach(c => {
-                    const acum = c.unidades.find(u => u.l === "TOTAL ACUM") || {obj: 0, real: 0};
-                    objSuma += acum.obj;
-                    realSuma += acum.real;
+            Object.keys(asesores).forEach(vendedor => {
+                const list = asesores[vendedor];
+                let tObj = 0; let tReal = 0;
+
+                list.forEach(c => {
+                    const acum = c.lineas.find(l => l.n === "TOTAL ACUM") || {obj:0, real:0};
+                    tObj += acum.obj; tReal += acum.real;
                 });
 
-                const promPct = objSuma > 0 ? ((realSuma / objSuma) * 100).toFixed(1) : "100.0";
+                const promedios = tObj > 0 ? ((tReal / tObj) * 100).toFixed(1) : "100.0";
 
-                contenedor.innerHTML += `
-                    <div onclick="seleccionarVendedor('${nomAsesor}')" class="bg-white border border-slate-200 hover:border-blue-500 p-5 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer flex justify-between items-center">
+                grid.innerHTML += `
+                    <div onclick="abrirAsesor('${vendedor}')" class="bg-slate-950 border border-slate-850 hover:border-blue-500 rounded-xl p-4 shadow-md transition-all cursor-pointer flex justify-between items-center group">
                         <div>
-                            <span class="block text-sm font-bold text-slate-900 uppercase">${nomAsesor}</span>
-                            <span class="block text-[10px] text-slate-400 font-mono mt-1">${clientes.length} CLIENTES ASIGNADOS</span>
+                            <h4 class="text-xs font-black text-white uppercase group-hover:text-blue-400">${vendedor}</h4>
+                            <span class="text-[10px] font-mono text-slate-500 block mt-1">${list.length} CLIENTES EN CARTERA</span>
                         </div>
-                        <div class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-center min-w-[70px]">
-                            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wide">AVANCE ACUM</span>
-                            <span class="text-sm font-black ${promPct >= 95 ? 'text-emerald-600' : promPct >= 80 ? 'text-amber-600' : 'text-red-600'} font-mono">${promPct}%</span>
+                        <div class="text-center bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg min-w-[65px]">
+                            <span class="block text-[8px] font-bold text-slate-500 tracking-wide">AVANCE</span>
+                            <span class="text-xs font-black ${promedios >= 95 ? 'text-emerald-500' : promedios >= 80 ? 'text-amber-500' : 'text-red-500'} font-mono">${promedios}%</span>
                         </div>
                     </div>
                 `;
             });
-            panels.empresa.classList.remove('hidden');
+            irA('empresa');
         }
 
-        function irAEmpresa() { if(empresaActual) seleccionarEmpresa(empresaActual); }
+        function abrirAsesor(nomVendedor) {
+            vendedorActivo = nomVendedor;
+            document.getElementById('title-vendedor').textContent = nomVendedor;
 
-        function seleccionarVendedor(nomVendedor) {
-            resetNav();
-            vendedorActual = nomVendedor;
+            const navVend = document.getElementById('nav-vendedor');
+            navVend.textContent = nomVendedor; navVend.classList.remove('hidden');
+            document.querySelector('.nav-sep2').classList.remove('hidden');
 
-            breadcrumbs.vendedor.textContent = nomVendedor;
-            breadcrumbs.vendedor.classList.remove('hidden');
-            breadcrumbs.s2.classList.remove('hidden');
-            breadcrumbs.cliente.classList.add('hidden'); breadcrumbs.s3.classList.add('hidden');
-
-            document.getElementById('titulo-vendedor').textContent = nomVendedor;
-
-            const listaClientes = BaseDatos[empresaActual][nomVendedor];
-            const tbody = document.getElementById('tabla-clientes');
+            const clientes = Database[canalActivo][nomVendedor];
+            const tbody = document.getElementById('table-clientes');
             tbody.innerHTML = "";
 
-            listaClientes.forEach((cli, idx) => {
-                const totalAcum = cli.unidades.find(u => u.l === "TOTAL ACUM") || {real: 0};
-                
+            clientes.forEach((cli, idx) => {
+                const totalFact = cli.lineas.find(l => l.n === "TOTAL ACUM") || {real:0};
                 let agenda = [];
                 if(cli.rutas.lunes === "X") agenda.push("LUN");
                 if(cli.rutas.martes === "X") agenda.push("MAR");
@@ -436,149 +416,136 @@
                 if(cli.rutas.viernes === "X") agenda.push("VIE");
                 if(cli.rutas.sabado === "X") agenda.push("SAB");
                 if(cli.rutas.esporadico === "X") agenda.push("ESP");
-                if(agenda.length === 0) agenda.push("-");
 
                 tbody.innerHTML += `
-                    <tr onclick="cargarExpedienteCliente(${idx})" class="hover:bg-blue-50/40 transition cursor-pointer font-medium border-b border-slate-100">
-                        <td class="p-3 font-mono text-slate-900 font-bold">${cli.cod_cliente}</td>
+                    <tr onclick="construirFichaCliente(${idx})" class="hover:bg-slate-900/60 transition cursor-pointer font-medium border-b border-slate-900">
+                        <td class="p-3 pl-4 font-mono text-blue-400 font-bold">${cli.codigo || "S/C"}</td>
                         <td class="p-3">
-                            <span class="block text-slate-900 font-bold">${cli.cliente}</span>
-                            <span class="block text-[10px] text-slate-400 font-normal mt-0.5">${cli.nombre_de_negocio}</span>
+                            <span class="text-white block font-bold">${cli.cliente}</span>
+                            <span class="text-[10px] text-slate-500 font-normal block mt-0.5">${cli.negocio}</span>
                         </td>
-                        <td class="p-3 text-slate-500">${cli.zona} <span class="block text-[10px] text-slate-400 font-normal">${cli.giro}</span></td>
-                        <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-200 text-slate-700 text-[10px] rounded font-bold font-mono">${agenda.join(", ")}</span></td>
-                        <td class="p-3 text-right font-mono font-bold text-slate-900">${totalAcum.real} pzas</td>
+                        <td class="p-3 text-slate-400">${cli.zona} <span class="block text-[10px] text-slate-500">${cli.giro}</span></td>
+                        <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-900 border border-slate-800 text-slate-400 text-[10px] rounded font-bold font-mono">${agenda.join(", ") || "-"}</span></td>
+                        <td class="p-3 text-right font-mono font-bold text-emerald-400 pr-4">${cli.financiero.real_fact || "$0.00"}</td>
                     </tr>
                 `;
             });
-            panels.vendedor.classList.remove('hidden');
+            irA('vendedor');
         }
 
-        function irAVendedor() { if(vendedorActual) seleccionarVendedor(vendedorActual); }
+        function construirFichaCliente(idx) {
+            const c = Database[canalActivo][vendedorActivo][idx];
 
-        // ================= CONSTRUCCIÓN DINÁMICA DE LA FICHA POR EXCEL COLUMNAS =================
-        function cargarExpedienteCliente(idx) {
-            resetNav();
-            const c = BaseDatos[empresaActual][vendedorActual][idx];
+            const navCli = document.getElementById('nav-cliente');
+            navCli.textContent = c.codigo; navCli.classList.remove('hidden');
+            document.querySelector('.nav-sep3').classList.remove('hidden');
 
-            breadcrumbs.cliente.textContent = c.cod_cliente;
-            breadcrumbs.cliente.classList.remove('hidden');
-            breadcrumbs.s3.classList.remove('hidden');
+            // Setear Textos Principales
+            document.getElementById('fc-codigo').textContent = c.codigo || "S/C";
+            document.getElementById('fc-cliente').textContent = c.cliente;
+            document.getElementById('fc-negocio').textContent = `Nombre Comercial: ${c.negocio} | Asesor: ${c.vendedor}`;
+            document.getElementById('fc-periodo').textContent = `${c.mes} ${c.ano}`;
+            document.getElementById('fc-alta').textContent = c.alta || "Sin registro";
 
-            // Encabezado principal
-            document.getElementById('f-cod-cliente').textContent = c.cod_cliente;
-            document.getElementById('f-cliente').textContent = c.cliente;
-            document.getElementById('f-nombre-negocio').textContent = `Nombre de Negocio: ${c.nombre_de_negocio}`;
-            document.getElementById('f-mes').textContent = c.mes;
-            document.getElementById('f-ano').textContent = c.ano;
-
-            // Sección Crédito (Validación: si no tiene info, es Contado)
-            document.getElementById('f-alta').textContent = c.fecha_de_alta || "-";
-            document.getElementById('f-vendedor-nom').textContent = c.vendedor || "-";
-            
-            const tipoCred = document.getElementById('f-tipo');
-            const diasCred = document.getElementById('f-dias');
-            const limCred = document.getElementById('f-limite');
-            const plrCred = document.getElementById('f-plr');
-
-            if (!c.tipo && !c.dias && !c.limite) {
-                tipoCred.textContent = "CONTADO"; tipoCred.className = "font-bold text-red-600";
-                diasCred.textContent = "0 Días";
-                limCred.textContent = "Sin crédito disponible";
+            // Validación Dinámica de Contado Condicional
+            const tipo = document.getElementById('fc-tipo');
+            if(!c.tipo && !c.dias && !c.limite) {
+                tipo.textContent = "CONTADO"; tipo.className = "font-bold text-red-400";
+                document.getElementById('fc-dias').textContent = "Inmediato";
+                document.getElementById('fc-limite').textContent = "$0.00";
             } else {
-                tipoCred.textContent = c.tipo || "Crédito Regular"; tipoCred.className = "font-bold text-purple-700";
-                diasCred.textContent = `${c.dias} Días`;
-                limCred.textContent = c.limite;
+                tipo.textContent = c.tipo; tipo.className = "font-bold text-purple-400";
+                document.getElementById('fc-dias').textContent = `${c.dias} Días`;
+                document.getElementById('fc-limite').textContent = c.limite;
             }
-            plrCred.textContent = c.plr || "No aplica";
-            plrCred.className = c.plr === "SÍ TIENE" ? "font-bold text-emerald-600" : "font-medium text-slate-400";
+            
+            const plr = document.getElementById('fc-plr');
+            plr.textContent = c.plr || "NO";
+            plr.className = c.plr === "SÍ TIENE" ? "font-bold text-emerald-400" : "font-bold text-slate-600";
 
-            // Información General Básica
-            document.getElementById('f-encargado').textContent = c.encargado_de_compras;
-            document.getElementById('f-celular').textContent = c.numero_celular;
-            document.getElementById('f-zona').textContent = c.zona;
-            document.getElementById('f-giro').textContent = c.giro;
-            document.getElementById('f-direccion').textContent = c.direccion;
+            // Contacto y Geografía
+            document.getElementById('fc-encargado').textContent = c.encargado;
+            document.getElementById('fc-celular').textContent = c.celular;
+            document.getElementById('fc-zona-giro').textContent = `${c.zona} / ${c.giro}`;
+            document.getElementById('fc-direccion').textContent = c.direccion;
 
-            // Rutero Semanal Visual
-            const rutero = document.getElementById('f-rutero-semana');
-            rutero.innerHTML = "";
-            ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'esporadico'].forEach(dia => {
-                const marcado = c.rutas[dia] === "X";
-                rutero.innerHTML += `
-                    <div class="border p-1 rounded-md ${marcado ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-slate-50 border-slate-100 text-slate-300'}">
-                        <span class="block text-[8px] uppercase text-slate-400 font-medium">${dia.substring(0,3)}</span>
-                        <span class="text-xs font-black">${c.rutas[dia]}</span>
+            // Frecuencias Semanales (Rutero Visual)
+            const rGrid = document.getElementById('fc-rutero-grid');
+            rGrid.innerHTML = "";
+            ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'esporadico'].forEach(d => {
+                const m = c.rutas[d] === "X";
+                rGrid.innerHTML += `
+                    <div class="border p-1 rounded-md ${m ? 'bg-emerald-950/40 border-emerald-800 text-emerald-400' : 'bg-slate-900/40 border-slate-900 text-slate-700'}">
+                        <span class="block text-[8px] uppercase text-slate-500">${d.substring(0,3)}</span>
+                        <span class="text-xs font-black font-mono">${c.rutas[d] || "-"}</span>
                     </div>
                 `;
             });
 
-            // Tabla de Objetivos vs Real Facturado por Renglón
-            const tBodyUnidades = document.getElementById('f-tabla-unidades');
-            tBodyUnidades.innerHTML = "";
-            c.unidades.forEach(u => {
-                let pctTxt = "-";
-                let badgeColor = "text-slate-400 bg-slate-50";
+            // Lógica Clave de las 13 Líneas Completas en Tabla
+            const tbodyLineas = document.getElementById('fc-tbody-lineas');
+            tbodyLineas.innerHTML = "";
+            
+            c.lineas.forEach(l => {
+                let pctStr = "-";
+                let colorClase = "text-slate-500 bg-slate-900/30";
 
-                // Caso 1: Tiene objetivos fijados mayores a cero
-                if (u.obj > 0) {
-                    const calculo = (u.real / u.obj) * 100;
-                    pctTxt = `${calculo.toFixed(1)}%`;
-                    badgeColor = calculo >= 95 ? "text-emerald-700 bg-emerald-50" : calculo >= 80 ? "text-amber-700 bg-amber-50" : "text-red-700 bg-red-50";
-                } 
-                // Caso 2: Clientes con venta real pero sin objetivo planteado (Alta Demanda / Compra Libre)
-                else if (u.obj === 0 && u.real > 0) {
-                    pctTxt = "Compra sin Obj";
-                    badgeColor = "text-blue-700 bg-blue-50 font-bold";
+                if (l.obj > 0) {
+                    const calculo = (l.real / l.obj) * 100;
+                    pctStr = `${calculo.toFixed(1)}%`;
+                    colorClase = calculo >= 95 ? "text-emerald-400 bg-emerald-950/30 border border-emerald-900/50" : calculo >= 80 ? "text-amber-400 bg-amber-950/30 border border-amber-900/50" : "text-red-400 bg-red-950/30 border border-red-900/50";
+                } else if (l.obj === 0 && l.real > 0) {
+                    pctStr = "Venta sin Objetivo";
+                    colorClase = "text-blue-400 bg-blue-950/30 border border-blue-900/50 font-bold";
                 }
 
-                const filaEspecial = u.l.startsWith("TOTAL") ? "bg-slate-100/80 font-black text-slate-900 border-t border-b border-slate-200" : "";
-                tBodyUnidades.innerHTML += `
-                    <tr class="${filaEspecial} hover:bg-slate-50/50 transition">
-                        <td class="p-2.5 pl-4 font-semibold">${u.l}</td>
-                        <td class="p-2.5 text-right font-mono text-slate-500">${u.obj || "-"}</td>
-                        <td class="p-2.5 text-right font-mono font-bold">${u.real}</td>
-                        <td class="p-2.5 text-center font-mono font-bold text-[10px] ${badgeColor}">${pctTxt}</td>
+                const trStyle = l.n.startsWith("TOTAL") ? "bg-slate-900 font-black text-white border-t border-b border-slate-800" : "";
+                tbodyLineas.innerHTML += `
+                    <tr class="${trStyle} hover:bg-slate-900/30 transition">
+                        <td class="p-2 pl-4 font-semibold uppercase tracking-wider">${l.n}</td>
+                        <td class="p-2 text-right font-mono text-slate-500">${l.obj || "-"}</td>
+                        <td class="p-2 text-right font-mono font-bold">${l.real}</td>
+                        <td class="p-2 text-center font-mono text-[10px] rounded px-2 font-bold ${colorClase}">${pctStr}</td>
                     </tr>
                 `;
             });
 
-            // Sección Dinero (Factura vs Costo y Utilidad)
-            document.getElementById('f-obj-fact').textContent = c.dinero.obj_fact;
-            document.getElementById('f-real-fact').textContent = c.dinero.real_fact;
-            document.getElementById('f-costo').textContent = c.dinero.costo;
-            document.getElementById('f-dif').textContent = c.dinero.dif;
+            // Financieros Moneda
+            document.getElementById('fc-obj-fact').textContent = c.financiero.obj_fact || "-";
+            document.getElementById('fc-real-fact').textContent = c.financiero.real_fact || "-";
+            document.getElementById('fc-costo').textContent = c.financiero.costo || "-";
+            document.getElementById('fc-dif').textContent = c.financiero.dif || "-";
 
-            // Sección Apoyo de Mercado
-            document.getElementById('f-pop-fachada').textContent = c.mercado.fachada;
-            document.getElementById('f-pop-lth').textContent = c.mercado.exhibidor_lth;
-            document.getElementById('f-pop-lub').textContent = c.mercado.exhibidor_lub;
-            document.getElementById('f-pop-mot').textContent = c.mercado.exhibidor_mot;
-            document.getElementById('f-pop-activaciones').textContent = c.mercado.activaciones;
+            // Apoyo de Mercado POP
+            document.getElementById('fc-pop-fachada').textContent = c.mercado.fachada || "Sin data";
+            document.getElementById('fc-pop-lth').textContent = c.mercado.exh_lth || "Sin data";
+            document.getElementById('fc-pop-lub').textContent = c.mercado.exh_lub || "Sin data";
+            document.getElementById('fc-pop-mot').textContent = c.mercado.exh_mot || "Sin data";
+            document.getElementById('fc-pop-act').textContent = c.mercado.act || "Sin data";
 
-            // Foto Fachada desde Columna LONGITUD
-            document.getElementById('f-foto-placeholder').textContent = `Carga de Fachada desde Columna:\n[LONGITUD]: "${c.longitud}"`;
-            document.getElementById('f-maps-link').href = c.longitud.startsWith("http") ? c.longitud : `https://www.google.com/maps/search/?api=1&query=${c.latitud},${c.latitud}`;
+            // Foto Google Maps vinculada a columna LONGITUD
+            document.getElementById('fc-longitud-link-text').textContent = `Código guardado en Excel:\n${c.longitud}`;
+            document.getElementById('fc-gps-btn').href = c.longitud.startsWith("http") ? c.longitud : `https://www.google.com/maps/search/?api=1&query=${c.latitud},${c.latitud}`;
 
-            // Descuentos Otorgados por Cliente
-            const descContenedor = document.getElementById('f-lista-descuentos');
-            descContenedor.innerHTML = `
-                <div class="border-l-2 border-slate-300 pl-2">LTH: <b class="text-slate-900 block text-xs">${c.descuentos.lth}</b></div>
-                <div class="border-l-2 border-slate-300 pl-2">AMERICA: <b class="text-slate-900 block text-xs">${c.descuentos.america}</b></div>
-                <div class="border-l-2 border-blue-400 pl-2">PREMIUM: <b class="text-blue-600 block text-xs font-bold">${c.descuentos.premium_hi_tec}</b></div>
-                <div class="border-l-2 border-slate-300 pl-2">AGM: <b class="text-slate-900 block text-xs">${c.descuentos.agm}</b></div>
-                <div class="border-l-2 border-slate-300 pl-2">LUBRICANTE: <b class="text-slate-900 block text-xs">${c.descuentos.lubricante_aceite}</b></div>
-                <div class="border-l-2 border-slate-300 pl-2">MOTO: <b class="text-slate-900 block text-xs">${c.descuentos.motobateria}</b></div>
-                <div class="border-l-2 border-slate-300 pl-2">FILTROS LTH: <b class="text-slate-900 block text-xs">${c.descuentos.filtros_lth}</b></div>
+            // Descuentos Grid Otorgados
+            const descGrid = document.getElementById('fc-descuentos-grid');
+            descGrid.innerHTML = `
+                <div class="border-l border-slate-800 pl-2">LTH:<b class="text-white block font-bold">${c.descuentos.lth || "-"}</b></div>
+                <div class="border-l border-slate-800 pl-2">AMERICA:<b class="text-white block font-bold">${c.descuentos.america || "-"}</b></div>
+                <div class="border-l border-blue-900 pl-2 text-blue-400">PREMIUM:<b class="block font-black">${c.descuentos.premium || "-"}</b></div>
+                <div class="border-l border-slate-800 pl-2">AGM:<b class="text-white block font-bold">${c.descuentos.agm || "-"}</b></div>
+                <div class="border-l border-slate-800 pl-2">LUBRICANTE:<b class="text-white block font-bold">${c.descuentos.lub || "-"}</b></div>
+                <div class="border-l border-slate-800 pl-2">MOTO:<b class="text-white block font-bold">${c.descuentos.moto || "-"}</b></div>
+                <div class="border-l border-slate-800 pl-2">FILTROS LTH:<b class="text-white block font-bold">${c.descuentos.filtros || "-"}</b></div>
             `;
 
             // Minutas y Comentarios
-            document.getElementById('f-minuta-credito').textContent = c.mercado.minuta_credito_descuento || "Sin observaciones pendientes.";
-            document.getElementById('f-minuta-pop').textContent = c.mercado.minuta_de_pop || "Sin requerimientos pendientes.";
-            document.getElementById('f-comentario-mid').textContent = c.comentarios.mid ? `"${c.comentarios.mid}"` : "Sin comentarios registrados.";
-            document.getElementById('f-comentario-end').textContent = c.comentarios.end ? `"${c.comentarios.end}"` : "Sin comentarios registrados.";
+            document.getElementById('fc-minuta-cred').textContent = c.mercado.min_cred || "Ninguna minuta de crédito registrada.";
+            document.getElementById('fc-minuta-pop').textContent = c.mercado.min_pop || "Ninguna minuta publicitaria registrada.";
+            document.getElementById('fc-com-mid').textContent = c.comentarios.mid ? `"${c.comentarios.mid}"` : "Sin comentarios quincenales.";
+            document.getElementById('fc-com-end').textContent = c.comentarios.end ? `"${c.comentarios.end}"` : "Sin comentarios de cierre.";
 
-            panels.cliente.classList.remove('hidden');
+            irA('cliente');
         }
     </script>
 </body>
