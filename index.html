@@ -1,91 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Auditoría Comercial - Conexión Directa (Demo para Directivos)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador de Clientes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        .hidden { display: none; }
+        #client-info { margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans min-h-screen antialiased">
+<body>
 
-  <!-- Cabecera -->
-  <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <span class="text-2xl">📡</span>
-        <div>
-          <h1 class="text-sm font-black tracking-widest uppercase">SISTEMA LIVE DE AUDITORÍA COMERCIAL</h1>
-          <p class="text-[11px] text-emerald-400 font-bold uppercase tracking-wider">Conexión directa a Google Sheets (CSV)</p>
-        </div>
-      </div>
+<h1>Visualizador de Clientes</h1>
+<button id="btnLlanterama" class="button">Llanterama</button>
+<button id="btnAutoelectrica" class="button">Autoelectrica</button>
 
-      <!-- Campos para pegar/editar URLs de CSV (dos hojas) -->
-      <div class="flex flex-col sm:flex-row items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800">
-        <div class="flex items-center gap-1">
-          <label class="text-[10px] text-slate-500 font-bold uppercase">URL Llanterama</label>
-          <input id="url-llanterama" type="text" class="bg-slate-950 text-xs text-white border-none rounded focus:ring-0 w-72" value="https://docs.google.com/spreadsheets/d/e/2PACX-1vSlsq_vV_-82cjZmYnnObTvHtEfjBUPhuzI1Q8oZY7s_2XK3SVjIgNdIIEqNkoPEjKpoBvFl64zaIiz/pub?output=csv" />
-        </div>
-        <span class="text-slate-700 hidden sm:inline">|</span>
-        <div class="flex items-center gap-1">
-          <label class="text-[10px] text-slate-500 font-bold uppercase">URL Autoelectrica</label>
-          <input id="url-auto" type="text" class="bg-slate-950 text-xs text-white border-none rounded focus:ring-0 w-72" value="https://docs.google.com/spreadsheets/d/e/2PACX-1vSlsq_vV_-82cjZmYnnObTvHtEfjBUPhuzI1Q8oZY7s_2XK3SVjIgNdIIEqNkoPEjKpoBvFl64zaIiz/pub?output=csv" />
-        </div>
-        <button id="btn-load" class="ml-2 px-3 py-2 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold">Cargar datos</button>
-      </div>
-    </div>
-  </header>
+<div id="vendedores" class="hidden">
+    <h2>Vendedores</h2>
+    <button class="button" onclick="loadVendedor('Vendedor1')">Vendedor 1</button>
+    <button class="button" onclick="loadVendedor('Vendedor2')">Vendedor 2</button>
+    <!-- Agrega más vendedores según sea necesario -->
+</div>
 
-  <!-- Overlay de carga -->
-  <div id="loading-overlay" class="flex-1 flex items-center justify-center p-8 space-y-4">
-    <div id="loader-icon" class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-    <div id="loader-text" class="text-center max-w-md text-sm text-slate-400">
-      <h3 class="uppercase font-mono font-bold tracking-widest text-white">Descargando Base de Datos Oficial...</h3>
-      <p>Leemos matrices, mapeamos variables de crédito y calculamos las 13 líneas operativas de producto.</p>
-    </div>
-  </div>
+<div id="client-info" class="hidden">
+    <h2>Información del Cliente</h2>
+    <div id="clientDetails"></div>
+</div>
 
-  <!-- Contenido principal (oculto hasta cargar datos) -->
-  <main id="main-content" class="max-w-7xl w-full mx-auto p-4 md:p-8 hidden grid grid-cols-1 gap-6">
-    <!-- Inicio: dos pestañas principales -->
-    <section id="panel-inicio" class="space-y-4">
-      <div class="text-center">
-        <h2 class="text-2xl font-black text-white uppercase">Unidades Estratégicas de Negocio</h2>
-        <p class="text-xs text-slate-400">Los datos provienen de las pestañas corporativas y se actualizan en tiempo real (CSVs publicados).</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div id="card-llanterama" class="bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 rounded-2xl p-6 text-center shadow-xl cursor-pointer hover:border-blue-500" role="button" aria-label="Pestaña Llanterama" onclick="abrirCanal('llanterama')">
-          <div class="text-4xl mb-3">🛞</div>
-          <div class="text-lg font-black text-white uppercase">Pestaña: Llanterama</div>
-          <p id="count-llanterama" class="text-xs text-slate-500 mt-2 font-mono uppercase tracking-widest">Calculando...</p>
-        </div>
-        <div id="card-autoelectrica" class="bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 rounded-2xl p-6 text-center shadow-xl cursor-pointer hover:border-blue-500" role="button" aria-label="Pestaña Autoelectrica" onclick="abrirCanal('autoelectrica')">
-          <div class="text-4xl mb-3">⚡</div>
-          <div class="text-lg font-black text-white uppercase">Pestaña: Autoelectrica</div>
-          <p id="count-autoelectrica" class="text-xs text-slate-500 mt-2 font-mono uppercase tracking-widest">Calculando...</p>
-        </div>
-      </div>
-    </section>
+<script>
+    const spreadsheetId = '1bT6TQaWi5K0FYYI_qw3lz5YUS7J1MyXeaJCxglVf7O4';
+    const apiKey = 'TU_API_KEY_AQUÍ'; // Reemplaza con tu API Key
 
-    <!-- Panel de vendedores -->
-    <section id="panel-vendedores" class="hidden space-y-4">
-      <h3 class="text-base font-black text-white uppercase tracking-wider">Fuerza de Ventas por Canal</h3>
-      <div id="grid-vendedores" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
-    </section>
+    document.getElementById('btnLlanterama').onclick = function() {
+        document.getElementById('vendedores').classList.remove('hidden');
+    };
 
-    <!-- Panel de clientes (por vendedor) -->
-    <section id="panel-clientes" class="hidden">
-      <div class="flex items-center justify-between mb-2">
-        <h3 class="text-base font-black text-white uppercase tracking-wider">Cuentas del Vendedor</h3>
-        <button class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs" onclick="irA('inicio')">Volver</button>
-      </div>
-      <div class="overflow-x-auto border border-slate-800 rounded-xl">
-        <table id="tabla-clientes" class="w-full text-left text-xs border-collapse">
-          <thead class="bg-slate-900 text-slate-400 uppercase tracking-wider border-b border-slate-800">
-            <tr>
-              <th class="p-3 pl-4">Código</th>
-              <th class="p-3">Razón Social / Nombre</th>
-              <th class="p-3">Negocio</th>
-              <th class="p-3">Vendedor</th>
-              <th class="p-3 text-right pr-4">Venta Facturada</th>
-            </tr>
-         
+    document.getElementById('btnAutoelectrica').onclick = function() {
+        document.getElementById('vendedores').classList.remove('hidden');
+    };
+
+    function loadVendedor(vendedor) {
+        fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${vendedor}?key=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                displayClients(data.values);
+            });
+    }
+
+    function displayClients(clients) {
+        let html = '<table><tr><th>Cliente</th><th>Ventas</th><th>Objetivo</th></tr>';
+
+        clients.forEach(client => {
+            html += `<tr onclick="loadClientDetails('${client<a href="" class="citation-link" target="_blank" style="vertical-align: super; font-size: 0.8em; margin-left: 3px;">[0]</a>}')">
+                        <td>${client<a href="" class="citation-link" target="_blank" style="vertical-align: super; font-size: 0.8em; margin-left: 3px;">[2]</a>}</td>
+                        <td>${client<a href="" class="citation-link" target="_blank" style="vertical-align: super; font-size: 0.8em; margin-left: 3px;">[14]</a>}</td> <!-- Ventas reales -->
+                        <td>${client<a href="" class="citation-link" target="_blank" style="vertical-align: super; font-size: 0.8em; margin-left: 3px;">[15]</a>}</td> <!-- Objetivo -->
+                     </tr>`;
+        });
+        html += '</table>';
+        document.getElementById('clientDetails').innerHTML = html;
+        document.getElementById('client-info').classList.remove('hidden');
+    }
+
+    function loadClientDetails(clientName) {
+        // Aquí puedes agregar lógica para mostrar detalles específicos del cliente
+        alert(`Mostrando detalles de ${clientName}`);
+    }
+</script>
+
+</body>
+</html>
