@@ -45,10 +45,10 @@
     </header>
 
     <div id="loading-overlay" class="flex-1 flex flex-col justify-center items-center p-8 space-y-4">
-        <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        <div class="text-center">
+        <div id="loader-icon" class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        <div id="loader-text" class="text-center max-w-md">
             <h3 class="text-sm font-bold uppercase tracking-widest font-mono text-white">Descargando Base de Datos Oficial...</h3>
-            <p class="text-xs text-slate-500 mt-1 max-w-xs">Leyendo matrices, mapeando variables de crédito y calculando las 13 líneas operativas de producto.</p>
+            <p class="text-xs text-slate-500 mt-1">Leyendo matrices, mapeando variables de crédito y calculando las 13 líneas operativas de producto.</p>
         </div>
     </div>
 
@@ -271,7 +271,6 @@
             Object.keys(views).forEach(v => views[v].classList.add('hidden'));
             views[destino].classList.remove('hidden');
             
-            // Ajustar breadcrumbs visuales
             document.querySelector('.nav-s1').classList.toggle('hidden', destino === 'inicio');
             document.getElementById('nav-canal').classList.toggle('hidden', destino === 'inicio');
             document.querySelector('.nav-s2').classList.toggle('hidden', ['inicio', 'canal'].includes(destino));
@@ -280,7 +279,6 @@
             document.getElementById('nav-cliente').classList.toggle('hidden', destino !== 'cliente');
         }
 
-        // PARSER INTELIGENTE DE CSV (SOPORTA COMAS DENTRO DE COMILLAS DE TEXTO)
         function parsearCSV(text) {
             let lineas = text.split(/\r?\n/);
             return lineas.map(linea => {
@@ -303,15 +301,24 @@
             }).filter(row => row.length > 1);
         }
 
-        // DESCARGA AUTOMÁTICA DESDE LAS API DE GOOGLE SHEETS
         async function inicializarApp() {
             try {
                 const urlLlanterama = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=llanterama`;
                 const urlAuto = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=autoelectrica`;
 
                 const [resLlanterama, resAuto] = await Promise.all([fetch(urlLlanterama), fetch(urlAuto)]);
+                
+                if(!resLlanterama.ok || !resAuto.ok) {
+                    throw new Error("Google HTTP Error");
+                }
+
                 const txtLlanterama = await resLlanterama.text();
                 const txtAuto = await resAuto.text();
+
+                // Validar si Google devolvió una pantalla de Login en vez de datos
+                if(txtLlanterama.includes("<!DOCTYPE html>") || txtLlanterama.trim() === "") {
+                    throw new Error("Permissions Denied");
+                }
 
                 DataMaster.llanterama = mapearEstructuraObj(parsearCSV(txtLlanterama));
                 DataMaster.autoelectrica = mapearEstructuraObj(parsearCSV(txtAuto));
@@ -322,20 +329,35 @@
                 document.getElementById('loading-overlay').classList.add('hidden');
                 document.getElementById('main-content').classList.remove('hidden');
             } catch (error) {
-                alert("Error crítico al enlazar con Google Sheets. Asegúrate de que el documento tenga permisos para 'Cualquier persona con el enlace puede ver'.");
                 console.error(error);
+                mostrarPantallaErrorAyuda();
             }
         }
 
-        // MAPEO DE COLUMNAS EXACTO BASADO EN TU EXPLICACIÓN SECUENCIAL
+        function mostrarPantallaErrorAyuda() {
+            document.getElementById('loader-icon').className = "text-4xl mb-2 animate-bounce";
+            document.getElementById('loader-icon').innerHTML = "🔒";
+            document.getElementById('loader-text').innerHTML = `
+                <h3 class="text-sm font-black uppercase tracking-widest font-mono text-red-400">Acceso Denegado por Google Sheets</h3>
+                <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                    Google bloqueó la lectura directa porque el archivo es privado. Para activarlo haz lo siguiente en tu hoja de cálculo:
+                </p>
+                <div class="text-left bg-slate-950 p-4 border border-slate-800 rounded-xl mt-4 text-[11px] font-mono space-y-2 text-slate-400">
+                    <p><b class="text-blue-400">Opción A:</b> Da clic en el botón azul <b class="text-white">Compartir</b> (arriba a la derecha) y cambia el Acceso General de "Restringido" a <b class="text-emerald-400">"Cualquier persona con el enlace"</b> en rol Lector.</p>
+                    <div class="border-t border-slate-900 my-2"></div>
+                    <p><b class="text-blue-400">Opción B:</b> Ve a <b class="text-white">Archivo > Compartir > Publicar en la web</b> y presiona el botón azul <b class="text-emerald-400">Publicar</b>.</p>
+                </div>
+                <p class="text-[10px] text-slate-500 mt-4 italic font-mono">Una vez que cambies el permiso en Google Sheets, recarga esta pestaña de tu navegador.</p>
+            `;
+        }
+
         function mapearEstructuraObj(matriz) {
             if(matriz.length < 2) return [];
-            const cabecera = matriz[0].map(h => h.toUpperCase());
             const registros = [];
 
             for(let i = 1; i < matriz.length; i++) {
                 const r = matriz[i];
-                if(!r[2] && !r[3] && !r[8]) continue; // Descartar filas vacías de control
+                if(!r[2] && !r[3] && !r[8]) continue;
 
                 registros.push({
                     mes: r[0], ano: r[1],
@@ -344,7 +366,6 @@
                     latitud: r[13], longitud: r[14], foto: r[15], zona: r[16], giro: r[17], celular: r[18],
                     rutas: { lunes: r[19], martes: r[20], miercoles: r[21], jueves: r[22], viernes: r[23], sabado: r[24], esporadico: r[25] },
                     
-                    // El bloque de las 13 Líneas Exactas con sus tres variables (OBJ, REAL, %)
                     lineas: [
                         { n: "PREMIUM", obj: parseFloat(r[26])||0, real: parseFloat(r[27])||0, pct: r[28] },
                         { n: "AGM", obj: parseFloat(r[29])||0, real: parseFloat(r[30])||0, pct: r[31] },
@@ -369,7 +390,6 @@
             return registros;
         }
 
-        // ARMA LOS SELECTORES CON LOS MESES Y AÑOS PRESENTES EN TU HOJA
         function construirFiltrosFecha() {
             const anos = new Set(); const meses = new Set();
             [...DataMaster.llanterama, ...DataMaster.autoelectrica].forEach(r => {
@@ -398,7 +418,6 @@
             if(selectCanal) abrirCanal(selectCanal);
         }
 
-        // PANTALLA: VER FUERZA DE VENTAS DE LA HOJA SELECCIONADA
         function abrirCanal(canal) {
             selectCanal = canal;
             document.getElementById('title-canal').textContent = canal;
@@ -412,7 +431,6 @@
                 if(!vendedoresMap[r.vendedor]) vendedoresMap[r.vendedor] = { total_clientes: 0, real_acumulado: 0 };
                 vendedoresMap[r.vendedor].total_clientes++;
                 
-                // Convertir financiero real_fact a número limpio para promedios corporativos
                 let val = parseFloat(r.financiero.real_fact.replace(/[^0-9.-]+/g,"")) || 0;
                 vendedoresMap[r.vendedor].real_acumulado += val;
             });
@@ -444,9 +462,8 @@
             irA('canal');
         }
 
-        // PANTALLA: CARTERA DEL ASESOR
         function abrirVendedor(vendedor) {
-            selectVendedor = seller = vendedor;
+            selectVendedor = vendedor;
             document.getElementById('title-vendedor').textContent = vendedor;
             document.getElementById('nav-vendedor').textContent = vendedor;
 
@@ -454,7 +471,7 @@
             const tbody = document.getElementById('table-clientes');
             tbody.innerHTML = "";
 
-            clientes.forEach((cli, idx) => {
+            clientes.forEach((cli) => {
                 let diasVisita = [];
                 if(cli.rutas.lunes.toUpperCase() === 'X') diasVisita.push('LUN');
                 if(cli.rutas.martes.toUpperCase() === 'X') diasVisita.push('MAR');
@@ -480,21 +497,18 @@
             irA('vendedor');
         }
 
-        // PANTALLA: EXPEDIENTE COMERCIAL PREMIUM COMPLETO
         function mostrarFichaCliente(codigo) {
             const c = obtenerDataFiltrada(selectCanal).find(r => r.codigo === codigo);
             if(!c) return;
 
             document.getElementById('nav-cliente').textContent = c.codigo;
 
-            // Datos Identificadores
             document.getElementById('fc-codigo').textContent = c.codigo || "S/C";
             document.getElementById('fc-cliente').textContent = c.cliente;
             document.getElementById('fc-negocio').textContent = `Negocio: ${c.negocio || 'N/A'} | Ruta Asesor: ${c.vendedor}`;
             document.getElementById('fc-periodo').textContent = `${c.mes} ${c.ano}`;
             document.getElementById('fc-alta').textContent = c.alta || "Sin Especificar";
 
-            // Estructura de Finanzas y Crédito
             document.getElementById('fc-tipo').textContent = c.tipo || "CONTADO";
             document.getElementById('fc-dias').textContent = c.dias ? `${c.dias} Días` : "0 Días";
             document.getElementById('fc-limite').textContent = c.limite || "$0.00";
@@ -507,13 +521,11 @@
                 plr.className = "font-black bg-red-950 text-red-400 border border-red-900/60 font-mono text-[10px] px-2 py-0.5 rounded";
             }
 
-            // Datos de Localización Directa
             document.getElementById('fc-encargado').textContent = c.encargado || "N/A";
             document.getElementById('fc-celular').textContent = c.celular || "Sin Número";
             document.getElementById('fc-zona-giro').textContent = `${c.zona} / ${c.giro}`;
             document.getElementById('fc-direccion').textContent = c.direccion;
 
-            // Bloque Rutero con las Equis (X) Originales de tu Google Sheets
             const gridRutas = document.getElementById('fc-rutero-grid');
             gridRutas.innerHTML = "";
             ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'esporadico'].forEach(d => {
@@ -526,7 +538,6 @@
                 `;
             });
 
-            // Generación de Fila de las 13 Líneas con Barras de Progreso Dinámicas
             const tbodyLineas = document.getElementById('fc-tbody-lineas');
             tbodyLineas.innerHTML = "";
 
@@ -555,24 +566,20 @@
                 `;
             });
 
-            // Indicadores Financieros Monetarios
             document.getElementById('fc-obj-fact').textContent = c.financiero.obj_fact || "-";
             document.getElementById('fc-real-fact').textContent = c.financiero.real_fact || "-";
             document.getElementById('fc-costo').textContent = c.financiero.costo || "-";
             document.getElementById('fc-dif').textContent = c.financiero.dif || "-";
 
-            // Bloque Apoyo Comercial
             document.getElementById('fc-pop-fachada').textContent = c.apoyo.fachada || "-";
             document.getElementById('fc-pop-lth').textContent = c.apoyo.exh_lth || "-";
             document.getElementById('fc-pop-lub').textContent = c.apoyo.exh_lub || "-";
             document.getElementById('fc-pop-mot').textContent = c.apoyo.exh_mot || "-";
             document.getElementById('fc-pop-act').textContent = c.apoyo.act || "-";
 
-            // Enlace de Ubicación a Google Maps / Street View
             document.getElementById('fc-coordenadas-txt').textContent = `Lat: ${c.latitud || 'N/A'} | Long: ${c.longitud || 'N/A'}`;
-            document.getElementById('fc-foto-btn').href = c.foto.startsWith("http") ? c.foto : `https://www.google.com/maps/search/?api=1&query=${c.latitud},${c.longitud}`;
+            document.getElementById('fc-foto-btn').href = c.foto.startsWith("http") ? c.foto : `https://maps.google.com/?q=${c.latitud},${c.longitud}`;
 
-            // Descuentos Otorgados
             const dGrid = document.getElementById('fc-descuentos-grid');
             dGrid.innerHTML = `
                 <div class="border-l border-slate-800 pl-2">LTH:<b class="text-white block font-bold">${c.descuentos.lth || "-"}</b></div>
@@ -584,7 +591,6 @@
                 <div class="border-l border-slate-800 pl-2">FILTROS LTH:<b class="text-white block font-bold">${c.descuentos.filtros || "-"}</b></div>
             `;
 
-            // Minutas y Comentarios de Bitácora del Vendedor
             document.getElementById('fc-minuta-cred').textContent = c.apoyo.min_cred || "Sin registros de minutas de crédito o descuentos en la matriz.";
             document.getElementById('fc-minuta-pop').textContent = c.apoyo.min_pop || "Sin acuerdos de POP registrados para esta cuenta.";
             document.getElementById('fc-com-mid').textContent = c.comentarios.mid ? `"${c.comentarios.mid}"` : "El vendedor no registró comentarios a mitad de mes.";
@@ -593,7 +599,6 @@
             irA('cliente');
         }
 
-        // Lanzamiento Inicial del Proceso Automático
         window.onload = inicializarApp;
     </script>
 </body>
