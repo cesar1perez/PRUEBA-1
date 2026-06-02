@@ -1,605 +1,250 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auditoría Comercial - Conexión Directa Live</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seguimiento Comercial Live</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .card{background:#020617;border:1px solid #1e293b;border-radius:1rem;box-shadow:0 18px 45px rgba(0,0,0,.28)}
+    .pill{border:1px solid #334155;background:#0f172a;border-radius:999px;padding:.25rem .55rem;font-size:10px;font-weight:900;font-family:ui-monospace,Menlo,monospace;text-transform:uppercase}
+    .bar{height:8px;border-radius:999px;background:#1e293b;overflow:hidden}.bar>span{display:block;height:100%;border-radius:999px;background:#38bdf8}
+    .bar.ok>span{background:#34d399}.bar.warn>span{background:#fbbf24}.bar.bad>span{background:#fb7185}.bar.extra>span{background:#60a5fa}
+  </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col antialiased">
-
-    <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md bg-opacity-95 shadow-xl">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="irA('inicio')">
-                <span class="text-2xl animate-pulse">📡</span>
-                <div>
-                    <h1 class="text-sm font-black tracking-widest text-white uppercase font-mono">SISTEMA LIVE DE AUDITORÍA COMERCIAL</h1>
-                    <p class="text-[11px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                        <span class="h-2 w-2 rounded-full bg-emerald-500 inline-block"></span> Sincronizado con Google Sheets Real-Time
-                    </p>
-                </div>
-            </div>
-            
-            <div class="flex items-center space-x-3 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800">
-                <div class="flex items-center space-x-1">
-                    <label class="text-[10px] font-mono text-slate-500 font-bold uppercase">Año:</label>
-                    <select id="filtro-ano" onchange="recalcularTodo()" class="bg-slate-950 text-xs font-bold text-white border-none rounded focus:ring-0 cursor-pointer p-1 font-mono"></select>
-                </div>
-                <span class="text-slate-700">|</span>
-                <div class="flex items-center space-x-1">
-                    <label class="text-[10px] font-mono text-slate-500 font-bold uppercase">Mes:</label>
-                    <select id="filtro-mes" onchange="recalcularTodo()" class="bg-slate-950 text-xs font-bold text-white border-none rounded focus:ring-0 cursor-pointer p-1 font-mono uppercase"></select>
-                </div>
-            </div>
-
-            <nav class="flex items-center space-x-2 text-xs font-mono">
-                <button onclick="irA('inicio')" class="text-slate-400 hover:text-white transition">INICIO</button>
-                <span class="text-slate-700 nav-s1 hidden">/</span>
-                <span id="nav-canal" class="text-slate-400 hidden uppercase"></span>
-                <span class="text-slate-700 nav-s2 hidden">/</span>
-                <span id="nav-vendedor" class="text-slate-400 hidden uppercase"></span>
-                <span class="text-slate-700 nav-s3 hidden">/</span>
-                <span id="nav-cliente" class="text-blue-400 font-bold hidden"></span>
-            </nav>
-        </div>
-    </header>
-
-    <div id="loading-overlay" class="flex-1 flex flex-col justify-center items-center p-8 space-y-4">
-        <div id="loader-icon" class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        <div id="loader-text" class="text-center max-w-md">
-            <h3 class="text-sm font-bold uppercase tracking-widest font-mono text-white">Descargando Base de Datos Oficial...</h3>
-            <p class="text-xs text-slate-500 mt-1">Leyendo matrices, mapeando variables de crédito y calculando las 13 líneas operativas de producto.</p>
-        </div>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
+  <header class="sticky top-0 z-50 bg-slate-950/95 backdrop-blur border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
+      <div onclick="irA('inicio')" class="cursor-pointer">
+        <h1 class="text-lg font-black uppercase tracking-tight">Seguimiento Comercial Live</h1>
+        <p class="text-[11px] text-emerald-400 font-mono font-bold uppercase">● Conectado a Google Sheets · Llanterama / Autoeléctrica</p>
+      </div>
+      <div class="flex flex-wrap gap-2 items-center">
+        <select id="filtro-ano" onchange="recalcularTodo()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-bold"></select>
+        <select id="filtro-mes" onchange="recalcularTodo()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-bold uppercase"></select>
+        <button onclick="inicializarApp()" class="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-lg text-xs font-black uppercase">Actualizar</button>
+      </div>
+      <nav class="text-[11px] font-mono text-slate-400 flex gap-2 items-center overflow-x-auto">
+        <button onclick="irA('inicio')" class="hover:text-white">INICIO</button><span id="bc-canal"></span><span id="bc-vendedor"></span><span id="bc-cliente"></span>
+      </nav>
     </div>
+  </header>
 
-    <main id="main-content" class="max-w-7xl w-full mx-auto p-4 md:p-8 flex-1 hidden">
+  <div id="loading" class="min-h-[70vh] flex flex-col items-center justify-center text-center px-6">
+    <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+    <h2 class="font-black uppercase tracking-widest text-sm">Descargando base comercial</h2>
+    <p class="text-xs text-slate-500 mt-2 max-w-lg">Leyendo pestañas, detectando columnas por encabezado y calculando avances por cliente, vendedor y línea de producto.</p>
+  </div>
 
-        <div id="vista-inicio" class="space-y-8 py-6">
-            <div class="text-center space-y-2 max-w-xl mx-auto">
-                <h2 class="text-2xl font-black text-white tracking-tight uppercase">Unidades Estratégicas de Negocio</h2>
-                <p class="text-xs text-slate-400 font-mono">Los datos que se visualizan a continuación provienen de forma íntegra y transparente de tus pestañas corporativas.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto pt-4">
-                <div onclick="abrirCanal('llanterama')" class="bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 hover:border-blue-500 rounded-2xl p-6 text-center shadow-xl transition-all cursor-pointer group">
-                    <span class="block text-4xl mb-3 group-hover:scale-110 transition-transform">🛞</span>
-                    <h3 class="text-lg font-black text-white tracking-wider uppercase group-hover:text-blue-400">Pestaña: Llanterama</h3>
-                    <p id="count-llanterama" class="text-[11px] text-slate-500 mt-2 font-mono uppercase tracking-widest">Calculando...</p>
-                </div>
-                <div onclick="abrirCanal('autoelectrica')" class="bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 hover:border-blue-500 rounded-2xl p-6 text-center shadow-xl transition-all cursor-pointer group">
-                    <span class="block text-4xl mb-3 group-hover:scale-110 transition-transform">⚡</span>
-                    <h3 class="text-lg font-black text-white tracking-wider uppercase group-hover:text-blue-400">Pestaña: Autoelectrica</h3>
-                    <p id="count-autoelectrica" class="text-[11px] text-slate-500 mt-2 font-mono uppercase tracking-widest">Calculando...</p>
-                </div>
-            </div>
+  <main id="app" class="hidden max-w-7xl mx-auto p-4 md:p-8">
+    <section id="vista-inicio" class="space-y-8">
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-black uppercase">Selecciona unidad de negocio</h2>
+        <p class="text-sm text-slate-400 mt-2">Cada botón carga únicamente los clientes del mes y año seleccionados.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+        <button onclick="abrirCanal('llanterama')" class="card hover:border-blue-500 transition p-7 text-left group">
+          <div class="text-4xl mb-3">🛞</div><h3 class="text-xl font-black uppercase group-hover:text-blue-400">Llanterama</h3>
+          <p id="count-llanterama" class="text-xs text-slate-500 font-mono mt-2">Calculando...</p>
+        </button>
+        <button onclick="abrirCanal('autoelectrica')" class="card hover:border-blue-500 transition p-7 text-left group">
+          <div class="text-4xl mb-3">⚡</div><h3 class="text-xl font-black uppercase group-hover:text-blue-400">Autoeléctrica</h3>
+          <p id="count-autoelectrica" class="text-xs text-slate-500 font-mono mt-2">Calculando...</p>
+        </button>
+      </div>
+    </section>
+
+    <section id="vista-canal" class="hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-3 border-b border-slate-800 pb-4">
+        <div><p class="text-xs text-slate-500 font-mono uppercase">Unidad</p><h2 id="title-canal" class="text-2xl font-black uppercase text-blue-400"></h2></div>
+        <div id="resumen-canal" class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center"></div>
+      </div>
+      <div id="grid-vendedores" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+
+    <section id="vista-vendedor" class="hidden space-y-5">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3 border-b border-slate-800 pb-4">
+        <div><p class="text-xs text-slate-500 font-mono uppercase">Vendedor</p><h2 id="title-vendedor" class="text-2xl font-black uppercase text-blue-400"></h2></div>
+        <input id="buscar-cliente" oninput="renderClientes()" placeholder="Buscar cliente, código, negocio, zona..." class="bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm w-full lg:w-96 outline-none focus:border-blue-500" />
+      </div>
+      <div class="card overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead class="bg-slate-900 text-slate-400 uppercase font-mono"><tr><th class="p-3">Código</th><th class="p-3">Cliente</th><th class="p-3">Zona/Giro</th><th class="p-3 text-center">Visita</th><th class="p-3 text-right">Avance</th><th class="p-3 text-right">Facturado</th></tr></thead><tbody id="table-clientes" class="divide-y divide-slate-900"></tbody></table></div></div>
+    </section>
+
+    <section id="vista-cliente" class="hidden space-y-6">
+      <div class="card p-5 flex flex-col lg:flex-row lg:justify-between gap-4">
+        <div><div class="flex gap-2 flex-wrap items-center"><span id="fc-codigo" class="pill text-blue-300"></span><h2 id="fc-cliente" class="text-xl font-black uppercase"></h2></div><p id="fc-negocio" class="text-xs text-slate-400 font-mono mt-1"></p></div>
+        <div class="text-xs font-mono text-slate-400"><div>Periodo: <b id="fc-periodo" class="text-blue-400 uppercase"></b></div><div>Fecha alta: <b id="fc-alta" class="text-white"></b></div></div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-5">
+        <aside class="space-y-5">
+          <div class="card p-4"><h3 class="text-xs font-black uppercase text-purple-400 font-mono border-b border-slate-800 pb-2 mb-3">Crédito / PLR</h3><div id="fc-credito" class="space-y-2 text-xs"></div></div>
+          <div class="card p-4"><h3 class="text-xs font-black uppercase text-slate-400 font-mono border-b border-slate-800 pb-2 mb-3">Datos generales</h3><div id="fc-generales" class="space-y-3 text-xs text-slate-300"></div></div>
+          <div class="card p-4"><h3 class="text-xs font-black uppercase text-blue-400 font-mono border-b border-slate-800 pb-2 mb-3">Ruta de visita</h3><div id="fc-rutas" class="grid grid-cols-4 gap-2"></div></div>
+          <div class="card overflow-hidden"><div class="bg-slate-900 px-4 py-2 text-xs font-black uppercase text-slate-400 font-mono">Ubicación / Foto</div><div class="p-4 text-center"><div class="text-4xl">🏪</div><p id="fc-coordenadas" class="text-[10px] text-slate-500 font-mono mt-2"></p><a id="fc-maps" target="_blank" class="mt-3 inline-block w-full bg-blue-600 hover:bg-blue-500 rounded-lg py-2 text-xs font-black uppercase">Abrir ubicación / foto</a></div></div>
+        </aside>
+
+        <div class="lg:col-span-2 space-y-5">
+          <div class="card overflow-hidden"><div class="bg-slate-900 px-4 py-3 text-xs font-black uppercase font-mono text-slate-300">Objetivo vs Real por línea</div><div class="overflow-x-auto"><table class="w-full text-xs"><thead class="text-slate-500 uppercase font-mono"><tr><th class="p-3 text-left">Línea</th><th class="p-3 text-right">Objetivo</th><th class="p-3 text-right">Real</th><th class="p-3 text-center">Avance</th></tr></thead><tbody id="fc-lineas" class="divide-y divide-slate-900"></tbody></table></div></div>
+          <div id="fc-financiero" class="grid sm:grid-cols-4 gap-3"></div>
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="card p-4"><h3 class="text-xs font-black uppercase text-emerald-400 font-mono border-b border-slate-800 pb-2 mb-3">Apoyo comercial / POP</h3><div id="fc-apoyo" class="space-y-2 text-xs"></div></div>
+            <div class="card p-4"><h3 class="text-xs font-black uppercase text-amber-400 font-mono border-b border-slate-800 pb-2 mb-3">Descuentos otorgados</h3><div id="fc-descuentos" class="grid grid-cols-2 gap-2 text-xs"></div></div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="card p-4"><h3 class="text-xs font-black uppercase text-purple-400 font-mono border-b border-slate-800 pb-2 mb-3">Minutas</h3><div id="fc-minutas" class="space-y-3 text-xs"></div></div>
+            <div class="card p-4"><h3 class="text-xs font-black uppercase text-slate-400 font-mono border-b border-slate-800 pb-2 mb-3">Comentarios del vendedor</h3><div id="fc-comentarios" class="space-y-3 text-xs"></div></div>
+          </div>
         </div>
+      </div>
+    </section>
+  </main>
 
-        <div id="vista-canal" class="hidden space-y-6">
-            <div class="border-b border-slate-800 pb-4 flex justify-between items-end">
-                <div>
-                    <h2 class="text-base font-black text-white uppercase tracking-wider flex items-center gap-2">
-                        <span>Fuerza de Ventas Evaluada en:</span> <span id="title-canal" class="text-blue-400"></span>
-                    </h2>
-                    <p class="text-xs text-slate-400 font-mono">Avances calculados con base en el total facturado vs costo en el periodo filtrado.</p>
-                </div>
-            </div>
-            <div id="grid-vendedores" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
-        </div>
+<script>
+const SPREADSHEET_ID = "1bT6TQaWi5K0FYYI_qw3lz5YUS7J1MyXeaJCxglVf7O4";
+const SHEETS = { llanterama: "Llanterama", autoelectrica: "Autoelectrica" };
+const DataMaster = { llanterama: [], autoelectrica: [] };
+let selectCanal = "", selectVendedor = "", clientesActuales = [];
+const views = ["inicio","canal","vendedor","cliente"];
+const MESES_ORDEN = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const LINEAS = [
+  ["PREM","OBJ PREM","REAL PREM"], ["AGM","OBJ AGM","REAL AGM"], ["ESTÁNDAR","OBJ ESTANDAR","REAL ESTANDAR"],
+  ["TOTAL ACUM","OBJ TOTAL","REAL TOTAL"], ["FILTRO","OBJ FILTRO","REAL FILTRO"], ["LUB","OBJ LUB","REAL LUB"],
+  ["MOTO","OBJ MOTO","REAL MOTO"], ["USADO","OBJ USADO","REAL USADOS"], ["AUTO","OBJ AUTO","REAL AUTO"],
+  ["CTA","OBJ CTA","REAL CTA"], ["CAMIÓN","OBJ CAMION","REAL CAMION"], ["LLANTAS","OBJ LLANTAS","REAL LLANTAS"],
+  ["ALCALINA","OBJ ALCALIN","REAL ALCALIN"]
+];
 
-        <div id="vista-vendedor" class="hidden space-y-6">
-            <div class="border-b border-slate-800 pb-4">
-                <h2 class="text-base font-black text-white uppercase">
-                    Cartera Real del Asesor: <span id="title-vendedor" class="text-blue-400"></span>
-                </h2>
-                <p class="text-xs text-slate-400 font-mono">Listado total de cuentas auditadas, su giro comercial y facturación registrada.</p>
-            </div>
-            <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs border-collapse">
-                        <thead>
-                            <tr class="bg-slate-900 text-slate-400 border-b border-slate-800 font-bold uppercase tracking-wider font-mono text-[11px]">
-                                <th class="p-3 pl-4">Código</th>
-                                <th class="p-3">Razón Social / Nombre Comercial</th>
-                                <th class="p-3">Zona / Giro</th>
-                                <th class="p-3 text-center">Frecuencia Visita</th>
-                                <th class="p-3 text-right pr-4">Venta Facturada</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-clientes" class="divide-y divide-slate-900 text-slate-300"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+function norm(s){return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim().toUpperCase().replace(/\s+/g," ");}
+function txt(v){return String(v ?? "").trim();}
+function num(v){
+  let s = txt(v).replace(/\$/g,"").replace(/%/g,"").replace(/\s/g,"");
+  if(!s) return 0;
+  if(s.includes(",") && s.includes(".")) s = s.replace(/,/g,"");
+  else if(s.includes(",") && !s.includes(".")) s = s.replace(/,/g,".");
+  return Number(s.replace(/[^0-9.-]/g,"")) || 0;
+}
+function money(v){return num(v).toLocaleString("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:2});}
+function pct(obj, real){ if(obj>0) return real/obj*100; if(real>0) return 100; return 0; }
+function pctLabel(obj, real){ if(obj<=0 && real>0) return "Venta sin objetivo"; return `${pct(obj,real).toFixed(1)}%`; }
+function esc(s){return txt(s).replace(/[&<>'"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
+function claseAvance(obj, real){ const p=pct(obj,real); if(obj<=0 && real>0) return "extra"; if(p>=95) return "ok"; if(p>=80) return "warn"; return "bad"; }
 
-        <div id="vista-cliente" class="hidden space-y-6">
-            <div class="bg-gradient-to-r from-slate-950 to-slate-900 p-5 rounded-xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-xl">
-                <div class="space-y-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span id="fc-codigo" class="px-2 py-0.5 bg-blue-600 text-white font-mono text-[10px] font-black rounded uppercase"></span>
-                        <h2 id="fc-cliente" class="text-base font-black text-white tracking-tight uppercase"></h2>
-                    </div>
-                    <p id="fc-negocio" class="text-xs text-slate-400 font-medium font-mono"></p>
-                </div>
-                <div class="font-mono text-[11px] bg-slate-950 border border-slate-800 px-4 py-2 rounded-lg text-slate-400">
-                    <div>AUDITORÍA: <span id="fc-periodo" class="text-blue-400 font-bold uppercase"></span></div>
-                    <div>FECHA ALTA INICIAL: <span id="fc-alta" class="text-slate-200"></span></div>
-                </div>
-            </div>
+function parseCSV(text){
+  const rows=[]; let row=[], cell='', q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i], n=text[i+1];
+    if(c==='"' && q && n==='"'){cell+='"'; i++;}
+    else if(c==='"'){q=!q;}
+    else if(c===',' && !q){row.push(cell); cell='';}
+    else if((c==='\n'||c==='\r') && !q){ if(c==='\r'&&n==='\n') i++; row.push(cell); if(row.some(x=>txt(x)!=='')) rows.push(row); row=[]; cell='';}
+    else cell+=c;
+  }
+  row.push(cell); if(row.some(x=>txt(x)!=='')) rows.push(row);
+  return rows;
+}
+function makeIndex(headers){ const m={}; headers.forEach((h,i)=>{ const k=norm(h); if(!(k in m)) m[k]=i; }); return m; }
+function get(row, idx, name){ const i=idx[norm(name)]; return i===undefined ? "" : txt(row[i]); }
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="space-y-6">
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 text-xs shadow-md">
-                        <h4 class="font-bold text-purple-400 uppercase tracking-wider border-b border-slate-800 pb-1 mb-2 font-mono">Estatus de Crédito y PLR</h4>
-                        <div class="space-y-2 font-mono">
-                            <div class="flex justify-between"><span class="text-slate-500">CONDICIÓN (TIPO):</span> <span id="fc-tipo" class="font-bold text-white"></span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">DÍAS OTORGADOS:</span> <span id="fc-dias" class="font-bold text-white"></span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">LÍMITE ASIGNADO:</span> <span id="fc-limite" class="font-bold text-white"></span></div>
-                            <div class="flex justify-between border-t border-slate-900 pt-1.5"><span class="text-slate-500">TIENE PORTADA (PLR):</span> <span id="fc-plr" class="font-bold px-1.5 py-0.2 rounded text-[10px]"></span></div>
-                        </div>
-                    </div>
+async function cargarHoja(sheetName){
+  const url = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&cacheBust=${Date.now()}`;
+  const res = await fetch(url);
+  if(!res.ok) throw new Error(`No pude leer la hoja ${sheetName}`);
+  const text = await res.text();
+  if(text.includes("<!DOCTYPE html>") || text.includes("ServiceLogin")) throw new Error("El Google Sheet no está público o publicado en la web.");
+  const matriz = parseCSV(text);
+  if(matriz.length<2) return [];
+  const headers = matriz[0], idx = makeIndex(headers);
+  return matriz.slice(1).map((r, fila)=>mapRegistro(r,idx,fila+2)).filter(x=>x.codigo || x.cliente || x.vendedor);
+}
+function mapRegistro(r, idx, fila){
+  const lineas = LINEAS.map(([n,objH,realH])=>({ n, obj:num(get(r,idx,objH)), real:num(get(r,idx,realH)) }));
+  return {
+    fila, mes: get(r,idx,"MES"), ano: get(r,idx,"AÑO") || get(r,idx,"ANO"), alta:get(r,idx,"FECHA DE ALTA"), vendedor:get(r,idx,"VENDEDOR"), tipo:get(r,idx,"TIPO"), dias:get(r,idx,"DIAS"), limite:get(r,idx,"LIMITE"), plr:get(r,idx,"PLR"),
+    codigo:get(r,idx,"COD CLIENTE"), cliente:get(r,idx,"CLIENTE"), negocio:get(r,idx,"NOMBRE DE NEGOCIO"), encargado:get(r,idx,"ENCARGADO DE COMPRAS"), direccion:get(r,idx,"DIRECCION"), latitud:get(r,idx,"LATITUD"), longitud:get(r,idx,"LONGITUD"), foto:get(r,idx,"FOTO GOOGLE"), zona:get(r,idx,"ZONA"), giro:get(r,idx,"GIRO"), celular:get(r,idx,"NUMERO CELULAR"),
+    rutas:{lunes:get(r,idx,"LUNES"),martes:get(r,idx,"MARTES"),miercoles:get(r,idx,"MIERCOLES"),jueves:get(r,idx,"JUEVES"),viernes:get(r,idx,"VIERNES"),sabado:get(r,idx,"SABADO"),esporadico:get(r,idx,"ESPORADICO")},
+    lineas,
+    financiero:{obj_fact:num(get(r,idx,"OBJ FACT")), real_fact:num(get(r,idx,"REAL FACT")), costo:num(get(r,idx,"COSTO")), dif:num(get(r,idx,"DIF"))},
+    apoyo:{fachada:get(r,idx,"FACHADA"), exh_lth:get(r,idx,"EXHIBIDOR LTH"), exh_lub:get(r,idx,"EXHIBIDOR LUB"), exh_mot:get(r,idx,"EXHIBIDOR MOT"), act:get(r,idx,"ACTIVACIONES"), min_cred:get(r,idx,"MINUTA CREDITO / DESCUENTO"), min_pop:get(r,idx,"MINUTA DE POP")},
+    descuentos:{lth:get(r,idx,"LTH"), america:get(r,idx,"AMERICA"), premium:get(r,idx,"PREMIUM (HI TEC)"), agm:get(r,idx,"AGM"), lub:get(r,idx,"LUBRICANTE / ACEITE"), moto:get(r,idx,"MOTOBATERIA"), filtros:get(r,idx,"FILTROS LTH")},
+    comentarios:{mid:get(r,idx,"COMENTARIO A MITAD DE MES"), end:get(r,idx,"COMENTARIOS A FINAL DE MES")}
+  };
+}
 
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 text-xs shadow-md">
-                        <h4 class="font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800 pb-1 mb-2 font-mono">Datos Generales</h4>
-                        <div class="space-y-2">
-                            <p><span class="text-slate-500 uppercase font-mono block text-[10px]">Encargado de Compras:</span> <span id="fc-encargado" class="text-white font-bold block mt-0.5"></span></p>
-                            <p><span class="text-slate-500 uppercase font-mono block text-[10px]">Número Celular:</span> <span id="fc-celular" class="text-slate-200 font-mono block"></span></p>
-                            <p><span class="text-slate-500 uppercase font-mono block text-[10px]">Zona / Giro:</span> <span id="fc-zona-giro" class="text-slate-200 block font-semibold"></span></p>
-                            <p class="pt-1.5 border-t border-slate-900 text-slate-400 leading-normal"><span class="text-slate-500 uppercase font-mono block text-[10px]">Dirección:</span> <span id="fc-direccion" class="text-[11px]"></span></p>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs shadow-md">
-                        <h4 class="font-bold text-blue-400 uppercase tracking-wider border-b border-slate-800 pb-1 mb-3 font-mono">Rutas Programadas (X)</h4>
-                        <div id="fc-rutero-grid" class="grid grid-cols-4 gap-1 text-center font-bold text-[10px] font-mono"></div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl shadow-xl overflow-hidden">
-                        <div class="bg-slate-900 px-4 py-2.5 border-b border-slate-800 text-xs font-bold uppercase tracking-wider text-slate-300 font-mono">
-                            Avance Físico de Objetivos por Línea de Producto (Pzas / Unidades)
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs border-collapse">
-                                <thead>
-                                    <tr class="bg-slate-950 text-slate-500 border-b border-slate-900 uppercase font-bold text-[10px] tracking-wider font-mono">
-                                        <th class="p-2.5 pl-4">Línea del Negocio</th>
-                                        <th class="p-2.5 text-right">Objetivo (OBJ)</th>
-                                        <th class="p-2.5 text-right">Venta Real (REAL)</th>
-                                        <th class="p-2.5 text-center">% Cumplimiento</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="fc-tbody-lineas" class="divide-y divide-slate-900 text-slate-300"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-950 rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-center font-mono border border-slate-800 shadow-inner">
-                        <div class="bg-slate-900 p-2 border border-slate-800 rounded-lg">
-                            <span class="block text-[9px] text-slate-500 font-bold uppercase">OBJ FACT</span>
-                            <span id="fc-obj-fact" class="text-xs font-black text-slate-300"></span>
-                        </div>
-                        <div class="bg-slate-900 p-2 border border-slate-800 rounded-lg">
-                            <span class="block text-[9px] text-slate-500 font-bold uppercase">REAL FACT</span>
-                            <span id="fc-real-fact" class="text-xs font-black text-emerald-400"></span>
-                        </div>
-                        <div class="bg-slate-900 p-2 border border-slate-800 rounded-lg">
-                            <span class="block text-[9px] text-slate-500 font-bold uppercase">COSTO TIENDA</span>
-                            <span id="fc-costo" class="text-xs font-black text-slate-400"></span>
-                        </div>
-                        <div class="bg-blue-950/40 p-2 border border-blue-900/50 rounded-lg">
-                            <span class="block text-[9px] text-blue-400 font-bold uppercase">UTILIDAD (DIF)</span>
-                            <span id="fc-dif" class="text-xs font-black text-blue-400"></span>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs space-y-2 shadow-md">
-                            <h4 class="font-bold text-emerald-400 uppercase tracking-wider border-b border-slate-800 pb-1 mb-2 font-mono">Estatus de Apoyo Comercial</h4>
-                            <div class="space-y-2 font-mono">
-                                <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-500">FACHADA:</span> <span id="fc-pop-fachada" class="text-white font-bold"></span></div>
-                                <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-500">EXHIBIDOR LTH:</span> <span id="fc-pop-lth" class="text-white font-bold"></span></div>
-                                <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-500">EXHIBIDOR LUB:</span> <span id="fc-pop-lub" class="text-white font-bold"></span></div>
-                                <div class="flex justify-between border-b border-slate-900 pb-1"><span class="text-slate-500">EXHIBIDOR MOT:</span> <span id="fc-pop-mot" class="text-white font-bold"></span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">ACTIVACIONES:</span> <span id="fc-pop-act" class="text-white font-bold"></span></div>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between shadow-md">
-                            <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 text-[10px] font-bold text-slate-400 uppercase font-mono">Evidencia y Foto Google</div>
-                            <div class="p-4 flex-1 flex flex-col justify-center items-center bg-slate-900/40 text-center space-y-1">
-                                <span class="text-3xl">🏪</span>
-                                <div id="fc-coordenadas-txt" class="text-[9px] font-mono text-slate-500"></div>
-                            </div>
-                            <div class="p-2 bg-slate-900 border-t border-slate-800">
-                                <a id="fc-foto-btn" href="#" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] uppercase py-2 rounded font-mono transition">ABRIR RUTA / FOTO INTERACTIVA</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs shadow-md space-y-2">
-                        <h4 class="font-bold text-amber-500 uppercase tracking-wider border-b border-slate-800 pb-1 mb-1 font-mono">Descuentos Asignados por Línea</h4>
-                        <div id="fc-descuentos-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-slate-400"></div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3 shadow-md">
-                            <h4 class="font-bold text-purple-400 uppercase tracking-wider border-b border-slate-800 pb-1 font-mono">Minutas de Control</h4>
-                            <div class="bg-purple-950/20 p-2.5 rounded border border-purple-900/30">
-                                <span class="text-[9px] text-purple-400 font-bold block uppercase font-mono tracking-wider mb-0.5">Minuta Crédito / Descuento</span>
-                                <p id="fc-minuta-cred" class="text-slate-300 font-medium"></p>
-                            </div>
-                            <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-slate-400 font-bold block uppercase font-mono tracking-wider mb-0.5">Minuta de POP</span>
-                                <p id="fc-minuta-pop" class="text-slate-300 font-medium"></p>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3 shadow-md">
-                            <h4 class="font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800 pb-1 font-mono">Bitácora de Comentarios (Vendedor)</h4>
-                            <div class="bg-slate-900/80 p-2.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-emerald-400 font-bold block uppercase font-mono tracking-wider mb-0.5">Progreso Mitad de Mes</span>
-                                <p id="fc-com-mid" class="text-slate-300 italic font-medium"></p>
-                            </div>
-                            <div class="bg-slate-900/80 p-2.5 rounded border border-slate-800">
-                                <span class="text-[9px] text-blue-400 font-bold block uppercase font-mono tracking-wider mb-0.5">Estatus Final de Mes</span>
-                                <p id="fc-com-end" class="text-slate-300 italic font-medium"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <script>
-        const SPREADSHEET_ID = "1bT6TQaWi5K0FYYI_qw3lz5YUS7J1MyXeaJCxglVf7O4";
-        const DataMaster = { llanterama: [], autoelectrica: [] };
-        
-        let selectCanal = "";
-        let selectVendedor = "";
-        
-        const views = {
-            inicio: document.getElementById('vista-inicio'),
-            canal: document.getElementById('vista-canal'),
-            vendedor: document.getElementById('vista-vendedor'),
-            cliente: document.getElementById('vista-cliente')
-        };
-
-        function irA(destino) {
-            Object.keys(views).forEach(v => views[v].classList.add('hidden'));
-            views[destino].classList.remove('hidden');
-            
-            document.querySelector('.nav-s1').classList.toggle('hidden', destino === 'inicio');
-            document.getElementById('nav-canal').classList.toggle('hidden', destino === 'inicio');
-            document.querySelector('.nav-s2').classList.toggle('hidden', ['inicio', 'canal'].includes(destino));
-            document.getElementById('nav-vendedor').classList.toggle('hidden', ['inicio', 'canal'].includes(destino));
-            document.querySelector('.nav-s3').classList.toggle('hidden', destino !== 'cliente');
-            document.getElementById('nav-cliente').classList.toggle('hidden', destino !== 'cliente');
-        }
-
-        function parsearCSV(text) {
-            let lineas = text.split(/\r?\n/);
-            return lineas.map(linea => {
-                let celdas = [];
-                let dentroComillas = false;
-                let celdaActual = '';
-                for (let i = 0; i < linea.length; i++) {
-                    let c = linea[i];
-                    if (c === '"') {
-                        dentroComillas = !dentroComillas;
-                    } else if (c === ',' && !dentroComillas) {
-                        celdas.push(celdaActual.trim().replace(/^"|"$/g, ''));
-                        celdaActual = '';
-                    } else {
-                        celdaActual += c;
-                    }
-                }
-                celdas.push(celdaActual.trim().replace(/^"|"$/g, ''));
-                return celdas;
-            }).filter(row => row.length > 1);
-        }
-
-        async function inicializarApp() {
-            try {
-                const urlLlanterama = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=llanterama`;
-                const urlAuto = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=autoelectrica`;
-
-                const [resLlanterama, resAuto] = await Promise.all([fetch(urlLlanterama), fetch(urlAuto)]);
-                
-                if(!resLlanterama.ok || !resAuto.ok) {
-                    throw new Error("Google HTTP Error");
-                }
-
-                const txtLlanterama = await resLlanterama.text();
-                const txtAuto = await resAuto.text();
-
-                // Validar si Google devolvió una pantalla de Login en vez de datos
-                if(txtLlanterama.includes("<!DOCTYPE html>") || txtLlanterama.trim() === "") {
-                    throw new Error("Permissions Denied");
-                }
-
-                DataMaster.llanterama = mapearEstructuraObj(parsearCSV(txtLlanterama));
-                DataMaster.autoelectrica = mapearEstructuraObj(parsearCSV(txtAuto));
-
-                construirFiltrosFecha();
-                recalcularTodo();
-
-                document.getElementById('loading-overlay').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-            } catch (error) {
-                console.error(error);
-                mostrarPantallaErrorAyuda();
-            }
-        }
-
-        function mostrarPantallaErrorAyuda() {
-            document.getElementById('loader-icon').className = "text-4xl mb-2 animate-bounce";
-            document.getElementById('loader-icon').innerHTML = "🔒";
-            document.getElementById('loader-text').innerHTML = `
-                <h3 class="text-sm font-black uppercase tracking-widest font-mono text-red-400">Acceso Denegado por Google Sheets</h3>
-                <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-                    Google bloqueó la lectura directa porque el archivo es privado. Para activarlo haz lo siguiente en tu hoja de cálculo:
-                </p>
-                <div class="text-left bg-slate-950 p-4 border border-slate-800 rounded-xl mt-4 text-[11px] font-mono space-y-2 text-slate-400">
-                    <p><b class="text-blue-400">Opción A:</b> Da clic en el botón azul <b class="text-white">Compartir</b> (arriba a la derecha) y cambia el Acceso General de "Restringido" a <b class="text-emerald-400">"Cualquier persona con el enlace"</b> en rol Lector.</p>
-                    <div class="border-t border-slate-900 my-2"></div>
-                    <p><b class="text-blue-400">Opción B:</b> Ve a <b class="text-white">Archivo > Compartir > Publicar en la web</b> y presiona el botón azul <b class="text-emerald-400">Publicar</b>.</p>
-                </div>
-                <p class="text-[10px] text-slate-500 mt-4 italic font-mono">Una vez que cambies el permiso en Google Sheets, recarga esta pestaña de tu navegador.</p>
-            `;
-        }
-
-        function mapearEstructuraObj(matriz) {
-            if(matriz.length < 2) return [];
-            const registros = [];
-
-            for(let i = 1; i < matriz.length; i++) {
-                const r = matriz[i];
-                if(!r[2] && !r[3] && !r[8]) continue;
-
-                registros.push({
-                    mes: r[0], ano: r[1],
-                    alta: r[2], vendedor: r[3], tipo: r[4], dias: r[5], limite: r[6], plr: r[7],
-                    codigo: r[8], cliente: r[9], negocio: r[10], encargado: r[11], direccion: r[12],
-                    latitud: r[13], longitud: r[14], foto: r[15], zona: r[16], giro: r[17], celular: r[18],
-                    rutas: { lunes: r[19], martes: r[20], miercoles: r[21], jueves: r[22], viernes: r[23], sabado: r[24], esporadico: r[25] },
-                    
-                    lineas: [
-                        { n: "PREMIUM", obj: parseFloat(r[26])||0, real: parseFloat(r[27])||0, pct: r[28] },
-                        { n: "AGM", obj: parseFloat(r[29])||0, real: parseFloat(r[30])||0, pct: r[31] },
-                        { n: "ESTANDAR", obj: parseFloat(r[32])||0, real: parseFloat(r[33])||0, pct: r[34] },
-                        { n: "TOTAL ACUM (PIEZAS)", obj: parseFloat(r[35])||0, real: parseFloat(r[36])||0, pct: r[37] },
-                        { n: "FILTROS", obj: parseFloat(r[38])||0, real: parseFloat(r[39])||0, pct: r[40] },
-                        { n: "LUBRICANTES", obj: parseFloat(r[41])||0, real: parseFloat(r[42])||0, pct: r[43] },
-                        { n: "MOTO", obj: parseFloat(r[44])||0, real: parseFloat(r[45])||0, pct: r[46] },
-                        { n: "USADOS", obj: parseFloat(r[47])||0, real: parseFloat(r[48])||0, pct: r[49] },
-                        { n: "AUTO", obj: parseFloat(r[50])||0, real: parseFloat(r[51])||0, pct: r[52] },
-                        { n: "CTA", obj: parseFloat(r[53])||0, real: parseFloat(r[54])||0, pct: r[55] },
-                        { n: "CAMION", obj: parseFloat(r[56])||0, real: parseFloat(r[57])||0, pct: r[58] },
-                        { n: "TOTAL LLANTAS", obj: parseFloat(r[59])||0, real: parseFloat(r[60])||0, pct: r[61] },
-                        { n: "ALCALINA", obj: parseFloat(r[62])||0, real: parseFloat(r[63])||0, pct: r[64] }
-                    ],
-                    financiero: { obj_fact: r[65], real_fact: r[66], costo: r[67], dif: r[68] },
-                    apoyo: { fachada: r[69], exh_lth: r[70], exh_lub: r[71], exh_mot: r[72], act: r[73], min_cred: r[74], min_pop: r[75] },
-                    descuentos: { lth: r[76], america: r[77], premium: r[78], agm: r[79], lub: r[80], moto: r[81], filtros: r[82] },
-                    comentarios: { mid: r[83], end: r[84] }
-                });
-            }
-            return registros;
-        }
-
-        function construirFiltrosFecha() {
-            const anos = new Set(); const meses = new Set();
-            [...DataMaster.llanterama, ...DataMaster.autoelectrica].forEach(r => {
-                if(r.ano) anos.add(r.ano);
-                if(r.mes) meses.add(r.mes.toLowerCase());
-            });
-
-            const selAno = document.getElementById('filtro-ano');
-            selAno.innerHTML = "";
-            Array.from(anos).sort().forEach(a => selAno.innerHTML += `<option value="${a}">${a}</option>`);
-
-            const selMes = document.getElementById('filtro-mes');
-            selMes.innerHTML = "";
-            Array.from(meses).forEach(m => selMes.innerHTML += `<option value="${m}">${m}</option>`);
-        }
-
-        function obtenerDataFiltrada(canal) {
-            const anoSel = document.getElementById('filtro-ano').value;
-            const mesSel = document.getElementById('filtro-mes').value;
-            return DataMaster[canal].filter(r => String(r.ano) === anoSel && String(r.mes).toLowerCase() === mesSel);
-        }
-
-        function recalcularTodo() {
-            document.getElementById('count-llanterama').textContent = `${obtenerDataFiltrada('llanterama').length} Cuentas del Periodo`;
-            document.getElementById('count-autoelectrica').textContent = `${obtenerDataFiltrada('autoelectrica').length} Cuentas del Periodo`;
-            if(selectCanal) abrirCanal(selectCanal);
-        }
-
-        function abrirCanal(canal) {
-            selectCanal = canal;
-            document.getElementById('title-canal').textContent = canal;
-            document.getElementById('nav-canal').textContent = canal;
-            
-            const registros = obtenerDataFiltrada(canal);
-            const vendedoresMap = {};
-
-            registros.forEach(r => {
-                if(!r.vendedor) return;
-                if(!vendedoresMap[r.vendedor]) vendedoresMap[r.vendedor] = { total_clientes: 0, real_acumulado: 0 };
-                vendedoresMap[r.vendedor].total_clientes++;
-                
-                let val = parseFloat(r.financiero.real_fact.replace(/[^0-9.-]+/g,"")) || 0;
-                vendedoresMap[r.vendedor].real_acumulado += val;
-            });
-
-            const grid = document.getElementById('grid-vendedores');
-            grid.innerHTML = "";
-
-            if(Object.keys(vendedoresMap).length === 0) {
-                grid.innerHTML = `<div class="col-span-full p-8 text-center text-xs font-mono text-slate-500 uppercase">Sin movimientos ni vendedores registrados en este mes.</div>`;
-                irA('canal');
-                return;
-            }
-
-            Object.keys(vendedoresMap).forEach(vend => {
-                const meta = vendedoresMap[vend];
-                grid.innerHTML += `
-                    <div onclick="abrirVendedor('${vend}')" class="bg-slate-950 border border-slate-850 hover:border-blue-500 rounded-xl p-4 shadow-xl transition-all cursor-pointer flex justify-between items-center group">
-                        <div>
-                            <h4 class="text-xs font-black text-white uppercase group-hover:text-blue-400 font-mono tracking-wide">${vend}</h4>
-                            <span class="text-[10px] font-mono text-slate-500 block mt-1">${meta.total_clientes} CLIENTES ASIGNADOS</span>
-                        </div>
-                        <div class="text-right">
-                            <span class="block text-[8px] font-bold text-slate-500 uppercase font-mono">Facturado</span>
-                            <span class="text-xs font-black text-emerald-400 font-mono">$${meta.real_acumulado.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            irA('canal');
-        }
-
-        function abrirVendedor(vendedor) {
-            selectVendedor = vendedor;
-            document.getElementById('title-vendedor').textContent = vendedor;
-            document.getElementById('nav-vendedor').textContent = vendedor;
-
-            const clientes = obtenerDataFiltrada(selectCanal).filter(r => r.vendedor === vendedor);
-            const tbody = document.getElementById('table-clientes');
-            tbody.innerHTML = "";
-
-            clientes.forEach((cli) => {
-                let diasVisita = [];
-                if(cli.rutas.lunes.toUpperCase() === 'X') diasVisita.push('LUN');
-                if(cli.rutas.martes.toUpperCase() === 'X') diasVisita.push('MAR');
-                if(cli.rutas.miercoles.toUpperCase() === 'X') diasVisita.push('MIE');
-                if(cli.rutas.jueves.toUpperCase() === 'X') diasVisita.push('JUE');
-                if(cli.rutas.viernes.toUpperCase() === 'X') diasVisita.push('VIE');
-                if(cli.rutas.sabado.toUpperCase() === 'X') diasVisita.push('SAB');
-                if(cli.rutas.esporadico.toUpperCase() === 'X') diasVisita.push('ESP');
-
-                tbody.innerHTML += `
-                    <tr onclick="mostrarFichaCliente('${cli.codigo}')" class="hover:bg-slate-900/60 transition cursor-pointer border-b border-slate-900">
-                        <td class="p-3 font-mono text-blue-400 font-bold">${cli.codigo || "S/C"}</td>
-                        <td class="p-3">
-                            <span class="text-white block font-bold uppercase text-[12px]">${cli.cliente}</span>
-                            <span class="text-[10px] text-slate-500 font-mono block mt-0.5">${cli.negocio || "-"}</span>
-                        </td>
-                        <td class="p-3 text-slate-400 font-medium">${cli.zona} <span class="block text-[10px] text-slate-500 font-normal mt-0.5">${cli.giro}</span></td>
-                        <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-900 border border-slate-800 text-slate-400 text-[10px] rounded font-bold font-mono">${diasVisita.join(", ") || "-"}</span></td>
-                        <td class="p-3 text-right font-mono font-bold text-emerald-400 pr-4">${cli.financiero.real_fact}</td>
-                    </tr>
-                `;
-            });
-            irA('vendedor');
-        }
-
-        function mostrarFichaCliente(codigo) {
-            const c = obtenerDataFiltrada(selectCanal).find(r => r.codigo === codigo);
-            if(!c) return;
-
-            document.getElementById('nav-cliente').textContent = c.codigo;
-
-            document.getElementById('fc-codigo').textContent = c.codigo || "S/C";
-            document.getElementById('fc-cliente').textContent = c.cliente;
-            document.getElementById('fc-negocio').textContent = `Negocio: ${c.negocio || 'N/A'} | Ruta Asesor: ${c.vendedor}`;
-            document.getElementById('fc-periodo').textContent = `${c.mes} ${c.ano}`;
-            document.getElementById('fc-alta').textContent = c.alta || "Sin Especificar";
-
-            document.getElementById('fc-tipo').textContent = c.tipo || "CONTADO";
-            document.getElementById('fc-dias').textContent = c.dias ? `${c.dias} Días` : "0 Días";
-            document.getElementById('fc-limite').textContent = c.limite || "$0.00";
-            
-            const plr = document.getElementById('fc-plr');
-            plr.textContent = c.plr || "NO ELABORADA";
-            if(c.plr.toUpperCase() === 'SÍ' || c.plr.toUpperCase() === 'SI' || c.plr.toUpperCase() === 'SÍ TIENE') {
-                plr.className = "font-black bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono text-[10px] px-2 py-0.5 rounded";
-            } else {
-                plr.className = "font-black bg-red-950 text-red-400 border border-red-900/60 font-mono text-[10px] px-2 py-0.5 rounded";
-            }
-
-            document.getElementById('fc-encargado').textContent = c.encargado || "N/A";
-            document.getElementById('fc-celular').textContent = c.celular || "Sin Número";
-            document.getElementById('fc-zona-giro').textContent = `${c.zona} / ${c.giro}`;
-            document.getElementById('fc-direccion').textContent = c.direccion;
-
-            const gridRutas = document.getElementById('fc-rutero-grid');
-            gridRutas.innerHTML = "";
-            ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'esporadico'].forEach(d => {
-                const activo = c.rutas[d].toUpperCase() === 'X';
-                gridRutas.innerHTML += `
-                    <div class="border p-1.5 rounded-lg ${activo ? 'bg-emerald-950/50 border-emerald-800 text-emerald-400' : 'bg-slate-900/40 border-slate-900 text-slate-700'}">
-                        <span class="block text-[8px] uppercase text-slate-500 font-mono">${d.substring(0,3)}</span>
-                        <span class="text-xs font-black">${activo ? 'X' : '-'}</span>
-                    </div>
-                `;
-            });
-
-            const tbodyLineas = document.getElementById('fc-tbody-lineas');
-            tbodyLineas.innerHTML = "";
-
-            c.lineas.forEach(l => {
-                let pctValor = parseFloat(l.pct.replace('%', '')) || 0;
-                let claseColor = "text-slate-400 bg-slate-900 border-slate-800";
-
-                if (l.obj > 0) {
-                    claseColor = pctValor >= 95 ? "text-emerald-400 bg-emerald-950/40 border-emerald-900" : pctValor >= 80 ? "text-amber-400 bg-amber-950/40 border-amber-900" : "text-red-400 bg-red-950/40 border-red-900";
-                } else if (l.obj === 0 && l.real > 0) {
-                    claseColor = "text-blue-400 bg-blue-950/40 border-blue-900 font-bold";
-                }
-
-                const esFilaTotal = l.n.includes("TOTAL");
-                const estiloEstrucutra = esFilaTotal ? "bg-slate-900/90 font-black text-white border-y border-slate-800" : "";
-
-                tbodyLineas.innerHTML += `
-                    <tr class="${estiloEstrucutra} hover:bg-slate-900/30 transition">
-                        <td class="p-2.5 pl-4 font-mono uppercase tracking-wider text-[11px]">${l.n}</td>
-                        <td class="p-2.5 text-right font-mono text-slate-400">${l.obj || "-"}</td>
-                        <td class="p-2.5 text-right font-mono font-bold text-white">${l.real}</td>
-                        <td class="p-2.5 text-center font-mono text-[10px]">
-                            <span class="px-2 py-0.5 rounded font-bold border ${claseColor}">${l.pct || '0%'}</span>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            document.getElementById('fc-obj-fact').textContent = c.financiero.obj_fact || "-";
-            document.getElementById('fc-real-fact').textContent = c.financiero.real_fact || "-";
-            document.getElementById('fc-costo').textContent = c.financiero.costo || "-";
-            document.getElementById('fc-dif').textContent = c.financiero.dif || "-";
-
-            document.getElementById('fc-pop-fachada').textContent = c.apoyo.fachada || "-";
-            document.getElementById('fc-pop-lth').textContent = c.apoyo.exh_lth || "-";
-            document.getElementById('fc-pop-lub').textContent = c.apoyo.exh_lub || "-";
-            document.getElementById('fc-pop-mot').textContent = c.apoyo.exh_mot || "-";
-            document.getElementById('fc-pop-act').textContent = c.apoyo.act || "-";
-
-            document.getElementById('fc-coordenadas-txt').textContent = `Lat: ${c.latitud || 'N/A'} | Long: ${c.longitud || 'N/A'}`;
-            document.getElementById('fc-foto-btn').href = c.foto.startsWith("http") ? c.foto : `https://maps.google.com/?q=${c.latitud},${c.longitud}`;
-
-            const dGrid = document.getElementById('fc-descuentos-grid');
-            dGrid.innerHTML = `
-                <div class="border-l border-slate-800 pl-2">LTH:<b class="text-white block font-bold">${c.descuentos.lth || "-"}</b></div>
-                <div class="border-l border-slate-800 pl-2">AMERICA:<b class="text-white block font-bold">${c.descuentos.america || "-"}</b></div>
-                <div class="border-l border-blue-900 pl-2 text-blue-400">PREMIUM (HI TEC):<b class="block font-black">${c.descuentos.premium || "-"}</b></div>
-                <div class="border-l border-slate-800 pl-2">AGM:<b class="text-white block font-bold">${c.descuentos.agm || "-"}</b></div>
-                <div class="border-l border-slate-800 pl-2">LUBRICANTE / ACEITE:<b class="text-white block font-bold">${c.descuentos.lub || "-"}</b></div>
-                <div class="border-l border-slate-800 pl-2">MOTOBATERIA:<b class="text-white block font-bold">${c.descuentos.moto || "-"}</b></div>
-                <div class="border-l border-slate-800 pl-2">FILTROS LTH:<b class="text-white block font-bold">${c.descuentos.filtros || "-"}</b></div>
-            `;
-
-            document.getElementById('fc-minuta-cred').textContent = c.apoyo.min_cred || "Sin registros de minutas de crédito o descuentos en la matriz.";
-            document.getElementById('fc-minuta-pop').textContent = c.apoyo.min_pop || "Sin acuerdos de POP registrados para esta cuenta.";
-            document.getElementById('fc-com-mid').textContent = c.comentarios.mid ? `"${c.comentarios.mid}"` : "El vendedor no registró comentarios a mitad de mes.";
-            document.getElementById('fc-com-end').textContent = c.comentarios.end ? `"${c.comentarios.end}"` : "Sin bitácora registrada al cierre de mes.";
-
-            irA('cliente');
-        }
-
-        window.onload = inicializarApp;
-    </script>
+async function inicializarApp(){
+  document.getElementById('loading').classList.remove('hidden'); document.getElementById('app').classList.add('hidden');
+  try{
+    const [ll, au] = await Promise.all([cargarHoja(SHEETS.llanterama), cargarHoja(SHEETS.autoelectrica)]);
+    DataMaster.llanterama = ll; DataMaster.autoelectrica = au;
+    construirFiltrosFecha(); recalcularTodo(); irA('inicio');
+    document.getElementById('loading').classList.add('hidden'); document.getElementById('app').classList.remove('hidden');
+  }catch(e){
+    document.getElementById('loading').innerHTML = `<div class="card p-6 max-w-xl text-left"><div class="text-4xl mb-2">🔒</div><h2 class="text-red-400 font-black uppercase">No pude leer Google Sheets</h2><p class="text-sm text-slate-300 mt-2">${esc(e.message)}</p><div class="mt-4 text-xs text-slate-400 space-y-2"><p><b class="text-white">Solución:</b> en Google Sheets ve a <b>Compartir</b> y deja el archivo como “Cualquier persona con el enlace: Lector”.</p><p>También sirve: <b>Archivo → Compartir → Publicar en la web</b>.</p></div></div>`;
+  }
+}
+function construirFiltrosFecha(){
+  const all=[...DataMaster.llanterama,...DataMaster.autoelectrica];
+  const anos=[...new Set(all.map(x=>txt(x.ano)).filter(Boolean))].sort();
+  const meses=[...new Set(all.map(x=>txt(x.mes).toLowerCase()).filter(Boolean))].sort((a,b)=>MESES_ORDEN.indexOf(a)-MESES_ORDEN.indexOf(b));
+  const ya=document.getElementById('filtro-ano').value, ym=document.getElementById('filtro-mes').value;
+  document.getElementById('filtro-ano').innerHTML=anos.map(a=>`<option value="${esc(a)}">${esc(a)}</option>`).join('');
+  document.getElementById('filtro-mes').innerHTML=meses.map(m=>`<option value="${esc(m)}">${esc(m)}</option>`).join('');
+  if(anos.includes(ya)) document.getElementById('filtro-ano').value=ya; else if(anos.length) document.getElementById('filtro-ano').value=anos[anos.length-1];
+  if(meses.includes(ym)) document.getElementById('filtro-mes').value=ym; else if(meses.length) document.getElementById('filtro-mes').value=meses[0];
+}
+function dataFiltrada(canal){ const a=document.getElementById('filtro-ano').value, m=document.getElementById('filtro-mes').value; return DataMaster[canal].filter(r=>txt(r.ano)===a && txt(r.mes).toLowerCase()===m); }
+function agg(regs){
+  const out={clientes:regs.length,obj:0,real:0,realFact:0,costo:0,dif:0, ventaSinObj:0};
+  regs.forEach(r=>{ out.realFact+=r.financiero.real_fact; out.costo+=r.financiero.costo; out.dif+=r.financiero.dif; r.lineas.forEach(l=>{out.obj+=l.obj; out.real+=l.real; if(l.obj<=0&&l.real>0) out.ventaSinObj++;}); });
+  out.avance=pct(out.obj,out.real); return out;
+}
+function mini(label,value,color="text-white"){ return `<div class="bg-slate-900 border border-slate-800 rounded-xl p-3"><span class="block text-[9px] text-slate-500 font-mono font-black uppercase">${label}</span><b class="${color} text-sm">${value}</b></div>`; }
+function recalcularTodo(){
+  ['llanterama','autoelectrica'].forEach(c=>{ const a=agg(dataFiltrada(c)); document.getElementById(`count-${c}`).textContent=`${a.clientes} clientes · ${a.avance.toFixed(1)}% avance · ${money(a.realFact)} facturado`; });
+  if(selectCanal) abrirCanal(selectCanal);
+}
+function irA(vista){
+  views.forEach(v=>document.getElementById(`vista-${v}`).classList.toggle('hidden', v!==vista));
+  document.getElementById('bc-canal').innerHTML = selectCanal ? `/ <button onclick="abrirCanal('${selectCanal}')" class="hover:text-white uppercase">${esc(selectCanal)}</button>` : '';
+  document.getElementById('bc-vendedor').innerHTML = selectVendedor && ['vendedor','cliente'].includes(vista) ? `/ <button onclick="abrirVendedor('${esc(selectVendedor)}')" class="hover:text-white uppercase">${esc(selectVendedor)}</button>` : '';
+  document.getElementById('bc-cliente').innerHTML = vista==='cliente' ? `/ <span class="text-blue-400">CLIENTE</span>` : '';
+}
+function abrirCanal(canal){
+  selectCanal=canal; selectVendedor=""; document.getElementById('title-canal').textContent=canal;
+  const regs=dataFiltrada(canal), a=agg(regs);
+  document.getElementById('resumen-canal').innerHTML = mini('Clientes',a.clientes)+mini('Avance líneas',`${a.avance.toFixed(1)}%`,'text-blue-400')+mini('Facturado',money(a.realFact),'text-emerald-400')+mini('Utilidad',money(a.dif),a.dif>=0?'text-emerald-400':'text-red-400');
+  const map={}; regs.forEach(r=>{ if(!r.vendedor) return; (map[r.vendedor]??=[]).push(r); });
+  const grid=document.getElementById('grid-vendedores'); grid.innerHTML='';
+  Object.keys(map).sort().forEach(v=>{ const av=agg(map[v]); grid.innerHTML += `<button onclick="abrirVendedor('${esc(v)}')" class="card p-4 text-left hover:border-blue-500 transition"><div class="flex justify-between gap-3"><div><h3 class="font-black uppercase text-sm">${esc(v)}</h3><p class="text-[10px] text-slate-500 font-mono mt-1">${av.clientes} clientes · ${av.ventaSinObj} ventas sin obj.</p></div><b class="text-blue-400">${av.avance.toFixed(1)}%</b></div><div class="bar ${claseAvance(av.obj,av.real)} mt-4"><span style="width:${Math.min(av.avance,100)}%"></span></div><div class="flex justify-between text-[10px] text-slate-500 font-mono mt-2"><span>Real líneas: ${av.real}</span><span>${money(av.realFact)}</span></div></button>`; });
+  if(!Object.keys(map).length) grid.innerHTML='<div class="text-center text-slate-500 text-xs font-mono col-span-full py-12">Sin vendedores para este periodo.</div>';
+  irA('canal');
+}
+function abrirVendedor(v){ selectVendedor=v; document.getElementById('title-vendedor').textContent=v; document.getElementById('buscar-cliente').value=''; clientesActuales=dataFiltrada(selectCanal).filter(r=>r.vendedor===v); renderClientes(); irA('vendedor'); }
+function dias(rutas){ return Object.entries(rutas).filter(([k,v])=>norm(v)==='X').map(([k])=>k.slice(0,3).toUpperCase()).join(', ') || '-'; }
+function renderClientes(){
+  const q=norm(document.getElementById('buscar-cliente').value); const tb=document.getElementById('table-clientes'); tb.innerHTML='';
+  clientesActuales.filter(c=>!q || norm(`${c.codigo} ${c.cliente} ${c.negocio} ${c.zona} ${c.giro}`).includes(q)).forEach(c=>{ const a=agg([c]); tb.innerHTML += `<tr onclick="mostrarFichaCliente('${esc(c.codigo)}','${c.fila}')" class="hover:bg-slate-900 cursor-pointer"><td class="p-3 font-mono text-blue-400 font-bold">${esc(c.codigo||'S/C')}</td><td class="p-3"><b class="uppercase text-white">${esc(c.cliente||'-')}</b><span class="block text-[10px] text-slate-500 font-mono">${esc(c.negocio||'-')}</span></td><td class="p-3 text-slate-400">${esc(c.zona||'-')}<span class="block text-[10px] text-slate-500">${esc(c.giro||'-')}</span></td><td class="p-3 text-center"><span class="pill">${esc(dias(c.rutas))}</span></td><td class="p-3 text-right text-blue-400 font-black">${a.avance.toFixed(1)}%</td><td class="p-3 text-right text-emerald-400 font-mono font-bold">${money(c.financiero.real_fact)}</td></tr>`; });
+}
+function kv(k,v){return `<div class="flex justify-between gap-3 border-b border-slate-900 pb-2"><span class="text-slate-500 font-mono uppercase">${k}</span><b class="text-right">${esc(v||'-')}</b></div>`;}
+function box(label,value,color="text-white"){return `<div class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center"><span class="block text-[9px] font-mono text-slate-500 uppercase font-black">${label}</span><b class="${color}">${value}</b></div>`;}
+function mostrarFichaCliente(codigo,fila){
+  const c=clientesActuales.find(x=>x.codigo===codigo && String(x.fila)===String(fila)) || clientesActuales.find(x=>x.codigo===codigo); if(!c) return;
+  document.getElementById('fc-codigo').textContent=c.codigo||'S/C'; document.getElementById('fc-cliente').textContent=c.cliente||'-'; document.getElementById('fc-negocio').textContent=`${c.negocio||'Sin nombre comercial'} · Vendedor: ${c.vendedor||'-'}`; document.getElementById('fc-periodo').textContent=`${c.mes} ${c.ano}`; document.getElementById('fc-alta').textContent=c.alta||'-';
+  const plrOk=['SI','SÍ','X','OK'].includes(norm(c.plr));
+  document.getElementById('fc-credito').innerHTML=kv('Tipo',c.tipo||'CONTADO')+kv('Días',c.dias||'0')+kv('Límite',c.limite||'$0')+`<div class="flex justify-between"><span class="text-slate-500 font-mono uppercase">PLR</span><span class="pill ${plrOk?'text-emerald-400':'text-red-400'}">${esc(c.plr||'NO')}</span></div>`;
+  document.getElementById('fc-generales').innerHTML=kv('Encargado',c.encargado)+kv('Celular',c.celular)+kv('Zona/Giro',`${c.zona||'-'} / ${c.giro||'-'}`)+`<p><span class="text-slate-500 font-mono uppercase block text-[10px]">Dirección</span>${esc(c.direccion||'-')}</p>`;
+  document.getElementById('fc-rutas').innerHTML=Object.entries(c.rutas).map(([d,v])=>{const on=norm(v)==='X'; return `<div class="rounded-lg border p-2 text-center ${on?'border-emerald-700 bg-emerald-950/30 text-emerald-400':'border-slate-800 bg-slate-900 text-slate-600'}"><span class="block text-[8px] uppercase font-mono">${d.slice(0,3)}</span><b>${on?'X':'-'}</b></div>`}).join('');
+  document.getElementById('fc-coordenadas').textContent=`Lat: ${c.latitud||'N/A'} · Long: ${c.longitud||'N/A'}`;
+  document.getElementById('fc-maps').href = c.foto && c.foto.startsWith('http') ? c.foto : (c.latitud && c.longitud ? `https://maps.google.com/?q=${encodeURIComponent(c.latitud+','+c.longitud)}` : `https://www.google.com/maps/search/${encodeURIComponent(c.direccion||c.cliente||'')}`);
+  document.getElementById('fc-lineas').innerHTML=c.lineas.map(l=>{const p=pct(l.obj,l.real), cls=claseAvance(l.obj,l.real); return `<tr><td class="p-3 font-mono font-bold uppercase ${l.n.includes('TOTAL')?'text-white':'text-slate-300'}">${esc(l.n)}</td><td class="p-3 text-right font-mono text-slate-400">${l.obj||'-'}</td><td class="p-3 text-right font-mono text-white font-bold">${l.real}</td><td class="p-3"><div class="flex items-center gap-2 justify-end"><span class="text-[10px] font-mono text-slate-400">${pctLabel(l.obj,l.real)}</span><div class="bar ${cls} w-24"><span style="width:${Math.min(p,100)}%"></span></div></div></td></tr>`}).join('');
+  document.getElementById('fc-financiero').innerHTML=box('OBJ FACT',money(c.financiero.obj_fact),'text-slate-200')+box('REAL FACT',money(c.financiero.real_fact),'text-emerald-400')+box('COSTO',money(c.financiero.costo),'text-slate-300')+box('UTILIDAD',money(c.financiero.dif),c.financiero.dif>=0?'text-emerald-400':'text-red-400');
+  document.getElementById('fc-apoyo').innerHTML=kv('Fachada',c.apoyo.fachada)+kv('Exhibidor LTH',c.apoyo.exh_lth)+kv('Exhibidor LUB',c.apoyo.exh_lub)+kv('Exhibidor MOT',c.apoyo.exh_mot)+kv('Activaciones',c.apoyo.act);
+  document.getElementById('fc-descuentos').innerHTML=Object.entries({LTH:c.descuentos.lth,AMERICA:c.descuentos.america,'PREMIUM':c.descuentos.premium,AGM:c.descuentos.agm,LUB:c.descuentos.lub,MOTO:c.descuentos.moto,FILTROS:c.descuentos.filtros}).map(([k,v])=>`<div class="bg-slate-900 border border-slate-800 rounded-lg p-2"><span class="block text-[9px] text-slate-500 font-mono font-black">${k}</span><b>${esc(v||'-')}</b></div>`).join('');
+  document.getElementById('fc-minutas').innerHTML=`<div class="bg-purple-950/20 border border-purple-900/40 rounded-lg p-3"><b class="text-purple-400 text-[10px] font-mono uppercase">Crédito / Descuento</b><p>${esc(c.apoyo.min_cred||'Sin minuta registrada.')}</p></div><div class="bg-slate-900 border border-slate-800 rounded-lg p-3"><b class="text-slate-400 text-[10px] font-mono uppercase">POP</b><p>${esc(c.apoyo.min_pop||'Sin minuta de POP registrada.')}</p></div>`;
+  document.getElementById('fc-comentarios').innerHTML=`<div class="bg-slate-900 border border-slate-800 rounded-lg p-3"><b class="text-emerald-400 text-[10px] font-mono uppercase">Mitad de mes</b><p>${esc(c.comentarios.mid||'Sin comentario.')}</p></div><div class="bg-slate-900 border border-slate-800 rounded-lg p-3"><b class="text-blue-400 text-[10px] font-mono uppercase">Final de mes</b><p>${esc(c.comentarios.end||'Sin comentario.')}</p></div>`;
+  irA('cliente');
+}
+window.onload=inicializarApp;
+</script>
 </body>
 </html>
