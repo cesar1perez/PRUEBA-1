@@ -3,372 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte Diario de Visitas a Detalle por Cliente</title>
+    <title>Sistema de Control de Rutas y Objetivos Comerciales</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans p-4 md:p-8">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
 
-    <div class="max-w-7xl mx-auto bg-white shadow-xl rounded-lg border border-gray-200 overflow-hidden">
-        
-        <header class="bg-gray-900 text-white p-6 border-b-4 border-blue-600">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <span class="text-xs uppercase tracking-wider font-semibold text-gray-400">Reporte Diario de Visitas a Detalle</span>
-                    <h1 class="text-2xl font-bold tracking-tight">Ficha Ejecutiva por Cliente</h1>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm bg-gray-800 p-3 rounded border border-gray-700 w-full md:w-auto">
-                    <div>
-                        <span class="block text-xs text-gray-400 font-medium">MES:</span>
-                        <span class="font-bold text-blue-400">JUNIO</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs text-gray-400 font-medium">AÑO:</span>
-                        <span class="font-bold text-blue-400">2026</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs text-gray-400 font-medium">EMPRESA:</span>
-                        <select class="bg-gray-700 text-white font-bold rounded px-1 py-0.5 border border-gray-600 focus:outline-none">
-                            <option>Llanterama</option>
-                            <option>Autoelectrica</option>
-                        </select>
-                    </div>
-                    <div>
-                        <span class="block text-xs text-gray-400 font-medium">VENDEDOR:</span>
-                        <span class="font-bold text-white">Carlos Mendoza</span>
-                    </div>
-                </div>
+    <nav class="bg-slate-900 text-white p-4 sticky top-0 z-50 shadow-sm border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex justify-between items-center text-xs">
+            <div class="flex items-center space-x-2 tracking-wide font-mono">
+                <button onclick="irAInicio()" class="hover:text-blue-400 font-bold uppercase">Inicio</button>
+                <span class="text-slate-600 dynamic-sep hidden">/</span>
+                <button onclick="irAEmpresa()" id="nav-empresa" class="hover:text-blue-400 font-semibold text-slate-300 hidden uppercase"></button>
+                <span class="text-slate-600 dynamic-sep-2 hidden">/</span>
+                <button onclick="irAVendedor()" id="nav-vendedor" class="hover:text-blue-400 font-semibold text-slate-300 hidden uppercase"></button>
+                <span class="text-slate-600 dynamic-sep-3 hidden">/</span>
+                <span id="nav-cliente" class="text-blue-400 font-bold hidden uppercase"></span>
             </div>
-        </header>
+            <div class="font-bold text-slate-400 uppercase tracking-wider hidden sm:block">
+                Reporte Diario de Visitas a Detalle
+            </div>
+        </div>
+    </nav>
 
-        <div class="p-6 space-y-6">
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
 
-            <section class="border border-gray-200 rounded">
-                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
-                    1. Identificación del Cliente y Condiciones de Crédito
-                </div>
-                <div class="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Cod Cliente:</span>
-                        <span class="font-medium">COD-045</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Cliente:</span>
-                        <span class="font-medium">Acumuladores del Centro S.A. de C.V.</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Nombre de Negocio:</span>
-                        <span class="font-medium">Refaccionaria El Centro</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Encargado de Compras:</span>
-                        <span class="font-medium">Ing. Juan Pablo Pérez</span>
-                    </div>
-                    <div class="md:col-span-2">
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Dirección:</span>
-                        <span class="font-medium">Av. Benito Juárez #405, Col. Centro, CP 37000</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Zona:</span>
-                        <span class="font-medium">Zona Bajío</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Giro:</span>
-                        <span class="font-medium">Mayorista Eléctrico</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Número Celular:</span>
-                        <span class="font-medium">555-123-4567</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Fecha de Alta:</span>
-                        <span class="font-medium">12 / 04 / 2021</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Tipo:</span>
-                        <span class="font-medium">Crédito Distribuidor</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Días:</span>
-                        <span class="font-medium">30 Días</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">Límite:</span>
-                        <span class="font-medium font-mono text-gray-900">$150,000.00</span>
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">PLR (Libro de ruta con descto):</span>
-                        <span class="font-bold text-emerald-600">SÍ TIENE</span>
-                    </div>
-                </div>
-            </section>
+        <div id="vista-inicio" class="space-y-8 py-16">
+            <div class="text-center space-y-2 max-w-2xl mx-auto">
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight uppercase">Auditoría y Control Comercial 2026</h1>
+                <p class="text-slate-500 text-sm">Filtro de visualización ejecutiva por unidad de negocio o empresa operativa.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto pt-4">
+                <button onclick="seleccionarEmpresa('Llanterama')" class="bg-white border-2 border-slate-200 hover:border-blue-600 rounded-xl p-8 text-center shadow-sm hover:shadow-lg transition-all group">
+                    <span class="block text-4xl mb-3 group-hover:scale-105 transition-transform">🛞</span>
+                    <h2 class="text-2xl font-black text-slate-800 tracking-tight uppercase group-hover:text-blue-600">LLANTERAMA</h2>
+                    <div class="text-[10px] text-slate-400 font-mono mt-2 uppercase tracking-widest border-t pt-2 border-slate-100">Consolidado Acumuladores y Pesado</div>
+                </button>
+                
+                <button onclick="seleccionarEmpresa('Autoelectrica')" class="bg-white border-2 border-slate-200 hover:border-blue-600 rounded-xl p-8 text-center shadow-sm hover:shadow-lg transition-all group">
+                    <span class="block text-4xl mb-3 group-hover:scale-105 transition-transform">⚡</span>
+                    <h2 class="text-2xl font-black text-slate-800 tracking-tight uppercase group-hover:text-blue-600">AUTOELECTRICA</h2>
+                    <div class="text-[10px] text-slate-400 font-mono mt-2 uppercase tracking-widest border-t pt-2 border-slate-100">Consolidado Eléctrico y Distribución</div>
+                </button>
+            </div>
+        </div>
 
-            <section class="border border-gray-200 rounded">
-                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
-                    2. Agenda de Visitas y Ubicación GPS
-                </div>
-                <div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                    <div class="md:col-span-2">
-                        <span class="block text-xs font-semibold text-gray-500 uppercase mb-2">Día de la semana programado para visita (Marcado con X):</span>
-                        <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold">
-                            <div class="border p-2 bg-emerald-50 border-emerald-200 text-emerald-800 rounded">
-                                <span class="block text-[10px] text-gray-500 font-normal">LUNES</span>
-                                <span class="text-base">X</span>
-                            </div>
-                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-300 rounded">
-                                <span class="block text-[10px] text-gray-400 font-normal">MARTES</span>
-                                <span class="text-base">-</span>
-                            </div>
-                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-300 rounded">
-                                <span class="block text-[10px] text-gray-400 font-normal">MIERCOLES</span>
-                                <span class="text-base">-</span>
-                            </div>
-                            <div class="border p-2 bg-emerald-50 border-emerald-200 text-emerald-800 rounded">
-                                <span class="block text-[10px] text-gray-500 font-normal">JUEVES</span>
-                                <span class="text-base">X</span>
-                            </div>
-                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-300 rounded">
-                                <span class="block text-[10px] text-gray-400 font-normal">VIERNES</span>
-                                <span class="text-base">-</span>
-                            </div>
-                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-300 rounded">
-                                <span class="block text-[10px] text-gray-400 font-normal">SABADO</span>
-                                <span class="text-base">-</span>
-                            </div>
-                            <div class="border p-2 bg-gray-50 border-gray-200 text-gray-400 rounded">
-                                <span class="block text-[10px] text-gray-500 font-normal text-center">ESPORADICO</span>
-                                <span class="text-sm font-medium">Sin data</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 p-3 border rounded text-xs">
-                        <span class="block font-semibold text-gray-600 uppercase mb-1">Coordenadas del Mapa:</span>
-                        <div class="space-y-1 font-mono text-gray-700">
-                            <div>LATITUD: <span class="font-bold">21.12345</span></div>
-                            <div>LONGITUD: <span class="font-bold">-101.67890</span></div>
-                        </div>
-                        <a href="#" class="mt-2 block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-[11px] uppercase transition">
-                            Abrir Ubicación en Google Maps
-                        </a>
-                    </div>
-                </div>
-            </section>
+        <div id="vista-empresa" class="space-y-6 hidden">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-xl font-bold text-slate-900 tracking-tight uppercase">
+                    Asesores Comerciales - <span id="titulo-empresa" class="text-blue-600"></span>
+                </h2>
+                <p class="text-xs text-slate-500">Porcentajes promediados de efectividad real calculados sobre las cuotas asignadas en la línea principal.</p>
+            </div>
 
-            <section class="border border-gray-200 rounded overflow-hidden">
-                <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
-                    3. Avance de Objetivos por Línea de Producto (Métricas en Unidades / Pzas)
+            <div id="contenedor-vendedores" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 </div>
+        </div>
+
+        <div id="vista-vendedor" class="space-y-6 hidden">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-xl font-bold text-slate-900 uppercase">
+                    Cartera del Asesor: <span id="titulo-vendedor" class="text-blue-600"></span>
+                </h2>
+                <p class="text-xs text-slate-500">Seleccione un cliente para evaluar su expediente general, geolocalización, minutas de crédito y estatus de POP.</p>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm border-collapse">
+                    <table class="w-full text-left border-collapse text-xs">
                         <thead>
-                            <tr class="bg-gray-100 text-gray-600 text-[11px] uppercase tracking-wider border-b border-gray-200">
-                                <th class="p-3 font-bold">Línea de Producto</th>
-                                <th class="p-3 text-right">Objetivo (Uds)</th>
-                                <th class="p-3 text-right">Real Facturado (Uds)</th>
-                                <th class="p-3 text-center">% de Avance</th>
+                            <tr class="bg-slate-100 text-slate-600 uppercase tracking-wider border-b border-slate-200 font-bold">
+                                <th class="p-3">COD CLIENTE</th>
+                                <th class="p-3">CLIENTE / NEGOCIO</th>
+                                <th class="p-3">ZONA / GIRO</th>
+                                <th class="p-3 text-center">RUTAS PROGRAMADAS</th>
+                                <th class="p-3 text-right">VOLUMEN REAL (UDS)</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200 text-gray-700">
-                            <tr>
-                                <td class="p-3 font-semibold">PREM</td>
-                                <td class="p-3 text-right font-mono">50</td>
-                                <td class="p-3 text-right font-mono text-emerald-600">55</td>
-                                <td class="p-3 text-center font-bold text-emerald-600 bg-emerald-50">110.0%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">AGM</td>
-                                <td class="p-3 text-right font-mono">15</td>
-                                <td class="p-3 text-right font-mono text-gray-900">12</td>
-                                <td class="p-3 text-center font-bold text-gray-900 bg-gray-50">80.0%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">ESTANDAR</td>
-                                <td class="p-3 text-right font-mono">100</td>
-                                <td class="p-3 text-right font-mono text-red-600">45</td>
-                                <td class="p-3 text-center font-bold text-red-600 bg-red-50">45.0%</td>
-                            </tr>
-                            <tr class="bg-gray-50 font-bold">
-                                <td class="p-3 text-gray-900">TOTAL ACUM</td>
-                                <td class="p-3 text-right font-mono text-gray-900">165</td>
-                                <td class="p-3 text-right font-mono text-gray-900">112</td>
-                                <td class="p-3 text-center font-mono text-gray-900">67.8%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">FILTRO</td>
-                                <td class="p-3 text-right font-mono">30</td>
-                                <td class="p-3 text-right font-mono text-emerald-600">35</td>
-                                <td class="p-3 text-center font-bold text-emerald-600 bg-emerald-50">116.6%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">LUB</td>
-                                <td class="p-3 text-right font-mono">40</td>
-                                <td class="p-3 text-right font-mono text-gray-900">38</td>
-                                <td class="p-3 text-center font-bold text-gray-900 bg-gray-50">95.0%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">MOTO</td>
-                                <td class="p-3 text-right font-mono">10</td>
-                                <td class="p-3 text-right font-mono text-red-600">2</td>
-                                <td class="p-3 text-center font-bold text-red-600 bg-red-50">20.0%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">USADO</td>
-                                <td class="p-3 text-right font-mono">5</td>
-                                <td class="p-3 text-right font-mono text-gray-400">0</td>
-                                <td class="p-3 text-center text-gray-400 bg-gray-50">0.0%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">AUTO</td>
-                                <td class="p-3 text-right font-mono">20</td>
-                                <td class="p-3 text-right font-mono text-gray-900">15</td>
-                                <td class="p-3 text-center font-bold text-gray-900 bg-gray-50">75.0%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">CTA</td>
-                                <td class="p-3 text-right font-mono">Sin data</td>
-                                <td class="p-3 text-right font-mono text-gray-400">0</td>
-                                <td class="p-3 text-center text-gray-400 bg-gray-50">-</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">CAMION</td>
-                                <td class="p-3 text-right font-mono">15</td>
-                                <td class="p-3 text-right font-mono text-gray-900">12</td>
-                                <td class="p-3 text-center font-bold text-gray-900 bg-gray-50">80.0%</td>
-                            </tr>
-                            <tr class="bg-gray-50 font-bold">
-                                <td class="p-3 text-gray-900">TOTAL LLANTAS</td>
-                                <td class="p-3 text-right font-mono text-gray-900">35</td>
-                                <td class="p-3 text-right font-mono text-gray-900">27</td>
-                                <td class="p-3 text-center font-mono text-gray-900">77.1%</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold">ALCALIN</td>
-                                <td class="p-3 text-right font-mono">200</td>
-                                <td class="p-3 text-right font-mono text-emerald-600">250</td>
-                                <td class="p-3 text-center font-bold text-emerald-600 bg-emerald-50">125.0%</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="tabla-clientes" class="divide-y divide-slate-200 text-slate-700">
+                            </tbody>
                     </table>
                 </div>
-            </section>
+            </div>
+        </div>
 
-            <section class="border border-gray-200 rounded bg-gray-50">
-                <div class="bg-gray-200 px-4 py-2 border-b border-gray-300 font-bold text-xs uppercase tracking-wider text-gray-700">
-                    4. Análisis Financiero Global (Factura vs Costo y Utilidad)
+        <div id="vista-cliente" class="space-y-6 hidden">
+            
+            <div class="bg-slate-900 text-white p-6 rounded-xl shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span id="f-cod-cliente" class="px-2 py-0.5 bg-blue-600 text-white font-mono text-[11px] font-bold rounded"></span>
+                        <h2 id="f-cliente" class="text-lg font-bold tracking-tight"></h2>
+                    </div>
+                    <p id="f-nombre-negocio" class="text-slate-400 text-xs mt-1 font-medium"></p>
                 </div>
-                <div class="p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                    <div class="bg-white p-3 border rounded">
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">OBJ FACT:</span>
-                        <span class="text-lg font-bold font-mono text-gray-900">$180,000.00</span>
-                    </div>
-                    <div class="bg-white p-3 border rounded">
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">REAL FACT:</span>
-                        <span class="text-lg font-bold font-mono text-emerald-700">$142,500.00</span>
-                    </div>
-                    <div class="bg-white p-3 border rounded">
-                        <span class="block text-xs font-semibold text-gray-500 uppercase">COSTO:</span>
-                        <span class="text-lg font-bold font-mono text-gray-700">$104,300.00</span>
-                    </div>
-                    <div class="bg-white p-3 border rounded bg-blue-50 border-blue-200">
-                        <span class="block text-xs font-semibold text-blue-700 uppercase">DIF (Utilidad):</span>
-                        <span class="text-lg font-bold font-mono text-blue-900">$38,200.00</span>
-                    </div>
+                <div class="text-right font-mono text-[11px] bg-slate-800 border border-slate-700 px-4 py-2 rounded-lg space-y-0.5 w-full md:w-auto">
+                    <div>MES CONTROL: <span id="f-mes" class="text-blue-400 font-bold uppercase"></span></div>
+                    <div>AÑO REPORTE: <span id="f-ano" class="text-slate-200 font-bold"></span></div>
                 </div>
-            </section>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <section class="border border-gray-200 rounded">
-                    <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
-                        5. Apoyo de Mercado
-                    </div>
-                    <div class="p-4 space-y-2 text-sm">
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">FACHADA:</span>
-                            <span class="font-medium text-gray-900">Con Lona LTH Nueva</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">EXHIBIDOR LTH:</span>
-                            <span class="font-medium text-emerald-600">Instalado</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">EXHIBIDOR LUB:</span>
-                            <span class="font-medium text-emerald-600">Instalado</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">EXHIBIDOR MOT:</span>
-                            <span class="font-medium text-red-600">No tiene / Sin espacio</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">ACTIVACIONES:</span>
-                            <span class="font-medium text-gray-900">1 Evento BTL en el mes</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">MINUTA CREDITO / DESCUENTO:</span>
-                            <span class="font-medium text-gray-900">Se autorizó 5% extra en Lubricante</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">MINUTA DE POP:</span>
-                            <span class="font-medium text-gray-900">Pendiente bandera exterior</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="border border-gray-200 rounded">
-                    <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 font-bold text-xs uppercase tracking-wider text-gray-700">
-                        6. Descuentos Otorgados por Cliente
-                    </div>
-                    <div class="p-4 space-y-2 text-sm">
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">LTH:</span>
-                            <span class="font-mono font-bold text-gray-900">12%</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">AMERICA:</span>
-                            <span class="font-mono font-bold text-gray-900">10%</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">PREMIUM (HI TEC):</span>
-                            <span class="font-mono font-bold text-emerald-600">15% (Aplica PLR)</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">AGM:</span>
-                            <span class="font-mono font-bold text-gray-900">8%</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">LUBRICANTE / ACEITE:</span>
-                            <span class="font-mono font-bold text-gray-900">5%</span>
-                        </div>
-                        <div class="flex justify-between border-b pb-1">
-                            <span class="text-gray-500">MOTOBATERIA:</span>
-                            <span class="font-mono text-gray-400">Sin data</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">FILTROS LTH:</span>
-                            <span class="font-mono font-bold text-gray-900">7%</span>
-                        </div>
-                    </div>
-                </section>
-
             </div>
 
-            <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="border border-gray-200 rounded p-4 bg-amber-50/50">
-                    <span class="block text-xs font-bold uppercase tracking-wider text-amber-800 mb-2">COMENTARIO A MITAD DE MES:</span>
-                    <p class="text-sm text-gray-700 italic">
-                        "El cliente reportó retraso en compras de línea América (Estándar) debido a un sobreinventario de la competencia. Se acordó empujar la línea Premium otorgando el beneficio del PLR."
-                    </p>
-                </div>
-                <div class="border border-gray-200 rounded p-4 bg-blue-50/50">
-                    <span class="block text-xs font-bold uppercase tracking-wider text-blue-800 mb-2">COMENTARIOS A FINAL DE MES:</span>
-                    <p class="text-sm text-gray-700 italic">
-                        "Cierre fuerte en Premium superando el objetivo. Filtros se movió excelente gracias a la venta cruzada. Queda pendiente resolver la caída drástica en Motobaterías por falta de exhibición."
-                    </p>
-                </div>
-            </section>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="space-y-6 lg:col-span-1">
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm text-xs">
+                        <h3 class="font-bold uppercase tracking-wider text-purple-700 border-b pb-1 mb-2">Condiciones de Crédito</h3>
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between"><span class="text-slate-500 font-medium">FECHA DE ALTA:</span> <span id="f-alta" class="font-bold text-slate-900"></span></div>
+                            <div class="flex justify-between"><span class="text-slate-500 font-medium">VENDEDOR ASIGNADO:</span> <span id="f-vendedor-nom" class="font-bold text-slate-900"></span></div>
+                            <div class="flex justify-between"><span class="text-slate-500 font-medium">TIPO:</span> <span id="f-tipo" class="font-bold"></span></div>
+                            <div class="flex justify-between"><span class="text-slate-500 font-medium">DIAS:</span> <span id="f-dias" class="font-mono font-bold text-slate-900"></span></div>
+                            <div class="flex justify-between"><span class="text-slate-500 font-medium">LIMITE:</span> <span id="f-limite" class="font-mono font-bold text-slate-900"></span></div>
+                            <div class="flex justify-between"><span class="text-slate-500 font-medium">PLR (Ruta con Descto):</span> <span id="f-plr" class="font-bold"></span></div>
+                        </div>
+                    </div>
 
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-2 shadow-sm text-xs">
+                        <h3 class="font-bold uppercase tracking-wider text-slate-700 border-b pb-1 mb-2">Información del Establecimiento</h3>
+                        <div class="space-y-1.5">
+                            <div><span class="text-slate-500 block font-medium">ENCARGADO DE COMPRAS:</span> <span id="f-encargado" class="font-bold text-slate-900"></span></div>
+                            <div><span class="text-slate-500 block font-medium">NÚMERO CELULAR:</span> <span id="f-celular" class="font-bold text-slate-900 font-mono"></span></div>
+                            <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-100">
+                                <div><span class="text-slate-500 block font-medium">ZONA COMERCIAL:</span> <span id="f-zona" class="font-bold text-slate-900"></span></div>
+                                <div><span class="text-slate-500 block font-medium">GIRO DEL NEGOCIO:</span> <span id="f-giro" class="font-bold text-slate-900"></span></div>
+                            </div>
+                            <div class="pt-2 border-t border-slate-100"><span class="text-slate-500 block font-medium">DIRECCIÓN FÍSICA:</span> <span id="f-direccion" class="text-slate-700 block leading-tight mt-0.5"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm text-xs">
+                        <h3 class="font-bold uppercase tracking-wider text-blue-700 border-b pb-1 mb-3">Rutero Semanal de Visita</h3>
+                        <div id="f-rutero-semana" class="grid grid-cols-4 gap-1 text-center font-bold text-[10px]">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6 lg:col-span-2">
+                    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+                        <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-200 font-bold text-xs uppercase tracking-wider text-slate-700">
+                            Objetivos vs Real Facturado (Métricas en Unidades / Pzas)
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-wider font-semibold border-b border-slate-200">
+                                        <th class="p-2.5 pl-4">Línea de Producto</th>
+                                        <th class="p-2.5 text-right">Objetivo</th>
+                                        <th class="p-2.5 text-right">Real Facturado</th>
+                                        <th class="p-2.5 text-center">% Progreso</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="f-tabla-unidades" class="divide-y divide-slate-100 text-slate-700">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-xl p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center font-mono shadow-inner">
+                        <div class="border border-slate-800 p-2 rounded-lg">
+                            <span class="block text-[9px] text-slate-400 font-bold uppercase">OBJ FACT</span>
+                            <span id="f-obj-fact" class="text-sm font-black text-slate-200"></span>
+                        </div>
+                        <div class="border border-slate-800 p-2 rounded-lg">
+                            <span class="block text-[9px] text-slate-400 font-bold uppercase">REAL FACT</span>
+                            <span id="f-real-fact" class="text-sm font-black text-emerald-400"></span>
+                        </div>
+                        <div class="border border-slate-800 p-2 rounded-lg">
+                            <span class="block text-[9px] text-slate-400 font-bold uppercase">COSTO</span>
+                            <span id="f-costo" class="text-sm font-black text-slate-300"></span>
+                        </div>
+                        <div class="bg-blue-950/50 border border-blue-900 p-2 rounded-lg">
+                            <span class="block text-[9px] text-blue-300 font-bold uppercase">DIF (Utilidad)</span>
+                            <span id="f-dif" class="text-sm font-black text-blue-400"></span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 text-xs space-y-2 shadow-sm">
+                            <h3 class="font-bold uppercase tracking-wider text-emerald-700 border-b pb-1 mb-2">Apoyo de Mercado</h3>
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between border-b border-slate-50 pb-1"> <span class="text-slate-500 font-medium">FACHADA:</span> <span id="f-pop-fachada" class="font-bold text-slate-900"></span> </div>
+                                <div class="flex justify-between border-b border-slate-50 pb-1"> <span class="text-slate-500 font-medium">EXHIBIDOR LTH:</span> <span id="f-pop-lth" class="font-bold text-slate-900"></span> </div>
+                                <div class="flex justify-between border-b border-slate-50 pb-1"> <span class="text-slate-500 font-medium">EXHIBIDOR LUB:</span> <span id="f-pop-lub" class="font-bold text-slate-900"></span> </div>
+                                <div class="flex justify-between border-b border-slate-50 pb-1"> <span class="text-slate-500 font-medium">EXHIBIDOR MOT:</span> <span id="f-pop-mot" class="font-bold text-slate-900"></span> </div>
+                                <div class="flex justify-between"> <span class="text-slate-500 font-medium">ACTIVACIONES:</span> <span id="f-pop-activaciones" class="font-bold text-slate-900"></span> </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col justify-between">
+                            <div class="bg-slate-50 px-4 py-2 border-b border-slate-200 text-xs font-bold uppercase text-slate-700">
+                                Captura / Enlace de Fachada (Google Maps)
+                            </div>
+                            <div class="p-4 flex-1 flex flex-col justify-center items-center bg-slate-100 min-h-[110px] text-center">
+                                <span class="text-2xl mb-1">🏪</span>
+                                <div id="f-foto-placeholder" class="text-[10px] font-mono text-slate-500 whitespace-pre-line leading-tight"></div>
+                            </div>
+                            <div class="p-2 bg-slate-50 border-t border-slate-200">
+                                <a id="f-maps-link" href="#" target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] uppercase py-1.5 rounded transition">
+                                    Ver en Google Street View / GPS
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 text-xs shadow-sm">
+                        <h3 class="font-bold uppercase tracking-wider text-slate-700 border-b pb-1 mb-2">Descuentos Otorgados de Línea Comercial</h3>
+                        <div id="f-lista-descuentos" class="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono pt-1 text-slate-600">
+                            </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-sm">
+                            <h3 class="font-bold uppercase tracking-wider text-red-700 border-b pb-1">Minutas Oficiales Registradas</h3>
+                            <div class="bg-red-50/60 p-2.5 rounded border border-red-100">
+                                <span class="block text-[9px] font-bold text-red-800 uppercase tracking-wider mb-0.5">Minuta Crédito / Descuento</span>
+                                <p id="f-minuta-credito" class="text-slate-700 font-medium"></p>
+                            </div>
+                            <div class="bg-purple-50/60 p-2.5 rounded border border-purple-100">
+                                <span class="block text-[9px] font-bold text-purple-800 uppercase tracking-wider mb-0.5">Minuta de POP</span>
+                                <p id="f-minuta-pop" class="text-slate-700 font-medium"></p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-sm">
+                            <h3 class="font-bold uppercase tracking-wider text-amber-700 border-b pb-1">Bitácora de Comentarios del Vendedor</h3>
+                            <div class="bg-amber-50/60 p-2.5 rounded border border-amber-100">
+                                <span class="block text-[9px] font-bold text-amber-800 uppercase tracking-wider mb-0.5">Comentario a Mitad de Mes</span>
+                                <p id="f-comentario-mid" class="text-slate-700 italic"></p>
+                            </div>
+                            <div class="bg-blue-50/60 p-2.5 rounded border border-blue-100">
+                                <span class="block text-[9px] font-bold text-blue-800 uppercase tracking-wider mb-0.5">Comentarios a Final de Mes</span>
+                                <p id="f-comentario-end" class="text-slate-700 italic"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        
-    </div>
 
+    </main>
+
+    <script>
+        // DATA MAESTRA ESTRUCTURADA SIGUIENDO TUS COLUMNAS EXACTAS
+        const BaseDatos = {
+            "Llanterama": {
+                "Carlos Mendoza": [
+                    {
+                        // Identificación del reporte
+                        mes: "Junio", ano: "2026",
+                        // Condición de crédito
+                        fecha_de_alta: "12/04/2021", vendedor: "Carlos Mendoza", tipo: "Crédito Distribuidor", dias: "30", limite: "$150,000.00", plr: "SÍ TIENE",
+                        // Información general del cliente
+                        cod_cliente: "COD-045", cliente: "Acumuladores del Centro S.A. de C.V.", nombre_de_negocio: "Refaccionaria El Centro", encargado_de_compras: "Ing. Juan Pablo Pérez", direccion: "Av. Benito Juárez #405, Col. Centro, CP 37000", latitud: "21.12345", longitud: "https://maps.google.com/?q=21.12345,-101.67890&layer=c", zona: "Zona Bajío", giro: "Mayorista Eléctrico", numero_celular: "555-123-4567",
+                        // Rutas de visitas
+                        rutas: { lunes: "X", martes: "-", miercoles: "-", jueves: "X", viernes: "-", sabado: "-", esporadico: "-" },
+                        // Objetivos, real facturados + % de progreso
+                        unidades: [
+                            { l: "PREM", obj: 50, real: 55 },
+                            { l: "AGM", obj: 15, real: 12 },
+                            { l: "ESTANDAR", obj: 100, real: 45 },
+                            { l: "TOTAL ACUM", obj: 165, real: 112 },
+                            { l: "FILTRO", obj: 30, real: 35 },
+                            { l: "LUB", obj: 40, real: 38 },
+                            { l: "MOTO", obj: 0, real: 5 }, // Venta real pero sin objetivo planteado
+                            { l: "USADO", obj: 5, real: 0 },
+                            { l: "AUTO", obj: 20, real: 15 },
+                            { l: "CTA", obj: 0, real: 0 },
+                            { l: "CAMION", obj: 15, real: 12 },
+                            { l: "TOTAL LLANTAS", obj: 35, real: 27 },
+                            { l: "ALCALIN", obj: 200, real: 250 }
+                        ],
+                        // Factura vs Costo y Utilidad (Monetario)
+                        dinero: { obj_fact: "$180,000.00", real_fact: "$142,500.00", costo: "$104,300.00", dif: "$38,200.00" },
+                        // Apoyo de mercado
+                        mercado: { fachada: "Con Lona LTH Nueva", exhibidor_lth: "Instalado", exhibidor_lub: "Instalado", exhibidor_mot: "No tiene / Sin espacio", activaciones: "1 Evento BTL en el mes", minuta_credito_descuento: "Se autorizó 5% extra en Lubricante", minuta_de_pop: "Pendiente bandera exterior" },
+                        // Descuentos otorgados por tipo de línea
+                        descuentos: { lth: "12%", america: "10%", premium_hi_tec: "15% (Aplica PLR)", agm: "8%", lubricante_aceite: "5%", motobateria: "Sin data", filtros_lth: "7%" },
+                        // Comentarios del progreso de venta
+                        comentarios: { mid: "El cliente reportó retraso en compras de línea América debido a un sobreinventario de la competencia. Se acordó empujar Premium.", end: "Cierre fuerte en Premium superando el objetivo. Filtros se movió excelente. Queda pendiente resolver la caída en Motobaterías." }
+                    },
+                    {
+                        mes: "Junio", ano: "2026",
+                        // Prueba sin info de crédito (Debe salir Contado)
+                        fecha_de_alta: "20/11/2025", vendedor: "Carlos Mendoza", tipo: "", dias: "", limite: "", plr: "",
+                        cod_cliente: "COD-102", cliente: "Refaccionaria El Rayo Mecánico", nombre_de_negocio: "El Rayo", encargado_de_compras: "Pedro Fuentes", direccion: "Blvd. Torres Landa #12, Silao, Gto.", latitud: "20.9412", longitud: "LINK_SIMULADO_FACHADA_RAW_DATA", zona: "Silao", giro: "Taller Eléctrico", numero_celular: "472-111-2233",
+                        rutas: { lunes: "-", martes: "X", miercoles: "-", jueves: "-", viernes: "X", sabado: "-", esporadico: "X" },
+                        unidades: [
+                            { l: "PREM", obj: 10, real: 8 }, { l: "AGM", obj: 0, real: 0 }, { l: "ESTANDAR", obj: 40, real: 32 }, { l: "TOTAL ACUM", obj: 50, real: 40 }, { l: "FILTRO", obj: 10, real: 5 }, { l: "LUB", obj: 10, real: 10 }, { l: "MOTO", obj: 5, real: 0 }, { l: "USADO", obj: 0, real: 0 }, { l: "AUTO", obj: 0, real: 0 }, { l: "CTA", obj: 0, real: 0 }, { l: "CAMION", obj: 0, real: 0 }, { l: "TOTAL LLANTAS", obj: 0, real: 0 }, { l: "ALCALIN", obj: 50, real: 45 }
+                        ],
+                        dinero: { obj_fact: "$35,000.00", real_fact: "$29,500.00", costo: "$22,000.00", dif: "$7,500.00" },
+                        mercado: { fachada: "No tiene", exhibidor_lth: "No tiene", exhibidor_lub: "Mesa Genérica", exhibidor_mot: "No tiene", activaciones: "Ninguna", minuta_credito_descuento: "Sin acuerdos de crédito", minuta_de_pop: "Solicita exhibidor básico" },
+                        descuentos: { lth: "5%", america: "5%", premium_hi_tec: "Sin data", agm: "Sin data", lubricante_aceite: "0%", motobateria: "Sin data", filtros_lth: "3%" },
+                        comentarios: { mid: "Mantiene flujo continuo al contado.", end: "Al cierre solicita evaluar cuenta de crédito para subir volumen el próximo mes." }
+                    }
+                ],
+                "Alejandro Silva": [
+                    {
+                        mes: "Junio", ano: "2026",
+                        fecha_de_alta: "05/01/2023", vendedor: "Alejandro Silva", tipo: "Crédito Platino", dias: "45", limite: "$400,000.00", plr: "SÍ TIENE",
+                        cod_cliente: "COD-009", cliente: "Refaccionaria Mayorista del Centro", nombre_de_negocio: "Grupo REFACEN", encargado_de_compras: "Lic. Miguel Sosa", direccion: "Blvd. López Mateos #1200, Celaya, Gto.", latitud: "20.5214", longitud: "https://maps.google.com/?q=20.5214,-100.8145", zona: "Celaya Laja", giro: "Mayorista Cadena", numero_celular: "461-445-5667",
+                        rutas: { lunes: "-", martes: "-", miercoles: "X", jueves: "-", viernes: "-", sabado: "X", esporadico: "-" },
+                        unidades: [
+                            { l: "PREM", obj: 120, real: 135 }, { l: "AGM", obj: 25, real: 20 }, { l: "ESTANDAR", obj: 200, real: 195 }, { l: "TOTAL ACUM", obj: 345, real: 350 }, { l: "FILTRO", obj: 80, real: 95 }, { l: "LUB", obj: 100, real: 110 }, { l: "MOTO", obj: 20, real: 15 }, { l: "USADO", obj: 10, real: 8 }, { l: "AUTO", obj: 50, real: 48 }, { l: "CTA", obj: 10, real: 12 }, { l: "CAMION", obj: 40, real: 35 }, { l: "TOTAL LLANTAS", obj: 100, real: 95 }, { l: "ALCALIN", obj: 500, real: 480 }
+                        ],
+                        dinero: { obj_fact: "$490,000.00", real_fact: "$512,000.00", costo: "$375,000.00", dif: "$137,000.00" },
+                        mercado: { fachada: "Fachada Corporativa Premium", exhibidor_lth: "2 Unidades", exhibidor_lub: "Rack Completo", exhibidor_mot: "Instalado", activaciones: "2 Eventos en el mes", minuta_credito_descuento: "Límite ampliado temporalmente", minuta_de_pop: "Entrega completa de material" },
+                        descuentos: { lth: "15%", america: "12%", premium_hi_tec: "18%", agm: "10%", lubricante_aceite: "8%", motobateria: "5%", filtros_lth: "10%" },
+                        comentarios: { mid: "Ritmo fuerte de compra en familias pesadas.", end: "Cierre de mes récord. Cartera completamente sana." }
+                    }
+                ]
+            },
+            "Autoelectrica": {
+                "Héctor Ortega": [
+                    {
+                        mes: "Junio", ano: "2026",
+                        fecha_de_alta: "11/11/2023", vendedor: "Héctor Ortega", tipo: "Crédito Regular", dias: "15", limite: "$60,000.00", plr: "No",
+                        cod_cliente: "COD-321", cliente: "Eléctrica y Motores de Irapuato", nombre_de_negocio: "AutoEléctrico El Chispazo", encargado_de_compras: "Esteban Torres", direccion: "Av. Guerrero #900, Irapuato, Gto.", latitud: "20.6845", longitud: "LINK_DIRECTO_COL_LONGITUD", zona: "Irapuato Sur", giro: "Mayorista Eléctrico", numero_celular: "462-223-1144",
+                        rutas: { lunes: "-", martes: "-", miercoles: "-", jueves: "-", viernes: "X", sabado: "-", esporadico: "X" },
+                        unidades: [
+                            { l: "PREM", obj: 15, real: 10 }, { l: "AGM", obj: 5, real: 2 }, { l: "ESTANDAR", obj: 40, real: 48 }, { l: "TOTAL ACUM", obj: 60, real: 60 }, { l: "FILTRO", obj: 40, real: 20 }, { l: "LUB", obj: 10, real: 15 }, { l: "MOTO", obj: 30, real: 45 }, { l: "USADO", obj: 0, real: 0 }, { l: "AUTO", obj: 0, real: 0 }, { l: "CTA", obj: 0, real: 0 }, { l: "CAMION", obj: 0, real: 0 }, { l: "TOTAL LLANTAS", obj: 0, real: 0 }, { l: "ALCALIN", obj: 100, real: 90 }
+                        ],
+                        dinero: { obj_fact: "$75,000.00", real_fact: "$78,400.00", costo: "$58,000.00", dif: "$20,400.00" },
+                        mercado: { fachada: "Pintada Marca Propia", exhibidor_lth: "Instalado", exhibidor_lub: "No tiene", exhibidor_mot: "Exhibidor Mostrador LTH", activaciones: "Ninguna", minuta_credito_descuento: "Solicita ampliación de días", minuta_de_pop: "Falta banderín de Motobaterías" },
+                        descuentos: { lth: "10%", america: "8%", premium_hi_tec: "10%", agm: "5%", lubricante_aceite: "3%", motobateria: "12%", filtros_lth: "5%" },
+                        comentarios: { mid: "Excelente venta de motobaterías por ola de calor.", end: "Meta total de acumuladores al 100%. Filtros caídos por falta de stock." }
+                    }
+                ]
+            }
+        };
+
+        let empresaActual = "";
+        let vendedorActual = "";
+
+        // Sistema de navegación nativo
+        const panels = {
+            inicio: document.getElementById('vista-inicio'),
+            empresa: document.getElementById('vista-empresa'),
+            vendedor: document.getElementById('vista-vendedor'),
+            cliente: document.getElementById('vista-cliente')
+        };
+
+        const breadcrumbs = {
+            empresa: document.getElementById('nav-empresa'),
+            vendedor: document.getElementById('nav-vendedor'),
+            cliente: document.getElementById('nav-cliente'),
+            s1: document.querySelector('.dynamic-sep'),
+            s2: document.querySelector('.dynamic-sep-2'),
+            s3: document.querySelector('.dynamic-sep-3')
+        };
+
+        function resetNav() {
+            Object.keys(panels).forEach(p => panels[p].classList.add('hidden'));
+        }
+
+        function irAInicio() {
+            resetNav();
+            empresaActual = ""; vendedorActual = "";
+            breadcrumbs.empresa.classList.add('hidden'); breadcrumbs.vendedor.classList.add('hidden'); breadcrumbs.cliente.classList.add('hidden');
+            breadcrumbs.s1.classList.add('hidden'); breadcrumbs.s2.classList.add('hidden'); breadcrumbs.s3.classList.add('hidden');
+            panels.inicio.classList.remove('hidden');
+        }
+
+        function seleccionarEmpresa(nombreEmpresa) {
+            resetNav();
+            empresaActual = nombreEmpresa;
+            
+            breadcrumbs.empresa.textContent = nombreEmpresa;
+            breadcrumbs.empresa.classList.remove('hidden');
+            breadcrumbs.s1.classList.remove('hidden');
+            breadcrumbs.vendedor.classList.add('hidden'); breadcrumbs.cliente.classList.add('hidden');
+            breadcrumbs.s2.classList.add('hidden'); breadcrumbs.s3.classList.add('hidden');
+
+            document.getElementById('titulo-empresa').textContent = nombreEmpresa;
+            
+            const asesores = BaseDatos[nombreEmpresa];
+            const contenedor = document.getElementById('contenedor-vendedores');
+            contenedor.innerHTML = "";
+
+            Object.keys(asesores).forEach(nomAsesor => {
+                const clientes = asesores[nomAsesor];
+                let objSuma = 0; let realSuma = 0;
+
+                clientes.forEach(c => {
+                    const acum = c.unidades.find(u => u.l === "TOTAL ACUM") || {obj: 0, real: 0};
+                    objSuma += acum.obj;
+                    realSuma += acum.real;
+                });
+
+                const promPct = objSuma > 0 ? ((realSuma / objSuma) * 100).toFixed(1) : "100.0";
+
+                contenedor.innerHTML += `
+                    <div onclick="seleccionarVendedor('${nomAsesor}')" class="bg-white border border-slate-200 hover:border-blue-500 p-5 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer flex justify-between items-center">
+                        <div>
+                            <span class="block text-sm font-bold text-slate-900 uppercase">${nomAsesor}</span>
+                            <span class="block text-[10px] text-slate-400 font-mono mt-1">${clientes.length} CLIENTES ASIGNADOS</span>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-center min-w-[70px]">
+                            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wide">AVANCE ACUM</span>
+                            <span class="text-sm font-black ${promPct >= 95 ? 'text-emerald-600' : promPct >= 80 ? 'text-amber-600' : 'text-red-600'} font-mono">${promPct}%</span>
+                        </div>
+                    </div>
+                `;
+            });
+            panels.empresa.classList.remove('hidden');
+        }
+
+        function irAEmpresa() { if(empresaActual) seleccionarEmpresa(empresaActual); }
+
+        function seleccionarVendedor(nomVendedor) {
+            resetNav();
+            vendedorActual = nomVendedor;
+
+            breadcrumbs.vendedor.textContent = nomVendedor;
+            breadcrumbs.vendedor.classList.remove('hidden');
+            breadcrumbs.s2.classList.remove('hidden');
+            breadcrumbs.cliente.classList.add('hidden'); breadcrumbs.s3.classList.add('hidden');
+
+            document.getElementById('titulo-vendedor').textContent = nomVendedor;
+
+            const listaClientes = BaseDatos[empresaActual][nomVendedor];
+            const tbody = document.getElementById('tabla-clientes');
+            tbody.innerHTML = "";
+
+            listaClientes.forEach((cli, idx) => {
+                const totalAcum = cli.unidades.find(u => u.l === "TOTAL ACUM") || {real: 0};
+                
+                let agenda = [];
+                if(cli.rutas.lunes === "X") agenda.push("LUN");
+                if(cli.rutas.martes === "X") agenda.push("MAR");
+                if(cli.rutas.miercoles === "X") agenda.push("MIE");
+                if(cli.rutas.jueves === "X") agenda.push("JUE");
+                if(cli.rutas.viernes === "X") agenda.push("VIE");
+                if(cli.rutas.sabado === "X") agenda.push("SAB");
+                if(cli.rutas.esporadico === "X") agenda.push("ESP");
+                if(agenda.length === 0) agenda.push("-");
+
+                tbody.innerHTML += `
+                    <tr onclick="cargarExpedienteCliente(${idx})" class="hover:bg-blue-50/40 transition cursor-pointer font-medium border-b border-slate-100">
+                        <td class="p-3 font-mono text-slate-900 font-bold">${cli.cod_cliente}</td>
+                        <td class="p-3">
+                            <span class="block text-slate-900 font-bold">${cli.cliente}</span>
+                            <span class="block text-[10px] text-slate-400 font-normal mt-0.5">${cli.nombre_de_negocio}</span>
+                        </td>
+                        <td class="p-3 text-slate-500">${cli.zona} <span class="block text-[10px] text-slate-400 font-normal">${cli.giro}</span></td>
+                        <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-200 text-slate-700 text-[10px] rounded font-bold font-mono">${agenda.join(", ")}</span></td>
+                        <td class="p-3 text-right font-mono font-bold text-slate-900">${totalAcum.real} pzas</td>
+                    </tr>
+                `;
+            });
+            panels.vendedor.classList.remove('hidden');
+        }
+
+        function irAVendedor() { if(vendedorActual) seleccionarVendedor(vendedorActual); }
+
+        // ================= CONSTRUCCIÓN DINÁMICA DE LA FICHA POR EXCEL COLUMNAS =================
+        function cargarExpedienteCliente(idx) {
+            resetNav();
+            const c = BaseDatos[empresaActual][vendedorActual][idx];
+
+            breadcrumbs.cliente.textContent = c.cod_cliente;
+            breadcrumbs.cliente.classList.remove('hidden');
+            breadcrumbs.s3.classList.remove('hidden');
+
+            // Encabezado principal
+            document.getElementById('f-cod-cliente').textContent = c.cod_cliente;
+            document.getElementById('f-cliente').textContent = c.cliente;
+            document.getElementById('f-nombre-negocio').textContent = `Nombre de Negocio: ${c.nombre_de_negocio}`;
+            document.getElementById('f-mes').textContent = c.mes;
+            document.getElementById('f-ano').textContent = c.ano;
+
+            // Sección Crédito (Validación: si no tiene info, es Contado)
+            document.getElementById('f-alta').textContent = c.fecha_de_alta || "-";
+            document.getElementById('f-vendedor-nom').textContent = c.vendedor || "-";
+            
+            const tipoCred = document.getElementById('f-tipo');
+            const diasCred = document.getElementById('f-dias');
+            const limCred = document.getElementById('f-limite');
+            const plrCred = document.getElementById('f-plr');
+
+            if (!c.tipo && !c.dias && !c.limite) {
+                tipoCred.textContent = "CONTADO"; tipoCred.className = "font-bold text-red-600";
+                diasCred.textContent = "0 Días";
+                limCred.textContent = "Sin crédito disponible";
+            } else {
+                tipoCred.textContent = c.tipo || "Crédito Regular"; tipoCred.className = "font-bold text-purple-700";
+                diasCred.textContent = `${c.dias} Días`;
+                limCred.textContent = c.limite;
+            }
+            plrCred.textContent = c.plr || "No aplica";
+            plrCred.className = c.plr === "SÍ TIENE" ? "font-bold text-emerald-600" : "font-medium text-slate-400";
+
+            // Información General Básica
+            document.getElementById('f-encargado').textContent = c.encargado_de_compras;
+            document.getElementById('f-celular').textContent = c.numero_celular;
+            document.getElementById('f-zona').textContent = c.zona;
+            document.getElementById('f-giro').textContent = c.giro;
+            document.getElementById('f-direccion').textContent = c.direccion;
+
+            // Rutero Semanal Visual
+            const rutero = document.getElementById('f-rutero-semana');
+            rutero.innerHTML = "";
+            ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'esporadico'].forEach(dia => {
+                const marcado = c.rutas[dia] === "X";
+                rutero.innerHTML += `
+                    <div class="border p-1 rounded-md ${marcado ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-slate-50 border-slate-100 text-slate-300'}">
+                        <span class="block text-[8px] uppercase text-slate-400 font-medium">${dia.substring(0,3)}</span>
+                        <span class="text-xs font-black">${c.rutas[dia]}</span>
+                    </div>
+                `;
+            });
+
+            // Tabla de Objetivos vs Real Facturado por Renglón
+            const tBodyUnidades = document.getElementById('f-tabla-unidades');
+            tBodyUnidades.innerHTML = "";
+            c.unidades.forEach(u => {
+                let pctTxt = "-";
+                let badgeColor = "text-slate-400 bg-slate-50";
+
+                // Caso 1: Tiene objetivos fijados mayores a cero
+                if (u.obj > 0) {
+                    const calculo = (u.real / u.obj) * 100;
+                    pctTxt = `${calculo.toFixed(1)}%`;
+                    badgeColor = calculo >= 95 ? "text-emerald-700 bg-emerald-50" : calculo >= 80 ? "text-amber-700 bg-amber-50" : "text-red-700 bg-red-50";
+                } 
+                // Caso 2: Clientes con venta real pero sin objetivo planteado (Alta Demanda / Compra Libre)
+                else if (u.obj === 0 && u.real > 0) {
+                    pctTxt = "Compra sin Obj";
+                    badgeColor = "text-blue-700 bg-blue-50 font-bold";
+                }
+
+                const filaEspecial = u.l.startsWith("TOTAL") ? "bg-slate-100/80 font-black text-slate-900 border-t border-b border-slate-200" : "";
+                tBodyUnidades.innerHTML += `
+                    <tr class="${filaEspecial} hover:bg-slate-50/50 transition">
+                        <td class="p-2.5 pl-4 font-semibold">${u.l}</td>
+                        <td class="p-2.5 text-right font-mono text-slate-500">${u.obj || "-"}</td>
+                        <td class="p-2.5 text-right font-mono font-bold">${u.real}</td>
+                        <td class="p-2.5 text-center font-mono font-bold text-[10px] ${badgeColor}">${pctTxt}</td>
+                    </tr>
+                `;
+            });
+
+            // Sección Dinero (Factura vs Costo y Utilidad)
+            document.getElementById('f-obj-fact').textContent = c.dinero.obj_fact;
+            document.getElementById('f-real-fact').textContent = c.dinero.real_fact;
+            document.getElementById('f-costo').textContent = c.dinero.costo;
+            document.getElementById('f-dif').textContent = c.dinero.dif;
+
+            // Sección Apoyo de Mercado
+            document.getElementById('f-pop-fachada').textContent = c.mercado.fachada;
+            document.getElementById('f-pop-lth').textContent = c.mercado.exhibidor_lth;
+            document.getElementById('f-pop-lub').textContent = c.mercado.exhibidor_lub;
+            document.getElementById('f-pop-mot').textContent = c.mercado.exhibidor_mot;
+            document.getElementById('f-pop-activaciones').textContent = c.mercado.activaciones;
+
+            // Foto Fachada desde Columna LONGITUD
+            document.getElementById('f-foto-placeholder').textContent = `Carga de Fachada desde Columna:\n[LONGITUD]: "${c.longitud}"`;
+            document.getElementById('f-maps-link').href = c.longitud.startsWith("http") ? c.longitud : `https://www.google.com/maps/search/?api=1&query=${c.latitud},${c.latitud}`;
+
+            // Descuentos Otorgados por Cliente
+            const descContenedor = document.getElementById('f-lista-descuentos');
+            descContenedor.innerHTML = `
+                <div class="border-l-2 border-slate-300 pl-2">LTH: <b class="text-slate-900 block text-xs">${c.descuentos.lth}</b></div>
+                <div class="border-l-2 border-slate-300 pl-2">AMERICA: <b class="text-slate-900 block text-xs">${c.descuentos.america}</b></div>
+                <div class="border-l-2 border-blue-400 pl-2">PREMIUM: <b class="text-blue-600 block text-xs font-bold">${c.descuentos.premium_hi_tec}</b></div>
+                <div class="border-l-2 border-slate-300 pl-2">AGM: <b class="text-slate-900 block text-xs">${c.descuentos.agm}</b></div>
+                <div class="border-l-2 border-slate-300 pl-2">LUBRICANTE: <b class="text-slate-900 block text-xs">${c.descuentos.lubricante_aceite}</b></div>
+                <div class="border-l-2 border-slate-300 pl-2">MOTO: <b class="text-slate-900 block text-xs">${c.descuentos.motobateria}</b></div>
+                <div class="border-l-2 border-slate-300 pl-2">FILTROS LTH: <b class="text-slate-900 block text-xs">${c.descuentos.filtros_lth}</b></div>
+            `;
+
+            // Minutas y Comentarios
+            document.getElementById('f-minuta-credito').textContent = c.mercado.minuta_credito_descuento || "Sin observaciones pendientes.";
+            document.getElementById('f-minuta-pop').textContent = c.mercado.minuta_de_pop || "Sin requerimientos pendientes.";
+            document.getElementById('f-comentario-mid').textContent = c.comentarios.mid ? `"${c.comentarios.mid}"` : "Sin comentarios registrados.";
+            document.getElementById('f-comentario-end').textContent = c.comentarios.end ? `"${c.comentarios.end}"` : "Sin comentarios registrados.";
+
+            panels.cliente.classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
