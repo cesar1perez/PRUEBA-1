@@ -150,6 +150,7 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cli-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
 .cli-card.behind{border-left:4px solid var(--low);background:linear-gradient(165deg,rgba(255,93,98,.07),var(--bg2))}
 .cli-card.aok{border-left:4px solid var(--good)}
+.cli-card.medio{border-left:4px solid var(--mid)}
 .cli-head{display:flex;align-items:flex-start;gap:13px;flex-wrap:wrap;margin-bottom:13px}
 .cli-id{min-width:0;flex:1}
 .cli-id .code{font-family:'IBM Plex Mono';font-size:11px;color:var(--accent);font-weight:600;letter-spacing:.5px}
@@ -158,7 +159,7 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cli-tags{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .tag{font-size:10px;color:var(--muted2);text-transform:uppercase;letter-spacing:.4px;font-weight:700;border:1px solid var(--line2);padding:5px 9px;border-radius:20px}
 .badge-st{font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:5px 10px;border-radius:20px;color:#fff}
-.badge-st.behind{background:var(--low)} .badge-st.aok{background:var(--good);color:#06251a}
+.badge-st.behind{background:var(--low)} .badge-st.aok{background:var(--good);color:#06251a} .badge-st.medio{background:var(--mid);color:#3a2a00}
 .cli-ring{text-align:right;padding-left:4px}
 .cli-ring .big{font-family:'IBM Plex Mono';font-weight:700;font-size:25px;letter-spacing:-1px;line-height:1}
 .cli-ring .lbl{font-size:9px;color:var(--muted2);text-transform:uppercase;letter-spacing:.6px;font-weight:700;margin-top:3px}
@@ -171,6 +172,36 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .acct .al{font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted2);font-weight:700;margin-top:6px}
 .cli-open{position:absolute;right:18px;bottom:13px;font-size:11px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:5px;opacity:0;transition:.2s}
 .cli-card:hover .cli-open{opacity:1}
+/* tabla de líneas alineada en tarjeta de cliente */
+.lt{margin-top:6px}
+.lt-head,.lt-row{display:grid;grid-template-columns:minmax(96px,1.3fr) 78px 78px 64px;gap:10px;align-items:center}
+.lt-head{padding:7px 0 8px;border-bottom:1px solid var(--line2);margin-bottom:4px}
+.lt-head span{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted2);text-align:right}
+.lt-head span:first-child{text-align:left}
+.lt-row{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.045)}
+.lt-row:last-child{border-bottom:none}
+.lt-row.na{opacity:.55}
+.lt-row.so .lt-r{font-weight:700}
+.lt-nm{font-size:12px;color:var(--txt);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lt-o,.lt-r,.lt-a{text-align:right;font-size:12.5px}
+.lt-o{color:var(--muted)} .lt-r{color:var(--txt);font-weight:600} .lt-r.hot{color:var(--accent)}
+.lt-a{font-weight:700}
+.lt-bar{grid-column:1/-1;height:5px}
+.lt-bar .bar{height:5px}
+@media(max-width:560px){
+  .lt-head,.lt-row{grid-template-columns:1fr 54px 54px 46px;gap:7px}
+  .lt-o,.lt-r,.lt-a,.lt-head span{font-size:11px}
+}
+/* panel de totales del filtro */
+.totals{border:1px solid var(--line2);border-radius:var(--radius);background:linear-gradient(165deg,var(--panel2),var(--bg2));padding:16px 18px;margin-bottom:16px}
+.totals-head{display:flex;align-items:center;gap:9px;font-family:'Archivo';font-weight:800;font-size:13px;color:var(--txt);margin-bottom:12px;flex-wrap:wrap}
+.totals-head .dot{width:9px;height:9px;border-radius:3px;background:var(--accent)}
+.totals-head .th-note{font-family:'Manrope';font-weight:600;font-size:11px;color:var(--muted2);text-transform:none;letter-spacing:0}
+.tot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.tot-chip{display:flex;justify-content:space-between;align-items:baseline;gap:8px;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;padding:8px 11px}
+.tot-chip .tl{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tot-chip .tv{font-size:14px;font-weight:700;color:var(--txt)}
+@media(max-width:560px){.tot-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr))}}
  
 /* vista por línea (ranking) */
 .sec-divider{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:6px 0 4px;padding:14px 4px 10px;border-bottom:1px solid var(--line)}
@@ -192,10 +223,10 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
  
 /* ficha */
 .ficha-head{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:18px}
-.card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(165deg,var(--panel),var(--bg2));padding:21px;box-shadow:var(--shadow)}
+.card{border:1px solid var(--line);border-left:4px solid var(--sc,var(--line2));border-radius:var(--radius);background:linear-gradient(165deg,var(--panel),var(--bg2));padding:21px;box-shadow:var(--shadow)}
 .card.flat{background:var(--panel);box-shadow:none}
 .card-title{display:flex;align-items:center;gap:10px;font-family:'Archivo';font-weight:700;font-size:12.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-bottom:15px}
-.card-title .dot{width:8px;height:8px;border-radius:3px;background:var(--accent)}
+.card-title .dot{width:8px;height:8px;border-radius:3px;background:var(--sc,var(--accent))}
 .fh-name{font-family:'Archivo';font-weight:800;font-size:clamp(19px,3vw,27px);line-height:1.08;letter-spacing:-.5px}
 .fh-neg{color:var(--accent);font-weight:700;font-size:15px;margin-top:4px}
 .fh-code{font-family:'IBM Plex Mono';font-size:12px;color:var(--muted);margin-top:8px}
@@ -261,9 +292,18 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cal-fact b{color:var(--txt)}
 .cal-body{display:flex;flex-direction:column;gap:8px}
 .cal-empty{color:var(--muted2);font-size:12px;text-align:center;padding:14px 0}
-.cal-card{background:rgba(255,255,255,.03);border:1px solid var(--line2);border-radius:11px;padding:11px}
-.cc-name{font-weight:700;font-size:12.5px;line-height:1.15}
-.cc-sub{font-family:'IBM Plex Mono';font-size:10px;color:var(--muted2);margin:3px 0 8px}
+.cal-card{background:rgba(255,255,255,.03);border:1px solid var(--line2);border-left:4px solid var(--line2);border-radius:11px;padding:10px;cursor:pointer;transition:.15s}
+.cal-card:hover{background:rgba(255,255,255,.06)}
+.cc-head{display:flex;align-items:center;gap:8px}
+.cc-dot{width:10px;height:10px;border-radius:50%;flex:none}
+.cc-headtxt{min-width:0;flex:1}
+.cc-name{font-weight:700;font-size:12.5px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-zone{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+.cc-chev{width:15px;height:15px;color:var(--muted2);flex:none;transition:.2s}
+.cal-card.open .cc-chev{transform:rotate(180deg)}
+.cc-detail{display:none;margin-top:9px;border-top:1px solid var(--line);padding-top:9px}
+.cal-card.open .cc-detail{display:block}
+.cc-code{font-family:'IBM Plex Mono';font-size:10px;color:var(--muted2);margin-bottom:7px}
 .cc-lines{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
 .cc-line{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;align-items:baseline}
 .cc-line .cc-l{color:var(--muted);font-weight:600}
@@ -368,13 +408,20 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
         <input id="cliSearch" type="text" placeholder="Buscar cliente, negocio, código o zona…">
       </div>
       <div class="ctrl"><label>Línea</label><select class="inp" id="lineSel"></select></div>
+      <div class="ctrl"><label>Día visita</label><select class="inp" id="daySel">
+        <option value="ALL">Todos los días</option>
+        <option value="LUNES">Lunes</option><option value="MARTES">Martes</option><option value="MIERCOLES">Miércoles</option>
+        <option value="JUEVES">Jueves</option><option value="VIERNES">Viernes</option><option value="SABADO">Sábado</option><option value="ESPORADICO">Esporádico</option>
+      </select></div>
       <div class="ctrl"><label>Orden</label><select class="inp" id="orderSel">
-        <option value="behind">Rezagados primero</option>
-        <option value="good">Buen progreso primero</option>
+        <option value="good">Progreso bueno</option>
+        <option value="medio">Progreso medio</option>
+        <option value="regular">Progreso regular</option>
         <option value="name">Por nombre</option>
       </select></div>
       <div class="count-pill" id="cliCount">0 clientes</div>
     </div>
+    <div id="cliTotals"></div>
     <div class="cli-list" id="cliGrid"></div>
   </section>
  
@@ -433,6 +480,13 @@ const LINES = [
   {key:'ALCALIN',label:'Alcalina',obj:'OBJ ALCALIN',real:'REAL ALCALIN'},
 ];
 const HEADLINE_KEY='TOTAL';
+/* orden prioritario para la vista general: Total acum., Lubricantes, Motos, Total llantas, Filtros, Alcalina, luego el resto */
+const GEN_PRIORITY=['TOTAL','LUB','MOTO','LLANTAS','FILTRO','ALCALIN'];
+function orderedLines(){const pri=GEN_PRIORITY.map(k=>LINES.find(l=>l.key===k)).filter(Boolean);const rest=LINES.filter(l=>!GEN_PRIORITY.includes(l.key));return pri.concat(rest);}
+/* nivel de progreso según ritmo de días hábiles */
+function tier(pctN,pace){if(pctN==null)return 'na';const ref=(pace==null?100:pace);if(pctN>=ref)return 'good';if(pctN>=ref-15)return 'medio';return 'regular';}
+const TIER_INFO={good:{txt:'▲ Buen progreso',card:'aok',ring:'good'},medio:{txt:'◆ Medio',card:'medio',ring:'mid'},regular:{txt:'▼ Regular',card:'behind',ring:'low'},na:{txt:'',card:'',ring:'na'}};
+function zoneColor(z){z=(z||'').trim();if(!z)return '#6b82a8';let h=0;for(let i=0;i<z.length;i++)h=(h*31+z.charCodeAt(i))%360;return `hsl(${h} 72% 60%)`;}
 const APOYO=['FACHADA','EXHIBIDOR LTH','EXHIBIDOR LUB','EXHIBIDOR MOT','ACTIVACIONES','MINUTA CREDITO / DESCUENTO','MINUTA DE POP'];
 const DESCUENTOS=['LTH','AMERICA','PREMIUM (HI TEC)','AGM','LUBRICANTE / ACEITE','MOTOBATERIA','FILTROS LTH'];
 const DAYS=[['LUNES','Lun'],['MARTES','Mar'],['MIERCOLES','Mié'],['JUEVES','Jue'],['VIERNES','Vie'],['SABADO','Sáb'],['ESPORADICO','Esp']];
@@ -653,7 +707,7 @@ function renderVendors(){
   grid.innerHTML=list.map((v,i)=>{
     const hl=v.lines[HEADLINE_KEY];
     const ini=v.name.split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?';
-    const rows=LINES.map(line=>{const L=v.lines[line.key];const status=(L.objSum==null||L.objSum===0)?((L.realSum!=null&&L.realSum!==0)?'sinobj':'nodata'):'ok';return lnRow(line.label,L.objSum!=null?fmtNum(L.objSum):'',L.realSum!=null?fmtNum(L.realSum):'',L.pct,status,pace);}).join('');
+    const rows=orderedLines().map(line=>{const L=v.lines[line.key];const status=(L.objSum==null||L.objSum===0)?((L.realSum!=null&&L.realSum!==0)?'sinobj':'nodata'):'ok';return lnRow(line.label,L.objSum!=null?fmtNum(L.objSum):'',L.realSum!=null?fmtNum(L.realSum):'',L.pct,status,pace);}).join('');
     return `<div class="vend-card reveal" data-vend="${esc(v.name)}" style="animation-delay:${i*.04}s">
       <div class="vend-top">
         <div class="vend-avatar">${esc(ini)}</div>
@@ -668,61 +722,106 @@ function renderVendors(){
 }
  
 /* ---- CLIENTES ---- */
-let CLI=[], LINE_FILTER='ALL', ORDER='behind';
-function buildLineSelector(){document.getElementById('lineSel').innerHTML=`<option value="ALL">Todas las líneas (vista general)</option>`+LINES.map(l=>`<option value="${l.key}">${esc(l.label)}</option>`).join('');document.getElementById('lineSel').value=LINE_FILTER;}
+let CLI=[], LINE_FILTER='ALL', ORDER='regular', DAY_FILTER='ALL';
+function hasObjective(rec){return LINES.some(l=>{const o=rec.numLit(l.obj);return o.n!=null&&o.n>0;});}
+function hasSales(rec){return LINES.some(l=>{const r=rec.numLit(l.real);return r.n!=null&&r.n!==0;});}
+function buildLineSelector(){document.getElementById('lineSel').innerHTML=`<option value="ALL">Todas las líneas (vista general)</option><option value="CONOBJ">Clientes con objetivo</option><option value="SINOBJ">Clientes sin objetivo</option>`+LINES.map(l=>`<option value="${l.key}">Por línea · ${esc(l.label)}</option>`).join('');document.getElementById('lineSel').value=LINE_FILTER;}
 function renderClients(){
   const o=org(STATE.org);
   document.getElementById('cliEyebrow').textContent=o.label+' · Vendedor';
   document.getElementById('cliTitle').textContent=STATE.vendor;
   document.getElementById('cliPace').innerHTML=paceText();
-  const pace=expectedPace();
   const groups=clientGroups(STATE.org).filter(rec=>rec.vendor===STATE.vendor);
   CLI=groups.map((rec,i)=>{const hl=lineData(rec,LINES.find(l=>l.key===HEADLINE_KEY));return {rec,uid:i,code:getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H),cliente:rec.text('CLIENTE'),negocio:rec.text('NOMBRE DE NEGOCIO'),zona:rec.text('ZONA'),giro:rec.text('GIRO'),cMid:rec.text('COMENTARIO A MITAD DE MES'),cEnd:rec.text('COMENTARIOS A FINAL DE MES'),pctN:hl.pctN,hlStatus:hl.status,search:keyName([rec.text('CLIENTE'),rec.text('NOMBRE DE NEGOCIO'),rec.text('COD CLIENTE'),rec.text('ZONA'),rec.text('GIRO')].join(' '))};});
   filterClients();
 }
 function sortList(arr,pace){
   if(ORDER==='name')return arr.sort((a,b)=>(a.cliente||'').localeCompare(b.cliente||''));
-  const val=c=>c.pctN==null?(ORDER==='behind'?999:-1):c.pctN;
-  return arr.sort((a,b)=>ORDER==='good'?val(b)-val(a):val(a)-val(b));
+  const sel=ORDER, tr=c=>tier(c.pctN,pace);
+  const sec=(a,b)=>{const va=a.pctN,vb=b.pctN;if(va==null&&vb==null)return 0;if(va==null)return 1;if(vb==null)return -1;return sel==='regular'?va-vb:vb-va;};
+  return arr.sort((a,b)=>{const pa=tr(a)===sel?0:1,pb=tr(b)===sel?0:1;if(pa!==pb)return pa-pb;return sec(a,b);});
 }
 function comentInline(c){const p=[];if(!isEmpty(c.cMid))p.push(`<span class="cm-lbl">Mitad:</span> ${esc(c.cMid)}`);if(!isEmpty(c.cEnd))p.push(`<span class="cm-lbl">Final:</span> ${esc(c.cEnd)}`);return p.length?`<div class="lr-coment">${p.join('<br>')}</div>`:`<div class="lr-coment empty">Sin comentario del vendedor para este mes</div>`;}
+/* totales del filtro actual (suma de real por línea + dinero) */
+function renderTotals(recs){
+  const el=document.getElementById('cliTotals');
+  if(!recs.length){el.innerHTML='';return;}
+  const sums={}; LINES.forEach(l=>sums[l.key]=null);
+  let fac=null,cos=null,uti=null;
+  const add=(o,v)=>v==null?o:(o==null?v:o+v);
+  recs.forEach(rec=>{LINES.forEach(l=>{const r=rec.numLit(l.real);if(r.n!=null)sums[l.key]=add(sums[l.key],r.n);});
+    const f=rec.numLit('REAL FACT'),c=rec.numLit('COSTO'),d=rec.numLit('DIF');
+    if(f.n!=null)fac=add(fac,f.n);if(c.n!=null)cos=add(cos,c.n);
+    const u=d.n!=null?d.n:((f.n!=null&&c.n!=null)?f.n-c.n:null);if(u!=null)uti=add(uti,u);});
+  const chips=orderedLines().map(l=>`<div class="tot-chip"><span class="tl">${esc(l.label)}</span><span class="tv mono">${sums[l.key]!=null?fmtNum(sums[l.key]):'—'}</span></div>`).join('');
+  el.innerHTML=`<div class="totals">
+    <div class="totals-head"><span class="dot"></span>Totales del filtro · ${recs.length} cliente${recs.length!==1?'s':''} <span class="th-note">unidades vendidas (real) por línea</span></div>
+    <div class="tot-grid">${chips}</div>
+    <div class="acct-strip" style="margin-top:14px">
+      <div class="acct"><div class="av hot">${fac!=null?acct(fac):'—'}</div><div class="al">Facturado total</div></div>
+      <div class="acct"><div class="av">${cos!=null?acct(cos):'—'}</div><div class="al">Costo total</div></div>
+      <div class="acct"><div class="av ${uti==null?'':(uti<0?'neg':'pos')}">${uti!=null?acct(uti):'—'}</div><div class="al">Utilidad total</div></div>
+      <div class="acct"><div class="av">${(fac!=null&&fac!==0&&uti!=null)?Math.round(uti/fac*100)+'%':'—'}</div><div class="al">Margen</div></div>
+    </div></div>`;
+}
 function filterClients(){
   const q=keyName(document.getElementById('cliSearch').value);
   let base=CLI.filter(c=>!q||c.search.includes(q));
+  if(DAY_FILTER!=='ALL')base=base.filter(c=>!isEmpty(c.rec.text(DAY_FILTER)));
   const grid=document.getElementById('cliGrid'); const pace=expectedPace();
   if(LINE_FILTER==='ALL')renderMatrix(base,grid,pace);
+  else if(LINE_FILTER==='CONOBJ')renderMatrix(base.filter(c=>hasObjective(c.rec)),grid,pace,'con objetivo');
+  else if(LINE_FILTER==='SINOBJ')renderMatrix(base.filter(c=>!hasObjective(c.rec)&&hasSales(c.rec)),grid,pace,'sin objetivo');
   else renderLineFocus(base,grid,LINES.find(l=>l.key===LINE_FILTER),pace);
 }
-function renderMatrix(base,grid,pace){
+function renderMatrix(base,grid,pace,note){
   let list=sortList(base.slice(),pace);
-  const nBehind=base.filter(c=>isBehind(c.pctN,pace)).length;
-  document.getElementById('cliCount').textContent=`${list.length} cliente${list.length!==1?'s':''} · ${nBehind} rezagado${nBehind!==1?'s':''}`;
-  if(!list.length){grid.innerHTML='<div class="empty-state">Sin clientes que coincidan.</div>';return;}
+  const counts={good:0,medio:0,regular:0};
+  base.forEach(c=>{const t=tier(c.pctN,pace);if(counts[t]!=null)counts[t]++;});
+  document.getElementById('cliCount').textContent=`${list.length} cliente${list.length!==1?'s':''}${note?' · '+note:''} · ${counts.good} buenos / ${counts.medio} medios / ${counts.regular} regulares`;
+  if(!list.length){grid.innerHTML='<div class="empty-state">Sin clientes que coincidan con este filtro.</div>';renderTotals([]);return;}
+  renderTotals(list.map(c=>c.rec));
+  const lines=orderedLines();
   grid.innerHTML=list.map((c,i)=>{
-    const behind=isBehind(c.pctN,pace), goodp=(c.pctN!=null&&!behind&&c.hlStatus==='ok');
+    const tr=tier(c.pctN,pace), info=TIER_INFO[tr];
     let ringTxt,ringCls;
-    if(c.hlStatus==='sinobj'){ringTxt='s/obj';ringCls='na';}else if(c.pctN==null){ringTxt='—';ringCls='na';}else{ringTxt=Math.round(c.pctN)+'%';ringCls=paceClass(c.pctN,pace);}
-    const lns=LINES.map(line=>{const ld=lineData(c.rec,line);return lnRow(line.label,ld.obj.lit,ld.real.lit,ld.pctN,ld.status,pace);}).join('');
-    return `<div class="cli-card reveal ${behind?'behind':(goodp?'aok':'')}" data-cli="${c.uid}" style="animation-delay:${Math.min(i,16)*.03}s">
+    if(c.hlStatus==='sinobj'){ringTxt='s/obj';ringCls='na';}else if(c.pctN==null){ringTxt='—';ringCls='na';}else{ringTxt=Math.round(c.pctN)+'%';ringCls=info.ring;}
+    const badge=(c.hlStatus==='ok'&&info.txt)?`<span class="badge-st ${info.card}">${info.txt}</span>`:'';
+    return `<div class="cli-card reveal ${c.hlStatus==='ok'?info.card:''}" data-cli="${c.uid}" style="animation-delay:${Math.min(i,16)*.03}s">
       <div class="cli-head">
         <div class="cli-id"><div class="code">${esc(disp(c.code))}</div><h4 class="display">${esc(c.cliente||SD)}</h4><div class="neg">${esc(c.negocio||SD)}</div></div>
-        <div class="cli-tags"><span class="tag">${esc(c.zona||'sin zona')}</span>${c.giro?`<span class="tag">${esc(c.giro)}</span>`:''}${behind?'<span class="badge-st behind">▼ Rezagado</span>':(goodp?'<span class="badge-st aok">▲ En meta</span>':'')}</div>
+        <div class="cli-tags"><span class="tag">${esc(c.zona||'sin zona')}</span>${c.giro?`<span class="tag">${esc(c.giro)}</span>`:''}${badge}</div>
         <div class="cli-ring"><div class="big mono t-${ringCls}">${esc(ringTxt)}</div><div class="lbl">Avance Total</div></div>
       </div>
-      <div class="ln-list">${lns}</div>
+      ${clientLineTable(c.rec,lines,pace)}
       ${acctStrip(c.rec)}
       <span class="cli-open">Ver ficha completa <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </div>`;
   }).join('');
 }
+/* tabla de líneas alineada: Línea | Objetivo | Real | Avance */
+function clientLineTable(rec,lines,pace){
+  const rows=lines.map(line=>{
+    const ld=lineData(rec,line);
+    if(ld.status==='nodata')
+      return `<div class="lt-row na"><span class="lt-nm">${esc(line.label)}</span><span class="lt-o">—</span><span class="lt-r">—</span><span class="lt-a t-na">sin data</span><span class="lt-bar"></span></div>`;
+    if(ld.status==='sinobj')
+      return `<div class="lt-row so"><span class="lt-nm">${esc(line.label)}</span><span class="lt-o">sin obj</span><span class="lt-r hot">${esc(ld.real.lit||SD)}</span><span class="lt-a"><span class="so-flag">venta s/obj</span></span><span class="lt-bar"></span></div>`;
+    const cls=paceClass(ld.pctN,pace);
+    const mk=(pace!=null)?`<span class="mk" style="left:${Math.min(100,pace)}%"></span>`:'';
+    return `<div class="lt-row"><span class="lt-nm">${esc(line.label)}</span><span class="lt-o mono">${esc(ld.obj.lit||SD)}</span><span class="lt-r mono">${esc(ld.real.lit||SD)}</span><span class="lt-a mono t-${cls}">${ld.pctN!=null?Math.round(ld.pctN)+'%':'—'}</span><span class="lt-bar"><span class="bar ${cls}"><i style="width:${clampW(ld.pctN)}%"></i>${mk}</span></span></div>`;
+  }).join('');
+  return `<div class="lt"><div class="lt-head"><span>Línea</span><span>Objetivo</span><span>Real fact.</span><span>Avance</span><span></span></div>${rows}</div>`;
+}
 function renderLineFocus(base,grid,line,pace){
   const conObj=[],sinObj=[];
   base.forEach(c=>{const ld=lineData(c.rec,line);const it={...c,ld};if(ld.obj.n!=null&&ld.obj.n>0)conObj.push(it);else if(ld.real.n!=null&&ld.real.n!==0)sinObj.push(it);});
-  const v=c=>c.ld.pctN==null?(ORDER==='behind'?999:-1):c.ld.pctN;
-  if(ORDER==='name')conObj.sort((a,b)=>(a.cliente||'').localeCompare(b.cliente||''));
-  else conObj.sort((a,b)=>ORDER==='good'?v(b)-v(a):v(a)-v(b));
+  const sel=ORDER, tr=c=>tier(c.ld.pctN,pace);
+  if(sel==='name')conObj.sort((a,b)=>(a.cliente||'').localeCompare(b.cliente||''));
+  else{const sec=(a,b)=>{const va=a.ld.pctN,vb=b.ld.pctN;if(va==null&&vb==null)return 0;if(va==null)return 1;if(vb==null)return -1;return sel==='regular'?va-vb:vb-va;};conObj.sort((a,b)=>{const pa=tr(a)===sel?0:1,pb=tr(b)===sel?0:1;if(pa!==pb)return pa-pb;return sec(a,b);});}
   const nBehind=conObj.filter(c=>isBehind(c.ld.pctN,pace)).length;
   document.getElementById('cliCount').textContent=`${conObj.length} con objetivo · ${nBehind} rezagado${nBehind!==1?'s':''} · ${sinObj.length} venta s/obj`;
+  renderTotals(conObj.concat(sinObj).map(c=>c.rec));
   const rowCon=(c,i)=>{const cls=paceClass(c.ld.pctN,pace),behind=isBehind(c.ld.pctN,pace);const mk=(pace!=null)?`<span class="mk" style="left:${Math.min(100,pace)}%"></span>`:'';const pctTxt=c.ld.pctN!=null?Math.round(c.ld.pctN)+'%':'—';
     return `<div class="line-row reveal ${behind?'behind':(c.ld.pctN!=null?'aok':'')}" data-cli="${c.uid}" style="animation-delay:${Math.min(i,20)*.02}s">
       <div class="lr-rank mono">${i+1}</div>
@@ -759,35 +858,35 @@ function renderFicha(rec){
   const pace=expectedPace();
   const cliente=rec.text('CLIENTE'),negocio=rec.text('NOMBRE DE NEGOCIO'),code=rec.text('COD CLIENTE');
   const foto=fotoBlock(rec);
-  const perf=LINES.map(line=>{const ld=lineData(rec,line);const cls=paceClass(ld.pctN,pace);let pctTxt,flag='';if(ld.status==='nodata'){pctTxt='—';flag='<span class="flag nd">sin data</span>';}else if(ld.status==='sinobj'){pctTxt='—';flag='<span class="flag so">venta s/objetivo</span>';}else pctTxt=ld.pctLit?esc(ld.pctLit):(ld.pctN!=null?Math.round(ld.pctN)+'%':'—');const mk=(pace!=null&&ld.status==='ok')?`<span class="mk" style="left:${Math.min(100,pace)}%"></span>`:'';
+  const perf=orderedLines().map(line=>{const ld=lineData(rec,line);const cls=paceClass(ld.pctN,pace);let pctTxt,flag='';if(ld.status==='nodata'){pctTxt='—';flag='<span class="flag nd">sin data</span>';}else if(ld.status==='sinobj'){pctTxt='—';flag='<span class="flag so">venta s/objetivo</span>';}else pctTxt=ld.pctLit?esc(ld.pctLit):(ld.pctN!=null?Math.round(ld.pctN)+'%':'—');const mk=(pace!=null&&ld.status==='ok')?`<span class="mk" style="left:${Math.min(100,pace)}%"></span>`:'';
     return `<div class="perf-item"><div class="perf-top"><span class="perf-name">${esc(line.label)}${flag}</span><span class="perf-pct t-${cls}">${pctTxt}</span></div><div class="bar ${cls}"><i style="width:${clampW(ld.pctN)}%"></i>${mk}</div><div class="perf-nums"><span><span class="nlbl">Objetivo</span><b>${esc(ld.obj.lit||SD)}</b></span><span style="text-align:right"><span class="nlbl">Real</span><b>${esc(ld.real.lit||SD)}</b></span></div></div>`;}).join('');
   const apoyo=APOYO.map(n=>{const v=rec.text(n);const on=!isEmpty(v);const s=n.replace('MINUTA CREDITO / DESCUENTO','Minuta crédito/desc.').replace('MINUTA DE POP','Minuta POP').replace('EXHIBIDOR ','Exh. ').replace('ACTIVACIONES','Activaciones').replace('FACHADA','Fachada');return `<span class="chip ${on?'on':''}"><b>${esc(s)}:</b> ${esc(on?v:SD)}</span>`;}).join('');
   const desc=dl(DESCUENTOS.map(n=>[n.replace(' (HI TEC)',' (Hi-Tec)'),rec.text(n)]));
   const cMid=rec.text('COMENTARIO A MITAD DE MES'),cEnd=rec.text('COMENTARIOS A FINAL DE MES');
   document.getElementById('fichaBody').innerHTML=`
     <div class="ficha-head">
-      <div class="card">
+      <div class="card" style="--sc:#ffd21e">
         <div class="fh-name display">${esc(cliente||SD)}</div><div class="fh-neg">${esc(negocio||SD)}</div>
         <div class="fh-code">COD ${esc(disp(code))} · ${esc(rec.text('MES'))} ${esc(rec.text('AÑO'))}</div>
         <div class="chips"><span class="chip"><b>Vendedor:</b> ${esc(disp(rec.vendor))}</span><span class="chip"><b>Giro:</b> ${esc(disp(rec.text('GIRO')))}</span><span class="chip"><b>Zona:</b> ${esc(disp(rec.text('ZONA')))}</span></div>
-        <div class="section-block"><div class="card-title"><span class="dot"></span>Condición de crédito</div>${dl([['Tipo',rec.text('TIPO')],['Días de crédito',rec.text('DIAS')],['Límite',rec.text('LIMITE')],['PLR',rec.text('PLR')],['Fecha de alta',rec.text('FECHA DE ALTA')]])}</div>
-        <div class="section-block"><div class="card-title"><span class="dot"></span>Días de visita</div><div class="days">${DAYS.map(([col,ab])=>`<div class="day ${!isEmpty(rec.text(col))?'on':''}">${ab}</div>`).join('')}</div></div>
+        <div class="section-block" style="--sc:#ffd21e"><div class="card-title"><span class="dot"></span>Condición de crédito</div>${dl([['Tipo',rec.text('TIPO')],['Días de crédito',rec.text('DIAS')],['Límite',rec.text('LIMITE')],['PLR',rec.text('PLR')],['Fecha de alta',rec.text('FECHA DE ALTA')]])}</div>
+        <div class="section-block" style="--sc:#a78bfa"><div class="card-title"><span class="dot"></span>Días de visita</div><div class="days">${DAYS.map(([col,ab])=>`<div class="day ${!isEmpty(rec.text(col))?'on':''}">${ab}</div>`).join('')}</div></div>
       </div>
-      <div class="card flat">
+      <div class="card flat" style="--sc:#3aa6ff">
         <div class="card-title"><span class="dot"></span>Fachada y ubicación</div>
         <div class="foto-wrap">${foto.img}</div>${foto.btn}
         <div class="section-block">${dl([['Encargado de compras',rec.text('ENCARGADO DE COMPRAS')],['Celular',rec.text('NUMERO CELULAR')],['Dirección',rec.text('DIRECCION')],['Latitud',rec.text('LATITUD')],['Longitud',rec.text('LONGITUD')]])}</div>
       </div>
     </div>
-    <div class="card section-block"><div class="card-title"><span class="dot"></span>Desempeño por línea · Real vs Objetivo</div><div class="perf-grid">${perf}</div>
-      <div class="section-block"><div class="card-title"><span class="dot"></span>Factura · Costo · Utilidad</div>${acctStrip(rec)}</div></div>
+    <div class="card section-block" style="--sc:#3fd18a"><div class="card-title"><span class="dot"></span>Desempeño por línea · Real vs Objetivo</div><div class="perf-grid">${perf}</div>
+      <div class="section-block" style="--sc:#ffb000"><div class="card-title"><span class="dot"></span>Factura · Costo · Utilidad</div>${acctStrip(rec)}</div></div>
     <div class="two-col section-block">
-      <div class="card flat"><div class="card-title"><span class="dot"></span>Apoyo comercial (POP)</div><div class="chips">${apoyo}</div></div>
-      <div class="card flat"><div class="card-title"><span class="dot"></span>Descuentos otorgados</div>${desc}</div>
+      <div class="card flat" style="--sc:#a78bfa"><div class="card-title"><span class="dot"></span>Apoyo comercial (POP)</div><div class="chips">${apoyo}</div></div>
+      <div class="card flat" style="--sc:#2dd4bf"><div class="card-title"><span class="dot"></span>Descuentos otorgados</div>${desc}</div>
     </div>
     <div class="two-col section-block">
-      <div class="card flat"><div class="card-title"><span class="dot"></span>Comentario a mitad de mes</div><div class="coment ${isEmpty(cMid)?'empty':''}">${esc(isEmpty(cMid)?SD:cMid)}</div></div>
-      <div class="card flat"><div class="card-title"><span class="dot"></span>Comentario a final de mes</div><div class="coment ${isEmpty(cEnd)?'empty':''}">${esc(isEmpty(cEnd)?SD:cEnd)}</div></div>
+      <div class="card flat" style="--sc:#f472b6"><div class="card-title"><span class="dot"></span>Comentario a mitad de mes</div><div class="coment ${isEmpty(cMid)?'empty':''}">${esc(isEmpty(cMid)?SD:cMid)}</div></div>
+      <div class="card flat" style="--sc:#fb923c"><div class="card-title"><span class="dot"></span>Comentario a final de mes</div><div class="coment ${isEmpty(cEnd)?'empty':''}">${esc(isEmpty(cEnd)?SD:cEnd)}</div></div>
     </div>`;
 }
  
@@ -802,6 +901,9 @@ function renderReportes(){
 }
 function calCard(rec){
   const pace=expectedPace();
+  const zona=rec.text('ZONA')||'Sin zona';
+  const col=zoneColor(zona);
+  const code=disp(getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H));
   const lines=RUTA_LINES.map(k=>{const line=LINES.find(l=>l.key===k);const ld=lineData(rec,line);const cls=paceClass(ld.pctN,pace);let val;
     if(ld.status==='nodata')val='<span class="t-na">s/d</span>';
     else if(ld.status==='sinobj')val=`<span class="mono">${esc(ld.real.lit||'—')}</span> <span class="so-flag">s/obj</span>`;
@@ -809,10 +911,16 @@ function calCard(rec){
     return `<div class="cc-line"><span class="cc-l">${esc(line.label)}</span><span class="cc-v">${val}</span></div>`;}).join('');
   const fac=rec.numLit('REAL FACT'),dif=rec.numLit('DIF'),cos=rec.numLit('COSTO');
   const util=dif.n!=null?dif.n:((fac.n!=null&&cos.n!=null)?fac.n-cos.n:null);
-  return `<div class="cal-card"><div class="cc-name">${esc(rec.text('CLIENTE')||SD)}</div>
-    <div class="cc-sub">${esc(disp(getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H)))} · ${esc(rec.text('ZONA')||'—')}</div>
-    <div class="cc-lines">${lines}</div>
-    <div class="cc-money"><span>Fact <b class="hot">${acct(fac.n)}</b></span><span>Util <b class="${util==null?'':(util<0?'neg':'pos')}">${acct(util)}</b></span></div></div>`;
+  return `<div class="cal-card" style="border-left-color:${col}">
+    <div class="cc-head"><span class="cc-dot" style="background:${col}"></span>
+      <div class="cc-headtxt"><div class="cc-name">${esc(rec.text('CLIENTE')||SD)}</div><div class="cc-zone" style="color:${col}">${esc(zona)}</div></div>
+      <svg class="cc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="cc-detail">
+      <div class="cc-code">COD ${esc(code)}</div>
+      <div class="cc-lines">${lines}</div>
+      <div class="cc-money"><span>Fact <b class="hot">${acct(fac.n)}</b></span><span>Util <b class="${util==null?'':(util<0?'neg':'pos')}">${acct(util)}</b></span></div>
+    </div></div>`;
 }
 function renderRutaFija(){
   const vends=vendorAggregates(STATE.org);
@@ -836,11 +944,12 @@ function renderRutaFija(){
    ============================================================ */
 function goHome(){STATE.org=null;STATE.vendor=null;setAccent(null);renderHome();showScreen('home');}
 function goVend(id){STATE.org=id;STATE.vendor=null;setAccent(id);renderVendors();showScreen('vend');}
-function goCli(v){STATE.vendor=v;document.getElementById('cliSearch').value='';LINE_FILTER='ALL';ORDER='behind';document.getElementById('orderSel').value='behind';buildLineSelector();renderClients();showScreen('cli');}
+function goCli(v){STATE.vendor=v;document.getElementById('cliSearch').value='';LINE_FILTER='ALL';ORDER='regular';DAY_FILTER='ALL';document.getElementById('orderSel').value='regular';document.getElementById('daySel').value='ALL';buildLineSelector();renderClients();showScreen('cli');}
 function goFicha(uid){const c=CLI.find(x=>x.uid===uid);if(!c)return;renderFicha(c.rec);showScreen('ficha');}
 function goRep(){renderReportes();showScreen('rep');}
  
 document.addEventListener('click',e=>{
+  const cc=e.target.closest('.cal-card');if(cc){cc.classList.toggle('open');return;}
   const ov=e.target.closest('[data-org]');if(ov){goVend(ov.dataset.org);return;}
   const vd=e.target.closest('[data-vend]');if(vd){goCli(vd.dataset.vend);return;}
   const cl=e.target.closest('[data-cli]');if(cl){goFicha(parseInt(cl.dataset.cli));return;}
@@ -849,6 +958,7 @@ document.addEventListener('click',e=>{
 document.getElementById('repBtn').addEventListener('click',goRep);
 document.getElementById('cliSearch').addEventListener('input',filterClients);
 document.getElementById('lineSel').addEventListener('change',e=>{LINE_FILTER=e.target.value;filterClients();});
+document.getElementById('daySel').addEventListener('change',e=>{DAY_FILTER=e.target.value;filterClients();});
 document.getElementById('orderSel').addEventListener('change',e=>{ORDER=e.target.value;filterClients();});
 document.getElementById('periodSel').addEventListener('change',e=>{STATE.period=e.target.value;rerender();});
 document.getElementById('cutoffSel').addEventListener('change',e=>{const v=e.target.value;if(v){const[y,m,d]=v.split('-').map(Number);CUTOFF=new Date(y,m-1,d);}rerender();});
