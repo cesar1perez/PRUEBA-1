@@ -202,6 +202,62 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .tot-chip .tl{font-size:10.5px;color:var(--muted);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tot-chip .tv{font-size:14px;font-weight:700;color:var(--txt)}
 @media(max-width:560px){.tot-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr))}}
+.tot-chip .tl{display:flex;align-items:center;gap:6px}
+.tdot{width:8px;height:8px;border-radius:50%;flex:none}
+/* pendientes por cumplir */
+.pend-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:4px 0 12px}
+.pend-lbl{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.pend-chip{font-size:11px;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-left:3px solid var(--lc);border-radius:8px;padding:5px 9px;color:var(--muted)}
+.pend-chip b{color:var(--lc);font-weight:700} .pend-chip i{font-family:'IBM Plex Mono';font-style:normal;color:var(--txt);font-weight:600}
+/* reporte ruta por día */
+.rd-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.rd-wrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.rd-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;border-bottom:2px solid var(--accent);padding-bottom:14px;margin-bottom:16px}
+.rd-org{font-family:'Archivo';font-weight:800;font-size:20px;letter-spacing:-.3px}
+.rd-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:800;margin-top:4px}
+.rd-meta{display:flex;gap:20px;flex-wrap:wrap}
+.rd-meta div{font-size:14px}
+.rd-meta span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted2);font-weight:800;margin-bottom:2px}
+.rd-meta b{font-family:'IBM Plex Mono';font-weight:700}
+.rd-tblwrap{overflow-x:auto}
+.rd-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.rd-tbl th{font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted2);padding:9px 8px;border-bottom:1.5px solid var(--line2);text-align:center;font-weight:800;white-space:nowrap}
+.rd-tbl th.lh{border-bottom:3px solid var(--lc)}
+.rd-tbl th:first-child,.rd-tbl th.l{text-align:left}
+.rd-tbl td{padding:8px;border-bottom:1px solid var(--line);text-align:center;font-family:'IBM Plex Mono';white-space:nowrap}
+.rd-tbl td.name{text-align:left;font-family:'Manrope';font-weight:600;white-space:normal;min-width:150px}
+.rd-tbl td.zone{text-align:left;font-weight:700}
+.rd-tbl tr.sub td{font-weight:700;background:rgba(255,255,255,.03);border-top:2px solid var(--line2)}
+.rd-zonedot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.rd-grouped th.lh{border-bottom:3px solid var(--lc);font-size:10px}
+.rd-grouped thead tr:nth-child(2) th{font-size:8.5px;color:var(--muted2);font-weight:700;padding:5px 6px}
+.rd-grouped td,.rd-grouped th{padding:7px 7px}
+.rd-grouped td.o{color:var(--muted);font-size:11px}.rd-grouped td.r{font-weight:700}
+.rd-grouped td.p{font-size:10px;font-weight:700}.rd-grouped td.money{font-size:11px}
+.rd-grouped .gsep{border-left:1px solid var(--line2)}
+.print-head{display:none}
+@media print{
+  @page{size:Letter landscape;margin:7mm}
+  body{background:#fff!important}
+  body *{visibility:hidden!important}
+  #printArea,#printArea *{visibility:visible!important}
+  #printArea{position:absolute;left:0;top:0;width:100%;background:#fff!important;color:#111!important;border:none!important;padding:0!important}
+  #printArea .rd-org{color:#111!important;font-size:18px}
+  #printArea .rd-title{color:#a06b00!important}
+  #printArea .rd-head{border-bottom:2px solid #111!important}
+  #printArea .rd-meta span{color:#555!important}
+  #printArea .rd-meta b{color:#111!important}
+  #printArea .rd-tbl{font-size:8.5px}
+  #printArea .rd-tbl th,#printArea .rd-tbl td{padding:4px 4px!important;color:#111!important}
+  #printArea .rd-tbl th{color:#333!important;border-bottom:1px solid #888!important}
+  #printArea .rd-grouped thead tr:nth-child(2) th{font-size:7px!important;color:#555!important}
+  #printArea .rd-tbl td{border-bottom:1px solid #ddd!important}
+  #printArea .rd-grouped .gsep{border-left:1px solid #bbb!important}
+  #printArea .rd-tbl td.o{color:#666!important}
+  #printArea .rd-tbl tr.sub td{background:#eee!important;border-top:2px solid #888!important}
+  #printArea .t-good{color:#0f7a44!important}#printArea .t-mid{color:#9a6b00!important}#printArea .t-low{color:#bf1f25!important}#printArea .t-na{color:#999!important}#printArea .so-flag{color:#1d6fb8!important}
+  #printArea .rd-tblwrap{overflow:visible!important}
+}
  
 /* vista por línea (ranking) */
 .sec-divider{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:6px 0 4px;padding:14px 4px 10px;border-bottom:1px solid var(--line)}
@@ -322,7 +378,53 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .empty-state{text-align:center;padding:50px 20px;color:var(--muted2)}
 .footnote{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
  
-/* ===== MÓVIL ===== */
+/* ===== PORTADA / LOGIN ===== */
+.welcome{max-width:920px;margin:10px auto 0;text-align:center}
+.wl-mark{width:84px;height:84px;border-radius:22px;margin:0 auto 22px;display:grid;place-items:center;font-family:'Archivo';font-weight:900;font-size:30px;color:#07142e;background:linear-gradient(135deg,var(--amber),var(--amber2));box-shadow:0 16px 40px -14px var(--amber)}
+.wl-title{font-family:'Archivo';font-weight:900;font-size:clamp(30px,6vw,52px);letter-spacing:-1px;line-height:1.02}
+.wl-title .amp{color:var(--cyan)}
+.wl-sub{color:var(--muted);font-size:15px;margin-top:12px;max-width:680px;margin-left:auto;margin-right:auto}
+.wl-access{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:34px auto 0;max-width:680px}
+.wl-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(160deg,var(--panel),var(--bg2));padding:26px;cursor:pointer;transition:.3s;text-align:left;position:relative;overflow:hidden}
+.wl-card:hover{transform:translateY(-5px);border-color:var(--c)}
+.wl-card .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line2);margin-bottom:14px;color:var(--c)}
+.wl-card .ic svg{width:24px;height:24px}
+.wl-card h3{font-family:'Archivo';font-weight:800;font-size:19px}
+.wl-card p{font-size:13px;color:var(--muted);margin-top:6px}
+.wl-card .go{margin-top:16px;font-weight:800;font-size:13px;color:var(--c);display:flex;align-items:center;gap:7px}
+.wl-card .go svg{width:16px;height:16px}
+.wl-priv{margin-top:34px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.02);padding:22px 24px;text-align:left}
+.wl-priv h4{font-family:'Archivo';font-weight:800;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:9px}
+.wl-priv h4 svg{width:16px;height:16px}
+.wl-priv p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:10px}
+.wl-priv p:last-child{margin-bottom:0}
+.wl-priv b{color:var(--txt)}
+/* modal */
+.modal-bg{position:fixed;inset:0;background:rgba(4,10,24,.7);backdrop-filter:blur(5px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-bg.show{display:flex;animation:fadeUp .25s ease both}
+.modal{width:100%;max-width:380px;background:linear-gradient(165deg,var(--panel),var(--bg2));border:1px solid var(--line2);border-radius:var(--radius);padding:26px;box-shadow:0 30px 70px -20px #000}
+.modal .m-ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(255,210,30,.1);border:1px solid var(--accent);color:var(--accent);margin-bottom:14px}
+.modal .m-ic svg{width:22px;height:22px}
+.modal h3{font-family:'Archivo';font-weight:800;font-size:18px;margin-bottom:4px}
+.modal .m-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.auth-inp{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:11px;color:var(--txt);font-family:'Manrope';font-size:15px;padding:12px 14px;transition:.2s}
+.auth-inp:focus{outline:none;border-color:var(--accent)}
+.auth-err{color:var(--low);font-size:12.5px;font-weight:600;margin-top:9px;min-height:16px}
+.modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+.lock-tag{font-size:11px;font-weight:700;color:var(--muted);border:1px solid var(--line2);border-radius:20px;padding:6px 12px;display:flex;align-items:center;gap:7px}
+.lock-tag svg{width:13px;height:13px;color:var(--accent)}
+@media(max-width:560px){.wl-access{grid-template-columns:1fr}}
+ 
+/* comparativo */
+.cmp-tbl{width:100%;border-collapse:collapse;font-size:12.5px;min-width:720px}
+.cmp-tbl th{font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted2);padding:9px 10px;border-bottom:1.5px solid var(--line2);text-align:right;font-weight:800;white-space:nowrap}
+.cmp-tbl th.l,.cmp-tbl td.l{text-align:left}
+.cmp-tbl td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;font-family:'IBM Plex Mono';white-space:nowrap}
+.cmp-tbl td.name{text-align:left;font-family:'Manrope';font-weight:600;white-space:normal;min-width:150px}
+.cmp-grp{border-left:1px solid var(--line2)}
+.cmp-tbl th.gh{border-bottom:3px solid var(--accent)}
+.delta{font-weight:700} .delta.up{color:var(--good)} .delta.down{color:var(--low)} .delta.flat{color:var(--muted2)}
+.cmp-tbl tr.sub td{font-weight:700;background:rgba(255,255,255,.03);border-top:2px solid var(--line2)}
 @media(max-width:820px){
   .ficha-head{grid-template-columns:1fr}
   .line-row{grid-template-columns:30px 1fr auto;grid-template-areas:"rank id pct" "rank metric metric" "rank coment coment";row-gap:9px}
@@ -360,6 +462,10 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
     <div class="topbar-right">
       <div class="ctrl"><label>Periodo</label><select class="inp" id="periodSel"></select></div>
       <div class="ctrl"><label>Corte</label><input class="inp" type="date" id="cutoffSel"></div>
+      <span class="lock-tag" id="roleTag" style="display:none"></span>
+      <button class="icon-btn" id="logoutBtn" title="Cambiar acceso / salir" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      </button>
       <button class="icon-btn" id="refreshBtn" title="Actualizar datos">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
       </button>
@@ -370,8 +476,36 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 <nav class="crumbs" id="crumbs"></nav>
  
 <main class="wrap">
+  <!-- BIENVENIDA / LOGIN -->
+  <section class="screen active" id="screen-welcome">
+    <div class="welcome">
+      <div class="wl-mark">RDV</div>
+      <h1 class="wl-title display">RDV Llanterama <span class="amp">&amp;</span> Autoeléctrica</h1>
+      <p class="wl-sub">Reporte Diario de Visitas · análisis de venta a detalle por cliente. Plataforma directiva y comercial de Llanterama Tulancingo S.A. de C.V. y Autoeléctrica Roma S.A. de C.V.</p>
+      <div class="wl-access">
+        <div class="wl-card" id="accDir" style="--c:var(--amber)">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3 class="display">Acceso directivos</h3>
+          <p>Vista completa de ambas organizaciones, todos los vendedores, clientes y reportes.</p>
+          <div class="go">Entrar con contraseña <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+        <div class="wl-card" id="accVen" style="--c:var(--cyan)">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+          <h3 class="display">Acceso vendedores</h3>
+          <p>Cada vendedor consulta únicamente su propia cartera con su contraseña personal.</p>
+          <div class="go">Entrar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+      <div class="wl-priv">
+        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Aviso de confidencialidad y uso interno</h4>
+        <p>Esta plataforma y toda la información que contiene —datos de contacto, ubicación, condiciones comerciales y cifras de venta de los clientes— son <b>propiedad confidencial</b> de Llanterama Tulancingo S.A. de C.V. y Autoeléctrica Roma S.A. de C.V. Su uso está restringido al personal autorizado. Queda <b>prohibido compartir, copiar, exportar o divulgar</b> esta información a terceros ajenos a la empresa.</p>
+        <p><b>Objetivo del reporte:</b> analizar la venta a detalle por cliente para identificar quiénes están por debajo de su objetivo y cuánto les falta por facturar para alcanzarlo, así como documentar los comentarios y planes de acción de los clientes que no llegan a su meta. El acceso por vendedor protege la información de cada cartera.</p>
+      </div>
+    </div>
+  </section>
+ 
   <!-- HOME -->
-  <section class="screen active" id="screen-home">
+  <section class="screen" id="screen-home">
     <div class="sec-head">
       <div class="eyebrow">Grupo comercial</div>
       <h1 class="h1 display">Reporte diario de visitas a detalle por cliente</h1>
@@ -445,9 +579,20 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
  
   <div class="footnote">
     <span>Datos en vivo desde Google Sheets · actualización automática</span>
-    <span>Llanterama Tulancingo · uso interno</span>
+    <span>Uso interno y confidencial · RDV</span>
   </div>
 </main>
+ 
+<div class="modal-bg" id="authModal">
+  <div class="modal">
+    <div class="m-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <h3 class="display" id="authTitle">Contraseña</h3>
+    <div class="m-sub" id="authSub">Ingresa tu contraseña de acceso.</div>
+    <input type="password" class="auth-inp" id="authInput" placeholder="Contraseña" autocomplete="off">
+    <div class="auth-err" id="authErr"></div>
+    <div class="modal-btns"><button class="btn ghost" id="authCancel">Cancelar</button><button class="btn" id="authOk">Entrar</button></div>
+  </div>
+</div>
  
 <script>
 /* ============================================================
@@ -487,6 +632,20 @@ function orderedLines(){const pri=GEN_PRIORITY.map(k=>LINES.find(l=>l.key===k)).
 function tier(pctN,pace){if(pctN==null)return 'na';const ref=(pace==null?100:pace);if(pctN>=ref)return 'good';if(pctN>=ref-15)return 'medio';return 'regular';}
 const TIER_INFO={good:{txt:'▲ Buen progreso',card:'aok',ring:'good'},medio:{txt:'◆ Medio',card:'medio',ring:'mid'},regular:{txt:'▼ Regular',card:'behind',ring:'low'},na:{txt:'',card:'',ring:'na'}};
 function zoneColor(z){z=(z||'').trim();if(!z)return '#6b82a8';let h=0;for(let i=0;i<z.length;i++)h=(h*31+z.charCodeAt(i))%360;return `hsl(${h} 72% 60%)`;}
+/* color distintivo por línea de producto */
+const LINE_COLORS={TOTAL:'#ffd21e',LUB:'#3aa6ff',MOTO:'#a78bfa',LLANTAS:'#3fd18a',FILTRO:'#fb923c',ALCALIN:'#2dd4bf',PREM:'#f472b6',AGM:'#f59e0b',ESTANDAR:'#60a5fa',USADO:'#94a3b8',AUTO:'#34d399',CTA:'#e879f9',CAMION:'#22d3ee'};
+function lineColor(k){return LINE_COLORS[k]||'#6b82a8';}
+ 
+/* ===== ACCESO (edita contraseñas aquí; no distinguen mayúsculas) ===== */
+const DIRECTIVO_PASS='roma2026';
+const VENDOR_PASS={
+  'Enrique R.':'rquique2026','Carlos C.':'carlitos2026','Ruben L.':'rleon2026','Miguel L':'lozadam2026',
+  'Celene S.':'celesoto2026','Oscar F.':'floresosc2026','Colosio-Mayoreo':'pcecil2026'
+};
+function passKey(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');}
+const VPASS={}; Object.keys(VENDOR_PASS).forEach(k=>{VPASS[keyName(k)]=passKey(VENDOR_PASS[k]);});
+function vendorPass(name){return VPASS[keyName(name)]||null;}
+let ROLE=null; const UNLOCKED=new Set();
 const APOYO=['FACHADA','EXHIBIDOR LTH','EXHIBIDOR LUB','EXHIBIDOR MOT','ACTIVACIONES','MINUTA CREDITO / DESCUENTO','MINUTA DE POP'];
 const DESCUENTOS=['LTH','AMERICA','PREMIUM (HI TEC)','AGM','LUBRICANTE / ACEITE','MOTOBATERIA','FILTROS LTH'];
 const DAYS=[['LUNES','Lun'],['MARTES','Mar'],['MIERCOLES','Mié'],['JUEVES','Jue'],['VIERNES','Vie'],['SABADO','Sáb'],['ESPORADICO','Esp']];
@@ -598,10 +757,10 @@ function paceText(){
 /* ============================================================
    4. MODELO (registros, líneas)
    ============================================================ */
-function clientGroups(orgId){
-  const H=DB.H;
+function clientGroups(orgId,periodKey){
+  const H=DB.H; if(periodKey===undefined)periodKey=STATE.period;
   let rows=DB.rows.filter(r=>resolveVendor(getCell(r,'VENDEDOR',H)).org===orgId);
-  if(STATE.period!=='ALL') rows=rows.filter(r=>(norm(getCell(r,'AÑO',H)||getCell(r,'ANIO',H)||getCell(r,'ANO',H))+'||'+norm(getCell(r,'MES',H)))===STATE.period);
+  if(periodKey!=='ALL') rows=rows.filter(r=>(norm(getCell(r,'AÑO',H)||getCell(r,'ANIO',H)||getCell(r,'ANO',H))+'||'+norm(getCell(r,'MES',H)))===periodKey);
   const g=new Map();
   rows.forEach(r=>{const code=getCell(r,'COD CLIENTE',H)||getCell(r,'CLIENTE',H)||JSON.stringify(r);if(!g.has(code))g.set(code,[]);g.get(code).push(r);});
   return [...g.values()].map(arr=>{arr.sort((a,b)=>periodRank(getCell(a,'AÑO',H),getCell(a,'MES',H))-periodRank(getCell(b,'AÑO',H),getCell(b,'MES',H)));return makeRecord(arr,H);});
@@ -634,6 +793,7 @@ function org(id){return CONFIG.orgs.find(o=>o.id===id);}
 function setAccent(id){const o=org(id);document.body.dataset.accent=o?o.accent:'amber';document.getElementById('brandMark').textContent=o?o.initial:'LL';}
 function showScreen(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+n).classList.add('active');STATE.screen=n;renderCrumbs();window.scrollTo({top:0,behavior:'smooth'});}
 function renderCrumbs(){
+  if(STATE.screen==='welcome'){document.getElementById('crumbs').innerHTML='';return;}
   const c=[{t:'Inicio',go:'home'}];
   if(STATE.org){c.push({t:org(STATE.org).label,go:'vend'});}
   if(STATE.screen==='rep')c.push({t:'Reportes',cur:true});
@@ -753,7 +913,7 @@ function renderTotals(recs){
     const f=rec.numLit('REAL FACT'),c=rec.numLit('COSTO'),d=rec.numLit('DIF');
     if(f.n!=null)fac=add(fac,f.n);if(c.n!=null)cos=add(cos,c.n);
     const u=d.n!=null?d.n:((f.n!=null&&c.n!=null)?f.n-c.n:null);if(u!=null)uti=add(uti,u);});
-  const chips=orderedLines().map(l=>`<div class="tot-chip"><span class="tl">${esc(l.label)}</span><span class="tv mono">${sums[l.key]!=null?fmtNum(sums[l.key]):'—'}</span></div>`).join('');
+  const chips=orderedLines().map(l=>`<div class="tot-chip" style="border-left:3px solid ${lineColor(l.key)}"><span class="tl"><span class="tdot" style="background:${lineColor(l.key)}"></span>${esc(l.label)}</span><span class="tv mono">${sums[l.key]!=null?fmtNum(sums[l.key]):'—'}</span></div>`).join('');
   el.innerHTML=`<div class="totals">
     <div class="totals-head"><span class="dot"></span>Totales del filtro · ${recs.length} cliente${recs.length!==1?'s':''} <span class="th-note">unidades vendidas (real) por línea</span></div>
     <div class="tot-grid">${chips}</div>
@@ -793,11 +953,22 @@ function renderMatrix(base,grid,pace,note){
         <div class="cli-tags"><span class="tag">${esc(c.zona||'sin zona')}</span>${c.giro?`<span class="tag">${esc(c.giro)}</span>`:''}${badge}</div>
         <div class="cli-ring"><div class="big mono t-${ringCls}">${esc(ringTxt)}</div><div class="lbl">Avance Total</div></div>
       </div>
+      ${pendingChips(c.rec)}
       ${clientLineTable(c.rec,lines,pace)}
       ${acctStrip(c.rec)}
       <span class="cli-open">Ver ficha completa <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </div>`;
   }).join('');
+}
+/* chips de lo que falta por cumplir, por línea (instantáneo para el vendedor) */
+function pendingChips(rec){
+  const items=[];
+  orderedLines().forEach(l=>{const ld=lineData(rec,l);if(ld.status==='ok'&&ld.obj.n!=null&&ld.obj.n>0){const falta=ld.obj.n-(ld.real.n||0);items.push({l,pctN:ld.pctN,falta});}});
+  if(!items.length) return '';
+  const pend=items.filter(x=>x.falta>0.0001).sort((a,b)=>(a.pctN==null?0:a.pctN)-(b.pctN==null?0:b.pctN));
+  if(!pend.length) return `<div class="pend-row"><span class="pend-lbl">✓ Objetivos cumplidos en todas sus líneas</span></div>`;
+  const chips=pend.map(x=>`<span class="pend-chip" style="--lc:${lineColor(x.l.key)}"><b>${esc(x.l.label)}</b> faltan ${esc(fmtNum(x.falta))} <i>${x.pctN!=null?Math.round(x.pctN)+'%':''}</i></span>`).join('');
+  return `<div class="pend-row"><span class="pend-lbl">Falta por cumplir:</span>${chips}</div>`;
 }
 /* tabla de líneas alineada: Línea | Objetivo | Real | Avance */
 function clientLineTable(rec,lines,pace){
@@ -890,19 +1061,140 @@ function renderFicha(rec){
     </div>`;
 }
  
-/* ---- REPORTES: Ruta fija permanente (calendario semanal) ---- */
-const RUTA_LINES=['TOTAL','LUB','MOTO','FILTRO','LLANTAS']; // total acum., lubricante, moto, filtro, total llantas
+/* ---- REPORTES ---- */
+const RUTA_LINES=['TOTAL','LUB','MOTO','FILTRO','LLANTAS'];
 const DAYFULL={LUNES:'Lunes',MARTES:'Martes',MIERCOLES:'Miércoles',JUEVES:'Jueves',VIERNES:'Viernes',SABADO:'Sábado',ESPORADICO:'Esporádico'};
-let REP_VENDOR=null;
+let REPORT='ruta', REP_VENDOR=null, REP_DAY='LUNES';
 function renderReportes(){
   document.getElementById('repEyebrow').textContent=org(STATE.org).label;
-  document.getElementById('repBar').innerHTML=`<button class="btn act" data-rep="ruta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Ruta fija permanente</button>`;
-  renderRutaFija();
+  document.getElementById('repBar').innerHTML=
+    `<button class="btn ${REPORT==='ruta'?'act':''}" data-rep="ruta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>Ruta fija permanente (por día)</button>
+     <button class="btn ${REPORT==='fact'?'act':''}" data-rep="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>Facturaje semanal</button>
+     <button class="btn ${REPORT==='cmp'?'act':''}" data-rep="cmp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l3-3 3 2 4-5"/></svg>Rendimiento entre meses</button>`;
+  renderActiveReport();
 }
+function renderActiveReport(){ if(REPORT==='ruta')renderRutaDia(); else if(REPORT==='fact')renderFactSemanal(); else renderComparativo(); }
+ 
+/* === Reporte 3: RENDIMIENTO POR CLIENTE ENTRE MESES === */
+let CMP_VENDOR=null,CMP_A=null,CMP_B=null;
+function cmpMetric(rec,kind){if(!rec)return null;const f=rec.numLit('REAL FACT'),c=rec.numLit('COSTO'),d=rec.numLit('DIF');
+  if(kind==='tot')return rec.numLit('REAL TOTAL').n;
+  if(kind==='fac')return f.n;
+  return d.n!=null?d.n:((f.n!=null&&c.n!=null)?f.n-c.n:null);}
+function deltaCell(a,b,money){
+  if(a==null&&b==null)return `<td class="delta flat">—</td>`;
+  const va=a||0,vb=b||0,diff=va-vb;
+  const cls=diff>0?'up':(diff<0?'down':'flat');const arrow=diff>0?'▲':(diff<0?'▼':'=');
+  const val=money?acct(diff):(fmtNum(diff)||'0');
+  return `<td class="delta ${cls}">${arrow} ${esc(val)}</td>`;
+}
+function renderComparativo(){
+  const vends=vendorAggregates(STATE.org);
+  const body=document.getElementById('repBody');
+  if(!vends.length){body.innerHTML='<div class="empty-state">Sin datos para este periodo.</div>';return;}
+  if(!CMP_VENDOR||!vends.find(v=>v.name===CMP_VENDOR))CMP_VENDOR=vends[0].name;
+  const realPeriods=PERIODS.filter(p=>p.key!=='ALL');
+  if(!CMP_A||!realPeriods.find(p=>p.key===CMP_A))CMP_A=(STATE.period!=='ALL'&&STATE.period)?STATE.period:(realPeriods[0]?.key||null);
+  if(!CMP_B||!realPeriods.find(p=>p.key===CMP_B)){const ia=realPeriods.findIndex(p=>p.key===CMP_A);CMP_B=realPeriods[ia+1]?.key||realPeriods[ia]?.key||CMP_A;}
+  const labelOf=k=>realPeriods.find(p=>p.key===k)?.label||k;
+  const opts=sel=>realPeriods.map(p=>`<option value="${esc(p.key)}" ${p.key===sel?'selected':''}>${esc(p.label)}</option>`).join('');
+  const controls=`<div class="rd-controls">
+    <div class="ctrl"><label>Vendedor</label><select class="inp" id="cmpVendSel">${vends.map(v=>`<option ${v.name===CMP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div>
+    <div class="ctrl"><label>Mes base (A)</label><select class="inp" id="cmpA">${opts(CMP_A)}</select></div>
+    <div class="ctrl"><label>Comparar con (B)</label><select class="inp" id="cmpB">${opts(CMP_B)}</select></div>
+  </div>`;
+  // mapas por periodo
+  const mapA=new Map(),mapB=new Map();
+  clientGroups(STATE.org,CMP_A).filter(r=>r.vendor===CMP_VENDOR).forEach(r=>mapA.set(getCell(r.group[r.group.length-1],'COD CLIENTE',r.H)||r.text('CLIENTE'),r));
+  clientGroups(STATE.org,CMP_B).filter(r=>r.vendor===CMP_VENDOR).forEach(r=>mapB.set(getCell(r.group[r.group.length-1],'COD CLIENTE',r.H)||r.text('CLIENTE'),r));
+  const codes=[...new Set([...mapA.keys(),...mapB.keys()])];
+  let tA=0,tB=0,fA=0,fB=0,uA=0,uB=0;
+  const rows=codes.map(code=>{
+    const ra=mapA.get(code),rb=mapB.get(code);const ref=ra||rb;
+    const ta=cmpMetric(ra,'tot'),tb=cmpMetric(rb,'tot'),fa=cmpMetric(ra,'fac'),fb=cmpMetric(rb,'fac'),ua=cmpMetric(ra,'uti'),ub=cmpMetric(rb,'uti');
+    tA+=ta||0;tB+=tb||0;fA+=fa||0;fB+=fb||0;uA+=ua||0;uB+=ub||0;
+    return `<tr><td class="name">${esc(ref.text('CLIENTE')||SD)}<br><span style="color:var(--muted);font-size:11px">${esc(ref.text('ZONA')||'')}</span></td>
+      <td class="cmp-grp">${ta!=null?fmtNum(ta):'—'}</td><td>${tb!=null?fmtNum(tb):'—'}</td>${deltaCell(ta,tb,false)}
+      <td class="cmp-grp">${fa!=null?acct(fa):'—'}</td><td>${fb!=null?acct(fb):'—'}</td>${deltaCell(fa,fb,true)}
+      <td class="cmp-grp">${ua!=null?acct(ua):'—'}</td><td>${ub!=null?acct(ub):'—'}</td>${deltaCell(ua,ub,true)}</tr>`;
+  }).join('');
+  const sub=`<tr class="sub"><td class="name">Totales</td>
+    <td class="cmp-grp">${fmtNum(tA)}</td><td>${fmtNum(tB)}</td>${deltaCell(tA,tB,false)}
+    <td class="cmp-grp">${acct(fA)}</td><td>${acct(fB)}</td>${deltaCell(fA,fB,true)}
+    <td class="cmp-grp">${acct(uA)}</td><td>${acct(uB)}</td>${deltaCell(uA,uB,true)}</tr>`;
+  body.innerHTML=controls+`<div class="rd-wrap"><div class="rep-note" style="margin-bottom:14px">Comparativo de <b>${esc(CMP_VENDOR)}</b>: <b>${esc(labelOf(CMP_A))}</b> (A) vs <b>${esc(labelOf(CMP_B))}</b> (B). El delta (Δ) es A menos B.</div>
+    <div class="rd-tblwrap"><table class="cmp-tbl">
+    <thead><tr><th rowspan="2" class="l">Cliente</th><th colspan="3" class="gh">Total Acum. (unidades)</th><th colspan="3" class="gh">Facturado</th><th colspan="3" class="gh">Utilidad</th></tr>
+    <tr><th class="cmp-grp">A</th><th>B</th><th>Δ</th><th class="cmp-grp">A</th><th>B</th><th>Δ</th><th class="cmp-grp">A</th><th>B</th><th>Δ</th></tr></thead>
+    <tbody>${codes.length?rows+sub:`<tr><td colspan="10" style="text-align:center;color:var(--muted2);padding:24px">Sin clientes para comparar.</td></tr>`}</tbody></table></div></div>`;
+}
+ 
+/* === Reporte 1: RUTA FIJA PERMANENTE (por vendedor y día) === */
+function renderRutaDia(){
+  const vends=vendorAggregates(STATE.org);
+  const body=document.getElementById('repBody');
+  if(!vends.length){body.innerHTML='<div class="empty-state">Sin datos para este periodo. Cambia el Periodo arriba.</div>';return;}
+  if(!REP_VENDOR||!vends.find(v=>v.name===REP_VENDOR))REP_VENDOR=vends[0].name;
+  const vObj=vends.find(v=>v.name===REP_VENDOR);
+  const pace=expectedPace();
+  const o=org(STATE.org), perTxt=document.getElementById('periodSel').selectedOptions[0]?.textContent||'';
+  const avance=vObj.lines[HEADLINE_KEY].pct;
+  const groups=clientGroups(STATE.org).filter(r=>r.vendor===REP_VENDOR);
+  const dayClients=groups.filter(rec=>!isEmpty(rec.text(REP_DAY)));
+ 
+  const controls=`<div class="rd-controls">
+    <div class="ctrl"><label>Vendedor</label><select class="inp" id="repVendSel">${vends.map(v=>`<option ${v.name===REP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div>
+    <div class="ctrl"><label>Día de visita</label><select class="inp" id="repDaySel">${DAYS.map(([col])=>`<option value="${col}" ${col===REP_DAY?'selected':''}>${DAYFULL[col]}</option>`).join('')}</select></div>
+    <button class="btn" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Exportar PDF (carta horizontal)</button>
+  </div>`;
+ 
+  const headTop=RUTA_LINES.map(k=>{const l=LINES.find(x=>x.key===k);return `<th colspan="3" class="lh" style="--lc:${lineColor(k)}">${esc(l.label)}</th>`;}).join('');
+  const headSub=RUTA_LINES.map(()=>`<th class="gsep">Obj</th><th>Real</th><th>%</th>`).join('');
+  let oSum={},rSum={};RUTA_LINES.forEach(k=>{oSum[k]=null;rSum[k]=null;});let fT=null,uT=null;const add=(a,v)=>v==null?a:(a==null?v:a+v);
+  const rows=dayClients.map(rec=>{
+    const cells=RUTA_LINES.map(k=>{const line=LINES.find(x=>x.key===k);const ld=lineData(rec,line);
+      if(ld.obj.n!=null)oSum[k]=add(oSum[k],ld.obj.n);if(ld.real.n!=null)rSum[k]=add(rSum[k],ld.real.n);
+      if(ld.status==='nodata')return `<td class="gsep o">—</td><td class="r">—</td><td class="p t-na">—</td>`;
+      if(ld.status==='sinobj')return `<td class="gsep o">s/o</td><td class="r">${esc(ld.real.lit||'0')}</td><td class="p so-flag">s/obj</td>`;
+      const cls=paceClass(ld.pctN,pace);
+      return `<td class="gsep o">${esc(ld.obj.lit||'0')}</td><td class="r">${esc(ld.real.lit||'0')}</td><td class="p t-${cls}">${ld.pctN!=null?Math.round(ld.pctN)+'%':''}</td>`;}).join('');
+    const fac=rec.numLit('REAL FACT'),cos=rec.numLit('COSTO'),dif=rec.numLit('DIF');
+    const util=dif.n!=null?dif.n:((fac.n!=null&&cos.n!=null)?fac.n-cos.n:null);
+    if(fac.n!=null)fT=add(fT,fac.n);if(util!=null)uT=add(uT,util);
+    const zc=zoneColor(rec.text('ZONA')||'');
+    return `<tr><td class="name">${esc(rec.text('CLIENTE')||SD)}</td><td class="zone"><span class="rd-zonedot" style="background:${zc}"></span>${esc(rec.text('ZONA')||'—')}</td>${cells}<td class="r money">${acct(fac.n)}</td><td class="money ${util==null?'':(util<0?'t-low':'t-good')}">${acct(util)}</td></tr>`;
+  }).join('');
+  const subCells=RUTA_LINES.map(k=>{const p=(oSum[k]!=null&&oSum[k]>0&&rSum[k]!=null)?Math.round(rSum[k]/oSum[k]*100)+'%':'';return `<td class="gsep">${oSum[k]!=null?fmtNum(oSum[k]):'—'}</td><td>${rSum[k]!=null?fmtNum(rSum[k]):'—'}</td><td>${p}</td>`;}).join('');
+  const totalRow=dayClients.length?`<tr class="sub"><td class="name">Totales del día</td><td></td>${subCells}<td class="money">${acct(fT)}</td><td class="money">${acct(uT)}</td></tr>`:'';
+  const ncols=2+RUTA_LINES.length*3+2;
+  const tbody=dayClients.length?rows+totalRow:`<tr><td colspan="${ncols}" style="text-align:center;color:var(--muted2);padding:24px">Este vendedor no tiene clientes asignados a ${DAYFULL[REP_DAY]}.</td></tr>`;
+ 
+  body.innerHTML=controls+`
+  <div id="printArea" class="rd-wrap">
+    <div class="rd-head">
+      <div><div class="rd-org">${esc(o.label)}</div><div class="rd-title">Ruta fija permanente</div></div>
+      <div class="rd-meta">
+        <div><span>Vendedor</span><b>${esc(REP_VENDOR)}</b></div>
+        <div><span>Día de ruta</span><b>${DAYFULL[REP_DAY]}</b></div>
+        <div><span>Avance total</span><b class="t-${paceClass(avance,pace)}">${avance!=null?Math.round(avance)+'%':'—'}</b></div>
+        <div><span>Periodo</span><b>${esc(perTxt)}</b></div>
+        <div><span>Clientes</span><b>${dayClients.length}</b></div>
+      </div>
+    </div>
+    <div class="rd-tblwrap"><table class="rd-tbl rd-grouped">
+      <thead>
+        <tr><th rowspan="2" class="l">Cliente</th><th rowspan="2" class="l">Zona</th>${headTop}<th rowspan="2">Facturado</th><th rowspan="2">Utilidad</th></tr>
+        <tr>${headSub}</tr>
+      </thead>
+      <tbody>${tbody}</tbody>
+    </table></div>
+  </div>`;
+}
+ 
+/* === Reporte 2: FACTURAJE SEMANAL (calendario) === */
 function calCard(rec){
   const pace=expectedPace();
-  const zona=rec.text('ZONA')||'Sin zona';
-  const col=zoneColor(zona);
+  const zona=rec.text('ZONA')||'Sin zona', col=zoneColor(zona);
   const code=disp(getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H));
   const lines=RUTA_LINES.map(k=>{const line=LINES.find(l=>l.key===k);const ld=lineData(rec,line);const cls=paceClass(ld.pctN,pace);let val;
     if(ld.status==='nodata')val='<span class="t-na">s/d</span>';
@@ -914,21 +1206,17 @@ function calCard(rec){
   return `<div class="cal-card" style="border-left-color:${col}">
     <div class="cc-head"><span class="cc-dot" style="background:${col}"></span>
       <div class="cc-headtxt"><div class="cc-name">${esc(rec.text('CLIENTE')||SD)}</div><div class="cc-zone" style="color:${col}">${esc(zona)}</div></div>
-      <svg class="cc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
-    <div class="cc-detail">
-      <div class="cc-code">COD ${esc(code)}</div>
-      <div class="cc-lines">${lines}</div>
-      <div class="cc-money"><span>Fact <b class="hot">${acct(fac.n)}</b></span><span>Util <b class="${util==null?'':(util<0?'neg':'pos')}">${acct(util)}</b></span></div>
-    </div></div>`;
+      <svg class="cc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div class="cc-detail"><div class="cc-code">COD ${esc(code)}</div><div class="cc-lines">${lines}</div>
+      <div class="cc-money"><span>Fact <b class="hot">${acct(fac.n)}</b></span><span>Util <b class="${util==null?'':(util<0?'neg':'pos')}">${acct(util)}</b></span></div></div></div>`;
 }
-function renderRutaFija(){
+function renderFactSemanal(){
   const vends=vendorAggregates(STATE.org);
   const body=document.getElementById('repBody');
-  if(!vends.length){body.innerHTML='<div class="empty-state">Sin datos para este periodo. Cambia el Periodo arriba.</div>';return;}
+  if(!vends.length){body.innerHTML='<div class="empty-state">Sin datos para este periodo.</div>';return;}
   if(!REP_VENDOR||!vends.find(v=>v.name===REP_VENDOR))REP_VENDOR=vends[0].name;
   const perTxt=document.getElementById('periodSel').selectedOptions[0]?.textContent||'';
-  const sel=`<div class="rep-controls"><div class="ctrl"><label>Vendedor</label><select class="inp" id="repVendSel">${vends.map(v=>`<option ${v.name===REP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div><div class="rep-note">Ruta semanal de <b>${esc(REP_VENDOR)}</b> · ${esc(perTxt)} · objetivos: Total acum., Lubricante, Moto, Filtro y Total llantas (Real / Objetivo).</div></div>`;
+  const sel=`<div class="rep-controls"><div class="ctrl"><label>Vendedor</label><select class="inp" id="repVendSel">${vends.map(v=>`<option ${v.name===REP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div><div class="rep-note">Facturaje por día de la semana de <b>${esc(REP_VENDOR)}</b> · ${esc(perTxt)} · útil para ver qué día factura/deja más utilidad. Clic en un cliente para ver detalle.</div></div>`;
   const groups=clientGroups(STATE.org).filter(r=>r.vendor===REP_VENDOR);
   const cols=DAYS.map(([col])=>{
     const dayClients=groups.filter(rec=>!isEmpty(rec.text(col)));
@@ -943,13 +1231,45 @@ function renderRutaFija(){
    6. NAVEGACIÓN
    ============================================================ */
 function goHome(){STATE.org=null;STATE.vendor=null;setAccent(null);renderHome();showScreen('home');}
-function goVend(id){STATE.org=id;STATE.vendor=null;setAccent(id);renderVendors();showScreen('vend');}
-function goCli(v){STATE.vendor=v;document.getElementById('cliSearch').value='';LINE_FILTER='ALL';ORDER='regular';DAY_FILTER='ALL';document.getElementById('orderSel').value='regular';document.getElementById('daySel').value='ALL';buildLineSelector();renderClients();showScreen('cli');}
+function goVend(id){STATE.org=id;STATE.vendor=null;setAccent(id);document.getElementById('repBtn').style.display=(ROLE==='directivo')?'':'none';renderVendors();showScreen('vend');}
+function goCli(v){
+  if(ROLE==='vendedor'&&!UNLOCKED.has(keyName(v))){
+    const pass=vendorPass(v);
+    if(!pass){openAuth('Acceso no disponible','Este vendedor no tiene una contraseña configurada. Contacta a dirección.',()=>false,null);return;}
+    openAuth('Acceso de vendedor','Ingresa la contraseña de '+v+' para ver su cartera de clientes.',x=>x===pass,()=>{UNLOCKED.add(keyName(v));_goCli(v);});
+    return;
+  }
+  _goCli(v);
+}
+function _goCli(v){STATE.vendor=v;document.getElementById('cliSearch').value='';LINE_FILTER='ALL';ORDER='regular';DAY_FILTER='ALL';document.getElementById('orderSel').value='regular';document.getElementById('daySel').value='ALL';buildLineSelector();renderClients();showScreen('cli');}
 function goFicha(uid){const c=CLI.find(x=>x.uid===uid);if(!c)return;renderFicha(c.rec);showScreen('ficha');}
-function goRep(){renderReportes();showScreen('rep');}
+function goRep(){if(ROLE!=='directivo')return;renderReportes();showScreen('rep');}
+ 
+/* ----- acceso ----- */
+let _authValidator=null,_authOnOk=null;
+function openAuth(title,sub,validator,onOk){
+  document.getElementById('authTitle').textContent=title;
+  document.getElementById('authSub').textContent=sub;
+  document.getElementById('authErr').textContent='';
+  const inp=document.getElementById('authInput');inp.value='';
+  _authValidator=validator;_authOnOk=onOk;
+  document.getElementById('authModal').classList.add('show');
+  setTimeout(()=>inp.focus(),60);
+}
+function closeAuth(){document.getElementById('authModal').classList.remove('show');_authValidator=null;_authOnOk=null;}
+function submitAuth(){const v=passKey(document.getElementById('authInput').value);if(_authValidator&&_authValidator(v)){const cb=_authOnOk;closeAuth();cb&&cb();}else document.getElementById('authErr').textContent='Contraseña incorrecta. Inténtalo de nuevo.';}
+function setRoleUI(){
+  const tag=document.getElementById('roleTag'),out=document.getElementById('logoutBtn');
+  if(ROLE){out.style.display='';tag.style.display='';tag.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>${ROLE==='directivo'?'Directivos':'Vendedores'}`;}
+  else{out.style.display='none';tag.style.display='none';}
+}
+function afterLogin(){setRoleUI();goHome();}
+function showWelcome(){ROLE=null;UNLOCKED.clear();setRoleUI();showScreen('welcome');}
+function logout(){showWelcome();}
  
 document.addEventListener('click',e=>{
   const cc=e.target.closest('.cal-card');if(cc){cc.classList.toggle('open');return;}
+  const rb=e.target.closest('[data-rep]');if(rb){REPORT=rb.dataset.rep;renderReportes();return;}
   const ov=e.target.closest('[data-org]');if(ov){goVend(ov.dataset.org);return;}
   const vd=e.target.closest('[data-vend]');if(vd){goCli(vd.dataset.vend);return;}
   const cl=e.target.closest('[data-cli]');if(cl){goFicha(parseInt(cl.dataset.cli));return;}
@@ -963,7 +1283,21 @@ document.getElementById('orderSel').addEventListener('change',e=>{ORDER=e.target
 document.getElementById('periodSel').addEventListener('change',e=>{STATE.period=e.target.value;rerender();});
 document.getElementById('cutoffSel').addEventListener('change',e=>{const v=e.target.value;if(v){const[y,m,d]=v.split('-').map(Number);CUTOFF=new Date(y,m-1,d);}rerender();});
 document.getElementById('refreshBtn').addEventListener('click',init);
-document.addEventListener('change',e=>{ if(e.target&&e.target.id==='repVendSel'){REP_VENDOR=e.target.value;renderRutaFija();} });
+document.getElementById('accDir').addEventListener('click',()=>openAuth('Acceso directivos','Ingresa la contraseña directiva para ver todo.',v=>v===passKey(DIRECTIVO_PASS),()=>{ROLE='directivo';afterLogin();}));
+document.getElementById('accVen').addEventListener('click',()=>{ROLE='vendedor';afterLogin();});
+document.getElementById('logoutBtn').addEventListener('click',logout);
+document.getElementById('authOk').addEventListener('click',submitAuth);
+document.getElementById('authCancel').addEventListener('click',closeAuth);
+document.getElementById('authInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitAuth();});
+document.getElementById('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')closeAuth();});
+document.addEventListener('change',e=>{
+  if(!e.target)return;
+  if(e.target.id==='repVendSel'){REP_VENDOR=e.target.value;renderActiveReport();}
+  else if(e.target.id==='repDaySel'){REP_DAY=e.target.value;renderRutaDia();}
+  else if(e.target.id==='cmpVendSel'){CMP_VENDOR=e.target.value;renderComparativo();}
+  else if(e.target.id==='cmpA'){CMP_A=e.target.value;renderComparativo();}
+  else if(e.target.id==='cmpB'){CMP_B=e.target.value;renderComparativo();}
+});
 function rerender(){if(STATE.screen==='home')renderHome();else if(STATE.screen==='vend')renderVendors();else if(STATE.screen==='cli')renderClients();else if(STATE.screen==='rep')renderReportes();else if(STATE.screen==='ficha'){renderClients();goCli(STATE.vendor);}}
  
 /* ============================================================
@@ -987,7 +1321,7 @@ async function init(){
     grid.innerHTML=`<div class="state" style="grid-column:1/-1"><h3>No se pudieron cargar los datos</h3><p>Si lo ves en una vista previa, <b>descarga el archivo y ábrelo en tu navegador</b>. Verifica también que la hoja siga publicada como CSV.</p><div class="err-detail">${esc(LOAD_ERR)}</div><button class="btn" style="margin-top:16px" onclick="init()">Reintentar</button></div>`;
     return;
   }
-  initCutoff(); buildPeriodSelector(); goHome();
+  initCutoff(); buildPeriodSelector(); setRoleUI(); if(ROLE)goHome(); else showWelcome();
 }
 init();
 </script>
