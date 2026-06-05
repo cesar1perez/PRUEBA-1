@@ -643,8 +643,8 @@ const VENDOR_PASS={
   'Celene S.':'celesoto2026','Oscar F.':'floresosc2026','Colosio-Mayoreo':'pcecil2026'
 };
 function passKey(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');}
-const VPASS={}; Object.keys(VENDOR_PASS).forEach(k=>{VPASS[keyName(k)]=passKey(VENDOR_PASS[k]);});
-function vendorPass(name){return VPASS[keyName(name)]||null;}
+let _VPASS=null;
+function vendorPass(name){if(!_VPASS){_VPASS={};Object.keys(VENDOR_PASS).forEach(k=>{_VPASS[keyName(k)]=passKey(VENDOR_PASS[k]);});}return _VPASS[keyName(name)]||null;}
 let ROLE=null; const UNLOCKED=new Set();
 const APOYO=['FACHADA','EXHIBIDOR LTH','EXHIBIDOR LUB','EXHIBIDOR MOT','ACTIVACIONES','MINUTA CREDITO / DESCUENTO','MINUTA DE POP'];
 const DESCUENTOS=['LTH','AMERICA','PREMIUM (HI TEC)','AGM','LUBRICANTE / ACEITE','MOTOBATERIA','FILTROS LTH'];
