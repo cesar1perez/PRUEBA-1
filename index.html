@@ -191,8 +191,17 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .acct .av{font-family:'IBM Plex Mono';font-weight:700;font-size:19px;letter-spacing:-.5px;line-height:1.1}
 .acct .av.neg{color:var(--low)} .acct .av.pos{color:var(--good)} .acct .av.hot{color:var(--accent)}
 .acct .al{font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted2);font-weight:700;margin-top:6px}
-.cli-open{position:absolute;right:18px;bottom:13px;font-size:11px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:5px;opacity:0;transition:.2s}
+.cli-open{display:flex;justify-content:flex-end;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--accent);opacity:0;transition:.2s;margin-top:10px}
 .cli-card:hover .cli-open{opacity:1}
+.cli-coments{margin-top:13px;border-top:1px dashed var(--line2);padding-top:11px}
+.cco-head{display:flex;align-items:center;gap:7px;font-family:'Archivo';font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:8px}
+.cco-head svg{width:14px;height:14px}
+.cco-row{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:start;padding:6px 10px;border-left:3px solid var(--accent);background:rgba(255,210,30,.06);border-radius:0 8px 8px 0;margin-bottom:6px}
+.cco-row:last-child{margin-bottom:0}
+.cco-row.sininfo{border-left-color:var(--line2);background:rgba(255,255,255,.02)}
+.cco-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);padding-top:1px}
+.cco-txt{font-size:13px;color:var(--txt);line-height:1.45}
+.cco-row.sininfo .cco-txt{color:var(--muted2);font-style:italic}
 /* tabla de líneas alineada en tarjeta de cliente */
 .lt{margin-top:6px}
 .lt-head,.lt-row{display:grid;grid-template-columns:minmax(96px,1.3fr) 80px 80px 70px;gap:10px;align-items:center}
@@ -297,32 +306,36 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
   body.print-route #printArea .rd-tbl tr.sub td{background:#eee!important;border-top:2px solid #888!important}
   body.print-route #printArea .t-good{color:#0f7a44!important}body.print-route #printArea .t-mid{color:#9a6b00!important}body.print-route #printArea .t-low{color:#bf1f25!important}body.print-route #printArea .t-na{color:#999!important}body.print-route #printArea .so-flag{color:#1d6fb8!important}
   body.print-route #printArea .rd-tblwrap{overflow:visible!important}
-  /* ===== FICHA (vertical, blanco y compacto) ===== */
+  /* ===== FICHA (vertical, blanco y compacto, 1 hoja) ===== */
   body.print-ficha #fichaPrint,body.print-ficha #fichaPrint *{visibility:visible!important}
-  body.print-ficha #fichaPrint{position:absolute;left:0;top:0;width:100%;font-size:9.5px;line-height:1.3}
+  body.print-ficha #fichaPrint{position:absolute;left:0;top:0;width:100%;font-size:8.3px;line-height:1.25}
   body.print-ficha #fichaPrint *{background:#fff!important;background-image:none!important;color:#111!important;box-shadow:none!important;text-shadow:none!important}
-  body.print-ficha .print-head{display:block!important;border-bottom:2px solid #111!important;padding-bottom:8px;margin-bottom:10px}
-  body.print-ficha #fichaPrint .ph-org{font-size:16px}
-  body.print-ficha #fichaPrint .ph-title{color:#a06b00!important}
-  body.print-ficha #fichaPrint .card{border:1px solid #bbb!important;border-radius:8px!important;padding:11px!important;margin:0 0 9px!important}
-  body.print-ficha #fichaPrint .section-block{margin-top:9px!important;padding-top:9px!important;border-top:1px solid #e2e2e2!important}
-  body.print-ficha #fichaPrint .card-title{font-size:10px!important;margin-bottom:6px!important;border-bottom:1px solid #ddd;padding-bottom:3px}
+  body.print-ficha #fichaPrint .perf-section{display:none!important}
+  body.print-ficha .print-head{display:block!important;border-bottom:2px solid #111!important;padding-bottom:6px;margin-bottom:8px}
+  body.print-ficha #fichaPrint .ph-org{font-size:15px}
+  body.print-ficha #fichaPrint .ph-title{color:#a06b00!important;font-size:10px}
+  body.print-ficha #fichaPrint .card{border:1px solid #bbb!important;border-radius:7px!important;padding:9px!important;margin:0 0 7px!important}
+  body.print-ficha #fichaPrint .section-block{margin-top:7px!important;padding-top:7px!important;border-top:1px solid #e2e2e2!important}
+  body.print-ficha #fichaPrint .card-title{font-size:9px!important;margin-bottom:5px!important;border-bottom:1px solid #ddd;padding-bottom:2px}
   body.print-ficha #fichaPrint .card-title .dot,body.print-ficha #fichaPrint .lt-dot{display:none!important}
-  body.print-ficha #fichaPrint .fh-name{font-size:17px!important}
-  body.print-ficha #fichaPrint .chip{border:1px solid #ccc!important;padding:2px 7px!important}
-  body.print-ficha #fichaPrint .foto-wrap{max-height:150px!important;overflow:hidden!important}
-  body.print-ficha #fichaPrint .foto-wrap img{max-height:150px!important;object-fit:cover!important}
+  body.print-ficha #fichaPrint .fh-name{font-size:14px!important}
+  body.print-ficha #fichaPrint .fh-neg,body.print-ficha #fichaPrint .fh-code{font-size:9px!important}
+  body.print-ficha #fichaPrint .chip{border:1px solid #ccc!important;padding:1px 6px!important;font-size:8px!important}
+  body.print-ficha #fichaPrint .dl{gap:2px 10px!important}
+  body.print-ficha #fichaPrint dt{font-size:7.5px!important}body.print-ficha #fichaPrint dd{font-size:9px!important}
+  body.print-ficha #fichaPrint .foto-wrap{max-height:96px!important;overflow:hidden!important}
+  body.print-ficha #fichaPrint .foto-wrap img{max-height:96px!important;object-fit:cover!important}
   body.print-ficha #fichaPrint .maps-btn{display:none!important}
-  body.print-ficha #fichaPrint .hist-tbl,body.print-ficha #fichaPrint .perf-grid{font-size:9px!important}
-  body.print-ficha #fichaPrint .hist-tbl th,body.print-ficha #fichaPrint .hist-tbl td{padding:3px 5px!important;border-color:#ddd!important}
+  body.print-ficha #fichaPrint .days .day{border:1px solid #bbb!important;color:#111!important;width:26px!important;height:26px!important;font-size:8px!important}
+  body.print-ficha #fichaPrint .days .day.on{background:#ffe9a8!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-color:#caa!important}
+  body.print-ficha #fichaPrint .hist-tbl{font-size:8px!important;min-width:0!important}
+  body.print-ficha #fichaPrint .hist-tbl th,body.print-ficha #fichaPrint .hist-tbl td{padding:2px 4px!important;border-color:#ddd!important}
   body.print-ficha #fichaPrint .hist-tbl td.r{color:#0f7a44!important;font-weight:800}
   body.print-ficha #fichaPrint .hist-tbl td.prom{color:#0b5d8a!important;font-weight:700}
-  body.print-ficha #fichaPrint .days .day{border:1px solid #bbb!important;color:#111!important}
-  body.print-ficha #fichaPrint .days .day.on{background:#ffe9a8!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-color:#caa!important}
-  body.print-ficha #fichaPrint .ficha-head{display:grid!important;grid-template-columns:1.05fr .95fr;gap:12px!important}
-  body.print-ficha #fichaPrint .two-col{display:grid!important;grid-template-columns:1fr 1fr;gap:12px!important}
-  body.print-ficha #fichaPrint .perf-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:7px!important}
-  body.print-ficha #fichaPrint .card,body.print-ficha #fichaPrint .perf-cell,body.print-ficha #fichaPrint table{break-inside:avoid;page-break-inside:avoid}
+  body.print-ficha #fichaPrint .coment{font-size:9px!important}
+  body.print-ficha #fichaPrint .ficha-head{display:grid!important;grid-template-columns:1.05fr .95fr;gap:10px!important}
+  body.print-ficha #fichaPrint .two-col{display:grid!important;grid-template-columns:1fr 1fr;gap:10px!important}
+  body.print-ficha #fichaPrint .rd-tblwrap{overflow:visible!important}
   body.print-ficha .ficha-bar,body.print-ficha .topbar,body.print-ficha .crumbs,body.print-ficha .footnote{display:none!important}
 }
  
@@ -968,7 +981,7 @@ function renderClients(){
   document.getElementById('cliTitle').textContent=STATE.vendor;
   document.getElementById('cliPace').innerHTML=paceText();
   const groups=clientGroups(STATE.org).filter(rec=>rec.vendor===STATE.vendor);
-  CLI=groups.map((rec,i)=>{const hl=lineData(rec,LINES.find(l=>l.key===HEADLINE_KEY));return {rec,uid:i,code:getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H),cliente:rec.text('CLIENTE'),negocio:rec.text('NOMBRE DE NEGOCIO'),zona:rec.text('ZONA'),giro:rec.text('GIRO'),cMid:rec.text('COMENTARIO A MITAD DE MES'),cEnd:rec.text('COMENTARIOS A FINAL DE MES'),pctN:hl.pctN,hlStatus:hl.status,search:keyName([rec.text('CLIENTE'),rec.text('NOMBRE DE NEGOCIO'),rec.text('COD CLIENTE'),rec.text('ZONA'),rec.text('GIRO')].join(' '))};});
+  CLI=groups.map((rec,i)=>{const hl=lineData(rec,LINES.find(l=>l.key===HEADLINE_KEY));return {rec,uid:i,code:getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H),cliente:rec.text('CLIENTE'),negocio:rec.text('NOMBRE DE NEGOCIO'),zona:rec.text('ZONA'),giro:rec.text('GIRO'),cMid:rec.text('COMMENTARIO A MITAD DE MES')||rec.text('COMENTARIO A MITAD DE MES'),cEnd:rec.text('COMENTARIOS A FINAL DE MES')||rec.text('COMENTARIO A FINAL DE MES'),pctN:hl.pctN,hlStatus:hl.status,search:keyName([rec.text('CLIENTE'),rec.text('NOMBRE DE NEGOCIO'),rec.text('COD CLIENTE'),rec.text('ZONA'),rec.text('GIRO')].join(' '))};});
   REVIEWED.clear();
   filterClients();
 }
@@ -1013,9 +1026,16 @@ function renderMatrix(base,grid,pace,note){
       </div>
       ${pendingChips(c.rec)}
       ${clientLineTable(c.rec,lines,pace)}
+      ${cardComments(c)}
       <span class="cli-open">Ver ficha completa <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </div>`;
   }).join('');
+}
+function cardComments(c){
+  const per=document.getElementById('periodSel'); const perTxt=per&&per.selectedOptions[0]?per.selectedOptions[0].textContent:'';
+  const mid=isEmpty(c.cMid)?null:c.cMid, end=isEmpty(c.cEnd)?null:c.cEnd;
+  const row=(lbl,val)=>`<div class="cco-row ${val?'':'sininfo'}"><span class="cco-lbl">${lbl}</span><span class="cco-txt">${val?esc(val):'Sin información'}</span></div>`;
+  return `<div class="cli-coments"><div class="cco-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comentarios del vendedor${perTxt?` · ${esc(perTxt)}`:''}</div>${row('Mitad de mes',mid)}${row('Final de mes',end)}</div>`;
 }
 /* chips de lo que falta por cumplir, por línea */
 function pendingChips(rec){
@@ -1106,7 +1126,7 @@ function renderFicha(rec){
     return `<div class="perf-item"><div class="perf-top"><span class="perf-name">${esc(line.label)}${flag}</span><span class="perf-pct t-${cls}">${pctTxt}</span></div><div class="bar ${cls}"><i style="width:${clampW(ld.pctN)}%"></i>${mk}</div><div class="perf-nums"><span><span class="nlbl">Objetivo</span><b>${esc(ld.obj.lit||SD)}</b></span><span style="text-align:right"><span class="nlbl">Real</span><b>${esc(ld.real.lit||SD)}</b></span></div></div>`;}).join('');
   const apoyo=APOYO.map(n=>{const v=rec.text(n);const on=!isEmpty(v);const s=n.replace('MINUTA CREDITO / DESCUENTO','Minuta crédito/desc.').replace('MINUTA DE POP','Minuta POP').replace('EXHIBIDOR ','Exh. ').replace('ACTIVACIONES','Activaciones').replace('FACHADA','Fachada');return `<span class="chip ${on?'on':''}"><b>${esc(s)}:</b> ${esc(on?v:SD)}</span>`;}).join('');
   const desc=dl(DESCUENTOS.map(n=>[n.replace(' (HI TEC)',' (Hi-Tec)'),rec.text(n)]));
-  const cMid=rec.text('COMENTARIO A MITAD DE MES'),cEnd=rec.text('COMENTARIOS A FINAL DE MES');
+  const cMid=rec.text('COMMENTARIO A MITAD DE MES')||rec.text('COMENTARIO A MITAD DE MES'),cEnd=rec.text('COMENTARIOS A FINAL DE MES')||rec.text('COMENTARIO A FINAL DE MES');
   document.getElementById('fichaBody').innerHTML=`
     <div class="print-head ficha-ph"><div class="ph-org">${esc(org(STATE.org).label)}</div><div class="ph-title">Ficha informativa de cliente · ${esc(cliente||SD)}</div></div>
     <div class="ficha-head">
@@ -1123,7 +1143,7 @@ function renderFicha(rec){
         <div class="section-block">${dl([['Encargado de compras',rec.text('ENCARGADO DE COMPRAS')],['Celular',rec.text('NUMERO CELULAR')],['Dirección',rec.text('DIRECCION')],['Latitud',rec.text('LATITUD')],['Longitud',rec.text('LONGITUD')]])}</div>
       </div>
     </div>
-    <div class="card section-block" style="--sc:#3fd18a"><div class="card-title"><span class="dot"></span>Desempeño por línea · Real vs Objetivo</div><div class="perf-grid">${perf}</div></div>
+    <div class="card section-block perf-section" style="--sc:#3fd18a"><div class="card-title"><span class="dot"></span>Desempeño por línea · Real vs Objetivo</div><div class="perf-grid">${perf}</div></div>
     <div class="card section-block" style="--sc:#38bdf8"><div class="card-title"><span class="dot"></span>Historial de compra por mes (unidades reales)</div>${historyTable(rec)}</div>
     <div class="two-col section-block">
       <div class="card flat" style="--sc:#a78bfa"><div class="card-title"><span class="dot"></span>Apoyo comercial (POP)</div><div class="chips">${apoyo}</div></div>
