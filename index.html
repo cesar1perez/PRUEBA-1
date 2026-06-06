@@ -156,8 +156,18 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .count-pill{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);padding:10px 13px;border-radius:11px;font-weight:600;white-space:nowrap}
  
 /* tarjeta cliente (vista general) */
-.cli-list{display:flex;flex-direction:column;gap:13px}
-.cli-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(165deg,var(--panel),var(--bg2));padding:17px 19px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.cli-list{display:flex;flex-direction:column;gap:20px}
+.cli-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(165deg,var(--panel),var(--bg2));padding:17px 19px 17px 54px;cursor:pointer;transition:.2s;position:relative;overflow:hidden;box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.cli-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent);opacity:.5}
+.cli-num{position:absolute;left:13px;top:16px;font-family:'IBM Plex Mono';font-weight:800;font-size:15px;color:var(--muted2);min-width:26px;text-align:center}
+.cli-check{position:absolute;left:13px;bottom:14px;width:28px;height:28px;border-radius:8px;border:1.5px solid var(--line2);background:transparent;color:var(--muted2);display:grid;place-items:center;cursor:pointer;transition:.18s}
+.cli-check svg{width:15px;height:15px}
+.cli-check:hover{border-color:var(--good);color:var(--good)}
+.cli-card.done{opacity:.5;filter:saturate(.5)}
+.cli-card.done::before{background:var(--good);opacity:1}
+.cli-card.done .cli-check{background:var(--good);border-color:var(--good);color:#06210f}
+.cli-card.done .cli-num{color:var(--good)}
+.cli-card.done h4{text-decoration:line-through;text-decoration-color:var(--muted2)}
 .cli-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
 .cli-card.behind{border-left:4px solid var(--low);background:linear-gradient(165deg,rgba(255,93,98,.07),var(--bg2))}
 .cli-card.aok{border-left:4px solid var(--good)}
@@ -218,6 +228,7 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .hist-tbl td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;font-family:'IBM Plex Mono';color:var(--txt)}
 .hist-tbl td.l{text-align:left;font-family:'Manrope';font-weight:600;white-space:nowrap}
 .hist-tbl td.r{font-weight:800;color:var(--accent)}
+.hist-tbl td.prom{font-weight:700;color:var(--cyan)}
 /* panel de totales del filtro */
 .totals{border:1px solid var(--line2);border-radius:var(--radius);background:linear-gradient(165deg,var(--panel2),var(--bg2));padding:16px 18px;margin-bottom:16px}
 .totals-head{display:flex;align-items:center;gap:9px;font-family:'Archivo';font-weight:800;font-size:13px;color:var(--txt);margin-bottom:12px;flex-wrap:wrap}
@@ -286,22 +297,33 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
   body.print-route #printArea .rd-tbl tr.sub td{background:#eee!important;border-top:2px solid #888!important}
   body.print-route #printArea .t-good{color:#0f7a44!important}body.print-route #printArea .t-mid{color:#9a6b00!important}body.print-route #printArea .t-low{color:#bf1f25!important}body.print-route #printArea .t-na{color:#999!important}body.print-route #printArea .so-flag{color:#1d6fb8!important}
   body.print-route #printArea .rd-tblwrap{overflow:visible!important}
-  /* ===== FICHA (vertical) ===== */
-  body.print-ficha{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* ===== FICHA (vertical, blanco y compacto) ===== */
   body.print-ficha #fichaPrint,body.print-ficha #fichaPrint *{visibility:visible!important}
-  body.print-ficha #fichaPrint{position:absolute;left:0;top:0;width:100%}
-  body.print-ficha .print-head{display:block!important;border-bottom:2px solid #111;padding-bottom:10px;margin-bottom:14px}
-  body.print-ficha .ph-org{color:#111!important}
-  body.print-ficha #fichaPrint{color:#111!important}
-  body.print-ficha #fichaPrint *{color:#111!important}
-  body.print-ficha #fichaPrint .card,body.print-ficha #fichaPrint .card.flat{background:#fff!important;border:1px solid #ccc!important;box-shadow:none!important}
-  body.print-ficha #fichaPrint .fh-name,body.print-ficha #fichaPrint .fh-neg,body.print-ficha #fichaPrint .fh-code,body.print-ficha #fichaPrint .card-title,body.print-ficha #fichaPrint dt,body.print-ficha #fichaPrint dd,body.print-ficha #fichaPrint .chip,body.print-ficha #fichaPrint .coment,body.print-ficha #fichaPrint .hist-tbl td,body.print-ficha #fichaPrint .hist-tbl th,body.print-ficha #fichaPrint .pf-nm,body.print-ficha #fichaPrint .pf-v{color:#111!important}
-  body.print-ficha #fichaPrint .chip{background:#f1f1f1!important;border-color:#ccc!important}
-  body.print-ficha #fichaPrint .hist-tbl td.r{color:#0f7a44!important}
-  body.print-ficha #fichaPrint .ficha-head{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  body.print-ficha #fichaPrint .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  body.print-ficha #fichaPrint .section-block,body.print-ficha #fichaPrint .card{break-inside:avoid;page-break-inside:avoid}
-  body.print-ficha .ficha-bar,body.print-ficha .topbar,body.print-ficha .crumbs{display:none!important}
+  body.print-ficha #fichaPrint{position:absolute;left:0;top:0;width:100%;font-size:9.5px;line-height:1.3}
+  body.print-ficha #fichaPrint *{background:#fff!important;background-image:none!important;color:#111!important;box-shadow:none!important;text-shadow:none!important}
+  body.print-ficha .print-head{display:block!important;border-bottom:2px solid #111!important;padding-bottom:8px;margin-bottom:10px}
+  body.print-ficha #fichaPrint .ph-org{font-size:16px}
+  body.print-ficha #fichaPrint .ph-title{color:#a06b00!important}
+  body.print-ficha #fichaPrint .card{border:1px solid #bbb!important;border-radius:8px!important;padding:11px!important;margin:0 0 9px!important}
+  body.print-ficha #fichaPrint .section-block{margin-top:9px!important;padding-top:9px!important;border-top:1px solid #e2e2e2!important}
+  body.print-ficha #fichaPrint .card-title{font-size:10px!important;margin-bottom:6px!important;border-bottom:1px solid #ddd;padding-bottom:3px}
+  body.print-ficha #fichaPrint .card-title .dot,body.print-ficha #fichaPrint .lt-dot{display:none!important}
+  body.print-ficha #fichaPrint .fh-name{font-size:17px!important}
+  body.print-ficha #fichaPrint .chip{border:1px solid #ccc!important;padding:2px 7px!important}
+  body.print-ficha #fichaPrint .foto-wrap{max-height:150px!important;overflow:hidden!important}
+  body.print-ficha #fichaPrint .foto-wrap img{max-height:150px!important;object-fit:cover!important}
+  body.print-ficha #fichaPrint .maps-btn{display:none!important}
+  body.print-ficha #fichaPrint .hist-tbl,body.print-ficha #fichaPrint .perf-grid{font-size:9px!important}
+  body.print-ficha #fichaPrint .hist-tbl th,body.print-ficha #fichaPrint .hist-tbl td{padding:3px 5px!important;border-color:#ddd!important}
+  body.print-ficha #fichaPrint .hist-tbl td.r{color:#0f7a44!important;font-weight:800}
+  body.print-ficha #fichaPrint .hist-tbl td.prom{color:#0b5d8a!important;font-weight:700}
+  body.print-ficha #fichaPrint .days .day{border:1px solid #bbb!important;color:#111!important}
+  body.print-ficha #fichaPrint .days .day.on{background:#ffe9a8!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-color:#caa!important}
+  body.print-ficha #fichaPrint .ficha-head{display:grid!important;grid-template-columns:1.05fr .95fr;gap:12px!important}
+  body.print-ficha #fichaPrint .two-col{display:grid!important;grid-template-columns:1fr 1fr;gap:12px!important}
+  body.print-ficha #fichaPrint .perf-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:7px!important}
+  body.print-ficha #fichaPrint .card,body.print-ficha #fichaPrint .perf-cell,body.print-ficha #fichaPrint table{break-inside:avoid;page-break-inside:avoid}
+  body.print-ficha .ficha-bar,body.print-ficha .topbar,body.print-ficha .crumbs,body.print-ficha .footnote{display:none!important}
 }
  
 /* vista por línea (ranking) */
@@ -391,6 +413,10 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cal-col-head b{font-family:'IBM Plex Mono';color:var(--accent);background:rgba(255,210,30,.10);border-radius:7px;padding:1px 8px;font-size:12px}
 .cal-fact{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted);margin:3px 0 9px;border-bottom:1px solid var(--line);padding-bottom:9px}
 .cal-fact b{color:var(--txt)}
+.cal-sub{display:block;font-family:'Manrope';font-size:10px;color:var(--muted2);margin-top:2px}
+.cc-fac{font-family:'IBM Plex Mono';font-weight:800;font-size:12px;color:var(--accent);white-space:nowrap}
+.cc-pend{font-family:'Manrope';font-weight:800;font-size:9.5px;color:var(--low);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.cal-card.nocompra{background:rgba(225,60,60,.07);border-color:rgba(225,60,60,.4)}
 .cal-body{display:flex;flex-direction:column;gap:8px}
 .cal-empty{color:var(--muted2);font-size:12px;text-align:center;padding:14px 0}
 .cal-card{background:rgba(255,255,255,.03);border:1px solid var(--line2);border-left:4px solid var(--line2);border-radius:11px;padding:10px;cursor:pointer;transition:.15s}
@@ -466,6 +492,9 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cmp-tbl th.l,.cmp-tbl td.l{text-align:left}
 .cmp-tbl td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;font-family:'IBM Plex Mono';white-space:nowrap}
 .cmp-tbl td.name{text-align:left;font-family:'Manrope';font-weight:600;white-space:normal;min-width:150px}
+.cmp-tbl th.l,.cmp-tbl td.name{position:sticky;left:0;z-index:2;background:var(--bg2)}
+.cmp-tbl thead th.l{z-index:3}
+.cmp-tbl tr.sub td.name{background:#152133}
 .cmp-grp{border-left:1px solid var(--line2)}
 .cmp-tbl th.gh{border-bottom:3px solid var(--accent)}
 .cmp-lines th.gh{border-bottom-color:var(--lc);font-size:10px}
@@ -929,6 +958,7 @@ function renderVendors(){
  
 /* ---- CLIENTES ---- */
 let CLI=[], LINE_FILTER='ALL', OBJF='con', DAY_FILTER='ALL', ORDER='regular';
+const REVIEWED=new Set();
 function hasObjective(rec){return LINES.some(l=>{const o=rec.numLit(l.obj);return o.n!=null&&o.n>0;});}
 function hasSales(rec){return LINES.some(l=>{const r=rec.numLit(l.real);return r.n!=null&&r.n!==0;});}
 function buildLineSelector(){document.getElementById('lineSel').innerHTML=`<option value="ALL">Todas las líneas (vista general)</option>`+LINES.map(l=>`<option value="${l.key}">Por línea · ${esc(l.label)}</option>`).join('');document.getElementById('lineSel').value=LINE_FILTER;}
@@ -939,6 +969,7 @@ function renderClients(){
   document.getElementById('cliPace').innerHTML=paceText();
   const groups=clientGroups(STATE.org).filter(rec=>rec.vendor===STATE.vendor);
   CLI=groups.map((rec,i)=>{const hl=lineData(rec,LINES.find(l=>l.key===HEADLINE_KEY));return {rec,uid:i,code:getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H),cliente:rec.text('CLIENTE'),negocio:rec.text('NOMBRE DE NEGOCIO'),zona:rec.text('ZONA'),giro:rec.text('GIRO'),cMid:rec.text('COMENTARIO A MITAD DE MES'),cEnd:rec.text('COMENTARIOS A FINAL DE MES'),pctN:hl.pctN,hlStatus:hl.status,search:keyName([rec.text('CLIENTE'),rec.text('NOMBRE DE NEGOCIO'),rec.text('COD CLIENTE'),rec.text('ZONA'),rec.text('GIRO')].join(' '))};});
+  REVIEWED.clear();
   filterClients();
 }
 /* orden por progreso: el nivel elegido primero, luego por % */
@@ -971,7 +1002,10 @@ function renderMatrix(base,grid,pace,note){
     let ringTxt,ringCls;
     if(c.hlStatus==='sinobj'){ringTxt='s/obj';ringCls='na';}else if(c.pctN==null){ringTxt='—';ringCls='na';}else{ringTxt=Math.round(c.pctN)+'%';ringCls=info.ring;}
     const badge=(c.hlStatus==='ok'&&info.txt)?`<span class="badge-st ${info.card}">${info.txt}</span>`:'';
-    return `<div class="cli-card reveal ${c.hlStatus==='ok'?info.card:''}" data-cli="${c.uid}" style="animation-delay:${Math.min(i,16)*.03}s">
+    const done=REVIEWED.has(c.uid)?' done':'';
+    return `<div class="cli-card reveal ${c.hlStatus==='ok'?info.card:''}${done}" data-cli="${c.uid}" style="animation-delay:${Math.min(i,16)*.03}s">
+      <span class="cli-num">${i+1}</span>
+      <button class="cli-check" data-check="${c.uid}" title="Marcar como revisado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></button>
       <div class="cli-head">
         <div class="cli-id"><div class="code">${esc(disp(c.code))}</div><h4 class="display">${esc(c.cliente||SD)}</h4><div class="neg">${esc(c.negocio||SD)}</div></div>
         <div class="cli-tags"><span class="tag">${esc(c.zona||'sin zona')}</span>${c.giro?`<span class="tag">${esc(c.giro)}</span>`:''}${badge}</div>
@@ -1045,10 +1079,11 @@ function historyTable(rec){
   rows.forEach(r=>{const ano=getCell(r,'AÑO',H)||getCell(r,'ANIO',H)||getCell(r,'ANO',H),mes=getCell(r,'MES',H);const key=norm(ano)+'||'+norm(mes);if(!pmap.has(key))pmap.set(key,{rank:periodRank(ano,mes),label:((mes||'—')+' '+(ano||'')).trim(),row:r});});
   const periods=[...pmap.values()].sort((a,b)=>a.rank-b.rank);
   if(!periods.length)return '<div class="empty-state">Sin historial de compra registrado.</div>';
-  const head=`<th class="l">Línea</th>`+periods.map(p=>`<th>${esc(p.label)}</th>`).join('')+`<th>Total año</th>`;
+  const head=`<th class="l">Línea</th>`+periods.map(p=>`<th>${esc(p.label)}</th>`).join('')+`<th>Total año</th><th>Prom/mes</th>`;
   const body=histLines().map(line=>{
     let tot=null;const cells=periods.map(p=>{const v=parseNum(getCell(p.row,line.real,H));if(v!=null)tot=(tot==null?0:tot)+v;return `<td>${v!=null?fmtNum(v):'·'}</td>`;}).join('');
-    return `<tr><td class="l"><span class="lt-dot" style="background:${lineColor(line.key)}"></span>${esc(line.label)}</td>${cells}<td class="r">${tot!=null?fmtNum(tot):'—'}</td></tr>`;
+    const prom=tot!=null?Math.round(tot/periods.length):null;
+    return `<tr><td class="l"><span class="lt-dot" style="background:${lineColor(line.key)}"></span>${esc(line.label)}</td>${cells}<td class="r">${tot!=null?fmtNum(tot):'—'}</td><td class="prom">${prom!=null?fmtNum(prom):'—'}</td></tr>`;
   }).join('');
   return `<div class="rd-tblwrap"><table class="hist-tbl"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
 }
@@ -1139,15 +1174,16 @@ function renderComparativo(){
   const opts=sel=>realPeriods.map(p=>`<option value="${esc(p.key)}" ${p.key===sel?'selected':''}>${esc(p.label)}</option>`).join('');
   const controls=`<div class="rd-controls">
     <div class="ctrl"><label>Vendedor</label><select class="inp" id="cmpVendSel">${vends.map(v=>`<option ${v.name===CMP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div>
-    <div class="ctrl"><label>Mes base (A)</label><select class="inp" id="cmpA">${opts(CMP_A)}</select></div>
-    <div class="ctrl"><label>Comparar con (B)</label><select class="inp" id="cmpB">${opts(CMP_B)}</select></div>
+    <div class="ctrl"><label>Mes A</label><select class="inp" id="cmpA">${opts(CMP_A)}</select></div>
+    <div class="ctrl"><label>Mes B</label><select class="inp" id="cmpB">${opts(CMP_B)}</select></div>
+    <button class="btn ghost" onclick="exportCmp()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13l6 6M15 13l-6 6"/></svg>Excel</button>
   </div>`;
   // mapas por periodo
   const mapA=new Map(),mapB=new Map();
   clientGroups(STATE.org,CMP_A).filter(r=>r.vendor===CMP_VENDOR).forEach(r=>mapA.set(getCell(r.group[r.group.length-1],'COD CLIENTE',r.H)||r.text('CLIENTE'),r));
   clientGroups(STATE.org,CMP_B).filter(r=>r.vendor===CMP_VENDOR).forEach(r=>mapB.set(getCell(r.group[r.group.length-1],'COD CLIENTE',r.H)||r.text('CLIENTE'),r));
   const codes=[...new Set([...mapA.keys(),...mapB.keys()])];
-  const lines=orderedLines();
+  const lines=histLines();
   const realN=(rec,line)=>rec?rec.numLit(line.real).n:null;
   const objN=(rec,line)=>rec?rec.numLit(line.obj).n:null;
   const shortLab=k=>{const p=labelOf(k).split(/\s+/);const m=(p[0]||'').slice(0,3);const y=p[1]?` '${p[1].slice(-2)}`:'';return (m.charAt(0)+m.slice(1).toLowerCase())+y;};
@@ -1189,6 +1225,7 @@ function renderRutaDia(){
     <div class="ctrl"><label>Vendedor</label><select class="inp" id="repVendSel">${vends.map(v=>`<option ${v.name===REP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div>
     <div class="ctrl"><label>Día de visita</label><select class="inp" id="repDaySel">${DAYS.map(([col])=>`<option value="${col}" ${col===REP_DAY?'selected':''}>${DAYFULL[col]}</option>`).join('')}</select></div>
     <button class="btn" onclick="printRoute()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Exportar PDF (carta horizontal)</button>
+    <button class="btn ghost" onclick="exportRuta()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13l6 6M15 13l-6 6"/></svg>Excel</button>
   </div>`;
  
   const headTop=RUTA_LINES.map(k=>{const l=LINES.find(x=>x.key===k);return `<th colspan="3" class="lh" style="--lc:${lineColor(k)}">${esc(l.label)}</th>`;}).join('');
@@ -1231,7 +1268,8 @@ function renderRutaDia(){
   </div>`;
 }
  
-/* === Reporte 2: RESUMEN SEMANAL (calendario, unidades) === */
+/* === Reporte 2: RESUMEN SEMANAL (calendario, con importes facturados) === */
+let FACT_FILTER='all';
 function calCard(rec){
   const pace=expectedPace();
   const zona=rec.text('ZONA')||'Sin zona', col=zoneColor(zona);
@@ -1241,11 +1279,14 @@ function calCard(rec){
     else if(ld.status==='sinobj')val=`<span class="mono">${esc(ld.real.lit||'—')}</span> <span class="so-flag">s/obj</span>`;
     else val=`<span class="mono">${esc(ld.real.lit||'0')}/${esc(ld.obj.lit||'0')}</span> <b class="t-${cls}">${ld.pctN!=null?Math.round(ld.pctN)+'%':''}</b>`;
     return `<div class="cc-line"><span class="cc-l">${esc(line.label)}</span><span class="cc-v">${val}</span></div>`;}).join('');
-  return `<div class="cal-card" style="border-left-color:${col}">
-    <div class="cc-head"><span class="cc-dot" style="background:${col}"></span>
+  const fac=rec.numLit('REAL FACT');const vendido=fac.n!=null&&fac.n>0;
+  return `<div class="cal-card ${vendido?'':'nocompra'}" style="border-left-color:${vendido?col:'var(--low)'}">
+    <div class="cc-head"><span class="cc-dot" style="background:${vendido?col:'var(--low)'}"></span>
       <div class="cc-headtxt"><div class="cc-name">${esc(rec.text('CLIENTE')||SD)}</div><div class="cc-zone" style="color:${col}">${esc(zona)}</div></div>
+      ${vendido?`<div class="cc-fac">${acct(fac.n)}</div>`:'<div class="cc-pend">por visitar</div>'}
       <svg class="cc-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"/></svg></div>
-    <div class="cc-detail"><div class="cc-code">COD ${esc(code)}</div><div class="cc-lines">${lines}</div></div></div>`;
+    <div class="cc-detail"><div class="cc-code">COD ${esc(code)}</div><div class="cc-lines">${lines}</div>
+      <div class="cc-money"><span>Facturado <b class="hot">${acct(fac.n)}</b></span></div></div></div>`;
 }
 function renderFactSemanal(){
   const vends=vendorAggregates(STATE.org);
@@ -1253,13 +1294,23 @@ function renderFactSemanal(){
   if(!vends.length){body.innerHTML='<div class="empty-state">Sin datos para este periodo.</div>';return;}
   if(!REP_VENDOR||!vends.find(v=>v.name===REP_VENDOR))REP_VENDOR=vends[0].name;
   const perTxt=document.getElementById('periodSel').selectedOptions[0]?.textContent||'';
-  const sel=`<div class="rep-controls"><div class="ctrl"><label>Vendedor</label><select class="inp" id="repVendSel">${vends.map(v=>`<option ${v.name===REP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div><div class="rep-note">Actividad por día de la semana de <b>${esc(REP_VENDOR)}</b> · ${esc(perTxt)} · útil para ver qué día vende más unidades. Clic en un cliente para ver detalle.</div></div>`;
+  const fSold=rec=>{const f=rec.numLit('REAL FACT');return f.n!=null&&f.n>0;};
+  const sel=`<div class="rep-controls"><div class="ctrl"><label>Vendedor</label><select class="inp" id="repVendSel">${vends.map(v=>`<option ${v.name===REP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div>
+    <div class="segmented" id="factSeg">
+      <button class="seg-btn ${FACT_FILTER==='all'?'act':''}" data-fact="all">Todos</button>
+      <button class="seg-btn ${FACT_FILTER==='sold'?'act':''}" data-fact="sold">Ya compraron</button>
+      <button class="seg-btn ${FACT_FILTER==='pend'?'act':''}" data-fact="pend">Sin compra aún</button>
+    </div>
+    <div class="rep-note">Facturado por día de la semana de <b>${esc(REP_VENDOR)}</b> · ${esc(perTxt)}. Los clientes <b style="color:var(--low)">sin compra</b> se resaltan en rojo (faltan por visitar). Clic en un cliente para ver detalle.</div></div>`;
   const groups=clientGroups(STATE.org).filter(r=>r.vendor===REP_VENDOR);
   const cols=DAYS.map(([col])=>{
-    const dayClients=groups.filter(rec=>!isEmpty(rec.text(col)));
-    let uT=0;dayClients.forEach(rec=>{const r=rec.numLit('REAL TOTAL');if(r.n!=null)uT+=r.n;});
+    let dayClients=groups.filter(rec=>!isEmpty(rec.text(col)));
+    const totC=dayClients.length, soldC=dayClients.filter(fSold).length;
+    if(FACT_FILTER==='sold')dayClients=dayClients.filter(fSold);
+    else if(FACT_FILTER==='pend')dayClients=dayClients.filter(r=>!fSold(r));
+    let fT=0;dayClients.forEach(rec=>{const f=rec.numLit('REAL FACT');if(f.n!=null)fT+=f.n;});
     const cards=dayClients.length?dayClients.map(calCard).join(''):'<div class="cal-empty">Sin clientes</div>';
-    return `<div class="cal-col"><div class="cal-col-head"><span>${esc(DAYFULL[col])}</span><b>${dayClients.length}</b></div><div class="cal-fact">${dayClients.length?'Unidades (Total acum.): <b>'+fmtNum(uT)+'</b>':'—'}</div><div class="cal-body">${cards}</div></div>`;
+    return `<div class="cal-col"><div class="cal-col-head"><span>${esc(DAYFULL[col])}</span><b>${dayClients.length}</b></div><div class="cal-fact">${'Facturado: <b>'+acct(fT)+'</b>'}<span class="cal-sub">${soldC}/${totC} con compra</span></div><div class="cal-body">${cards}</div></div>`;
   }).join('');
   body.innerHTML=sel+`<div class="cal">${cols}</div>`;
 }
@@ -1305,6 +1356,14 @@ function gotoWelcome(){showScreen('welcome');}
 function injectPage(orient){let s=document.getElementById('pageStyle');if(!s){s=document.createElement('style');s.id='pageStyle';document.head.appendChild(s);}s.textContent=`@page{size:Letter ${orient};margin:${orient==='landscape'?'7mm':'11mm'}}`;}
 function printRoute(){injectPage('landscape');document.body.classList.add('print-route');window.print();setTimeout(()=>document.body.classList.remove('print-route'),400);}
 function printFicha(){injectPage('portrait');document.body.classList.add('print-ficha');window.print();setTimeout(()=>document.body.classList.remove('print-ficha'),400);}
+function exportExcel(tableEl,filename){
+  if(!tableEl){alert('No hay tabla para exportar.');return;}
+  const html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><style>td,th{border:1px solid #ccc;padding:4px 6px;font-family:Arial;font-size:11px}</style></head><body>'+tableEl.outerHTML+'</body></html>';
+  const blob=new Blob(['\ufeff'+html],{type:'application/vnd.ms-excel'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},600);
+}
+function exportRuta(){exportExcel(document.querySelector('#printArea .rd-tbl'),`Ruta_${(REP_VENDOR||'').replace(/\s+/g,'_')}_${REP_DAY}.xls`);}
+function exportCmp(){exportExcel(document.querySelector('.cmp-tbl'),`Comparativo_${(CMP_VENDOR||'').replace(/\s+/g,'_')}.xls`);}
 function showWelcome(){ROLE=null;UNLOCKED.clear();setRoleUI();showScreen('welcome');}
 function logout(){showWelcome();}
  
@@ -1313,7 +1372,9 @@ document.addEventListener('click',e=>{
   const rb=e.target.closest('[data-rep]');if(rb){REPORT=rb.dataset.rep;renderReportes();return;}
   const ov=e.target.closest('[data-org]');if(ov){goVend(ov.dataset.org);return;}
   const vd=e.target.closest('[data-vend]');if(vd){goCli(vd.dataset.vend);return;}
+  const ck=e.target.closest('[data-check]');if(ck){const id=parseInt(ck.dataset.check);if(REVIEWED.has(id))REVIEWED.delete(id);else REVIEWED.add(id);const card=ck.closest('.cli-card');if(card)card.classList.toggle('done');e.stopPropagation();return;}
   const cl=e.target.closest('[data-cli]');if(cl){goFicha(parseInt(cl.dataset.cli));return;}
+  const fs=e.target.closest('#factSeg .seg-btn');if(fs){FACT_FILTER=fs.dataset.fact;renderFactSemanal();return;}
   const sg=e.target.closest('#objSeg .seg-btn');if(sg){OBJF=sg.dataset.obj;document.querySelectorAll('#objSeg .seg-btn').forEach(b=>b.classList.toggle('act',b===sg));filterClients();return;}
   const wc=e.target.closest('[data-welcome]');if(wc){gotoWelcome();return;}
   const bk=e.target.closest('[data-go]');if(bk){const g=bk.dataset.go;if(g==='home')goHome();else if(g==='vend')goVend(STATE.org);else if(g==='cli')goCli(STATE.vendor);return;}
