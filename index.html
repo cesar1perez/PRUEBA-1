@@ -262,27 +262,46 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .rd-grouped td.p{font-size:10px;font-weight:700}.rd-grouped td.money{font-size:11px}
 .rd-grouped .gsep{border-left:1px solid var(--line2)}
 .print-head{display:none}
+.ficha-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.ficha-ph .ph-org{font-family:'Archivo';font-weight:900;font-size:20px}
+.ficha-ph .ph-title{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);font-weight:800;margin-top:3px}
 @media print{
-  @page{size:Letter landscape;margin:7mm}
   body{background:#fff!important}
   body *{visibility:hidden!important}
-  #printArea,#printArea *{visibility:visible!important}
-  #printArea{position:absolute;left:0;top:0;width:100%;background:#fff!important;color:#111!important;border:none!important;padding:0!important}
-  #printArea .rd-org{color:#111!important;font-size:18px}
-  #printArea .rd-title{color:#a06b00!important}
-  #printArea .rd-head{border-bottom:2px solid #111!important}
-  #printArea .rd-meta span{color:#555!important}
-  #printArea .rd-meta b{color:#111!important}
-  #printArea .rd-tbl{font-size:8.5px}
-  #printArea .rd-tbl th,#printArea .rd-tbl td{padding:4px 4px!important;color:#111!important}
-  #printArea .rd-tbl th{color:#333!important;border-bottom:1px solid #888!important}
-  #printArea .rd-grouped thead tr:nth-child(2) th{font-size:7px!important;color:#555!important}
-  #printArea .rd-tbl td{border-bottom:1px solid #ddd!important}
-  #printArea .rd-grouped .gsep{border-left:1px solid #bbb!important}
-  #printArea .rd-tbl td.o{color:#666!important}
-  #printArea .rd-tbl tr.sub td{background:#eee!important;border-top:2px solid #888!important}
-  #printArea .t-good{color:#0f7a44!important}#printArea .t-mid{color:#9a6b00!important}#printArea .t-low{color:#bf1f25!important}#printArea .t-na{color:#999!important}#printArea .so-flag{color:#1d6fb8!important}
-  #printArea .rd-tblwrap{overflow:visible!important}
+  /* ===== RUTA (horizontal) ===== */
+  body.print-route #printArea,body.print-route #printArea *{visibility:visible!important}
+  body.print-route #printArea{position:absolute;left:0;top:0;width:100%;background:#fff!important;color:#111!important;border:none!important;padding:0!important}
+  body.print-route #printArea .rd-org{color:#111!important;font-size:18px}
+  body.print-route #printArea .rd-title{color:#a06b00!important}
+  body.print-route #printArea .rd-head{border-bottom:2px solid #111!important}
+  body.print-route #printArea .rd-meta span{color:#555!important}
+  body.print-route #printArea .rd-meta b{color:#111!important}
+  body.print-route #printArea .rd-tbl{font-size:8.5px}
+  body.print-route #printArea .rd-tbl th,body.print-route #printArea .rd-tbl td{padding:4px 4px!important;color:#111!important}
+  body.print-route #printArea .rd-tbl th{color:#333!important;border-bottom:1px solid #888!important}
+  body.print-route #printArea .rd-grouped thead tr:nth-child(2) th{font-size:7px!important;color:#555!important}
+  body.print-route #printArea .rd-tbl td{border-bottom:1px solid #ddd!important}
+  body.print-route #printArea .rd-grouped .gsep{border-left:1px solid #bbb!important}
+  body.print-route #printArea .rd-tbl td.o{color:#666!important}
+  body.print-route #printArea .rd-tbl tr.sub td{background:#eee!important;border-top:2px solid #888!important}
+  body.print-route #printArea .t-good{color:#0f7a44!important}body.print-route #printArea .t-mid{color:#9a6b00!important}body.print-route #printArea .t-low{color:#bf1f25!important}body.print-route #printArea .t-na{color:#999!important}body.print-route #printArea .so-flag{color:#1d6fb8!important}
+  body.print-route #printArea .rd-tblwrap{overflow:visible!important}
+  /* ===== FICHA (vertical) ===== */
+  body.print-ficha{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body.print-ficha #fichaPrint,body.print-ficha #fichaPrint *{visibility:visible!important}
+  body.print-ficha #fichaPrint{position:absolute;left:0;top:0;width:100%}
+  body.print-ficha .print-head{display:block!important;border-bottom:2px solid #111;padding-bottom:10px;margin-bottom:14px}
+  body.print-ficha .ph-org{color:#111!important}
+  body.print-ficha #fichaPrint{color:#111!important}
+  body.print-ficha #fichaPrint *{color:#111!important}
+  body.print-ficha #fichaPrint .card,body.print-ficha #fichaPrint .card.flat{background:#fff!important;border:1px solid #ccc!important;box-shadow:none!important}
+  body.print-ficha #fichaPrint .fh-name,body.print-ficha #fichaPrint .fh-neg,body.print-ficha #fichaPrint .fh-code,body.print-ficha #fichaPrint .card-title,body.print-ficha #fichaPrint dt,body.print-ficha #fichaPrint dd,body.print-ficha #fichaPrint .chip,body.print-ficha #fichaPrint .coment,body.print-ficha #fichaPrint .hist-tbl td,body.print-ficha #fichaPrint .hist-tbl th,body.print-ficha #fichaPrint .pf-nm,body.print-ficha #fichaPrint .pf-v{color:#111!important}
+  body.print-ficha #fichaPrint .chip{background:#f1f1f1!important;border-color:#ccc!important}
+  body.print-ficha #fichaPrint .hist-tbl td.r{color:#0f7a44!important}
+  body.print-ficha #fichaPrint .ficha-head{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  body.print-ficha #fichaPrint .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  body.print-ficha #fichaPrint .section-block,body.print-ficha #fichaPrint .card{break-inside:avoid;page-break-inside:avoid}
+  body.print-ficha .ficha-bar,body.print-ficha .topbar,body.print-ficha .crumbs{display:none!important}
 }
  
 /* vista por línea (ranking) */
@@ -451,6 +470,10 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cmp-tbl th.gh{border-bottom:3px solid var(--accent)}
 .cmp-lines th.gh{border-bottom-color:var(--lc);font-size:10px}
 .cmp-lines td.o{color:var(--muted);font-size:11px}
+.cmp-lines .cm-real{display:block;font-weight:700;font-size:13px}
+.cmp-lines .cm-obj{display:block;font-size:9px;color:var(--muted2);font-weight:600;margin-top:1px}
+.cmp-lines .difcol{border-left:1px dashed var(--line2)}
+.cmp-lines th.difcol{color:var(--accent)}
 .delta{font-weight:700} .delta.up{color:var(--good)} .delta.down{color:var(--low)} .delta.flat{color:var(--muted2)}
 .cmp-tbl tr.sub td{font-weight:700;background:rgba(255,255,255,.03);border-top:2px solid var(--line2)}
 @media(max-width:820px){
@@ -579,16 +602,23 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
         <option value="LUNES">Lunes</option><option value="MARTES">Martes</option><option value="MIERCOLES">Miércoles</option>
         <option value="JUEVES">Jueves</option><option value="VIERNES">Viernes</option><option value="SABADO">Sábado</option><option value="ESPORADICO">Esporádico</option>
       </select></div>
+      <div class="ctrl"><label>Orden</label><select class="inp" id="orderSel">
+        <option value="regular">Progreso regular primero</option>
+        <option value="medio">Progreso medio primero</option>
+        <option value="good">Progreso bueno primero</option>
+      </select></div>
       <div class="count-pill" id="cliCount">0 clientes</div>
     </div>
-    <div id="cliTotals"></div>
     <div class="cli-list" id="cliGrid"></div>
   </section>
  
   <!-- FICHA -->
   <section class="screen" id="screen-ficha">
-    <button class="back-btn" data-go="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Clientes</button>
-    <div id="fichaBody"></div>
+    <div class="ficha-bar">
+      <button class="back-btn" data-go="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Clientes</button>
+      <button class="btn ficha-pdf" onclick="printFicha()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Exportar ficha en PDF</button>
+    </div>
+    <div id="fichaPrint"><div id="fichaBody"></div></div>
   </section>
  
   <!-- REPORTES -->
@@ -898,7 +928,7 @@ function renderVendors(){
 }
  
 /* ---- CLIENTES ---- */
-let CLI=[], LINE_FILTER='ALL', OBJF='con', DAY_FILTER='ALL';
+let CLI=[], LINE_FILTER='ALL', OBJF='con', DAY_FILTER='ALL', ORDER='regular';
 function hasObjective(rec){return LINES.some(l=>{const o=rec.numLit(l.obj);return o.n!=null&&o.n>0;});}
 function hasSales(rec){return LINES.some(l=>{const r=rec.numLit(l.real);return r.n!=null&&r.n!==0;});}
 function buildLineSelector(){document.getElementById('lineSel').innerHTML=`<option value="ALL">Todas las líneas (vista general)</option>`+LINES.map(l=>`<option value="${l.key}">Por línea · ${esc(l.label)}</option>`).join('');document.getElementById('lineSel').value=LINE_FILTER;}
@@ -911,19 +941,13 @@ function renderClients(){
   CLI=groups.map((rec,i)=>{const hl=lineData(rec,LINES.find(l=>l.key===HEADLINE_KEY));return {rec,uid:i,code:getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H),cliente:rec.text('CLIENTE'),negocio:rec.text('NOMBRE DE NEGOCIO'),zona:rec.text('ZONA'),giro:rec.text('GIRO'),cMid:rec.text('COMENTARIO A MITAD DE MES'),cEnd:rec.text('COMENTARIOS A FINAL DE MES'),pctN:hl.pctN,hlStatus:hl.status,search:keyName([rec.text('CLIENTE'),rec.text('NOMBRE DE NEGOCIO'),rec.text('COD CLIENTE'),rec.text('ZONA'),rec.text('GIRO')].join(' '))};});
   filterClients();
 }
-/* siempre del más bajo al más alto en avance (los rezagados primero) */
-function sortByProgress(arr,getP){return arr.sort((a,b)=>{const va=getP(a),vb=getP(b);if(va==null&&vb==null)return 0;if(va==null)return 1;if(vb==null)return -1;return va-vb;});}
-function comentInline(c){const p=[];if(!isEmpty(c.cMid))p.push(`<span class="cm-lbl">Mitad:</span> ${esc(c.cMid)}`);if(!isEmpty(c.cEnd))p.push(`<span class="cm-lbl">Final:</span> ${esc(c.cEnd)}`);return p.length?`<div class="lr-coment">${p.join('<br>')}</div>`:`<div class="lr-coment empty">Sin comentario del vendedor para este mes</div>`;}
-/* totales del filtro actual: suma de unidades reales por línea */
-function renderTotals(recs){
-  const el=document.getElementById('cliTotals');
-  if(!recs.length){el.innerHTML='';return;}
-  const sums={}; LINES.forEach(l=>sums[l.key]=null);
-  const add=(o,v)=>v==null?o:(o==null?v:o+v);
-  recs.forEach(rec=>LINES.forEach(l=>{const r=rec.numLit(l.real);if(r.n!=null)sums[l.key]=add(sums[l.key],r.n);}));
-  const chips=orderedLines().map(l=>`<div class="tot-chip" style="border-left:3px solid ${lineColor(l.key)}"><span class="tl"><span class="tdot" style="background:${lineColor(l.key)}"></span>${esc(l.label)}</span><span class="tv mono">${sums[l.key]!=null?fmtNum(sums[l.key]):'—'}</span></div>`).join('');
-  el.innerHTML=`<div class="totals"><div class="totals-head"><span class="dot"></span>Totales del filtro · ${recs.length} cliente${recs.length!==1?'s':''} <span class="th-note">unidades vendidas (real) por línea</span></div><div class="tot-grid">${chips}</div></div>`;
+/* orden por progreso: el nivel elegido primero, luego por % */
+function sortList(arr,pace,getP){
+  const sel=ORDER, tr=c=>tier(getP(c),pace);
+  const sec=(a,b)=>{const va=getP(a),vb=getP(b);if(va==null&&vb==null)return 0;if(va==null)return 1;if(vb==null)return -1;return sel==='good'?vb-va:va-vb;};
+  return arr.sort((a,b)=>{const pa=tr(a)===sel?0:1,pb=tr(b)===sel?0:1;if(pa!==pb)return pa-pb;return sec(a,b);});
 }
+function comentInline(c){const p=[];if(!isEmpty(c.cMid))p.push(`<span class="cm-lbl">Mitad:</span> ${esc(c.cMid)}`);if(!isEmpty(c.cEnd))p.push(`<span class="cm-lbl">Final:</span> ${esc(c.cEnd)}`);return p.length?`<div class="lr-coment">${p.join('<br>')}</div>`:`<div class="lr-coment empty">Sin comentario del vendedor para este mes</div>`;}
 function filterClients(){
   const q=keyName(document.getElementById('cliSearch').value);
   let base=CLI.filter(c=>!q||c.search.includes(q));
@@ -936,12 +960,11 @@ function filterClients(){
   renderMatrix(base,grid,pace,OBJF==='con'?'con objetivo':'venta sin objetivo');
 }
 function renderMatrix(base,grid,pace,note){
-  let list=sortByProgress(base.slice(),c=>c.pctN);
+  let list=sortList(base.slice(),pace,c=>c.pctN);
   const counts={good:0,medio:0,regular:0};
   base.forEach(c=>{const t=tier(c.pctN,pace);if(counts[t]!=null)counts[t]++;});
   document.getElementById('cliCount').textContent=`${list.length} cliente${list.length!==1?'s':''} · ${note} · ${counts.regular} rezagados / ${counts.medio} medios / ${counts.good} en meta`;
-  if(!list.length){grid.innerHTML='<div class="empty-state">Sin clientes en este filtro.</div>';renderTotals([]);return;}
-  renderTotals(list.map(c=>c.rec));
+  if(!list.length){grid.innerHTML='<div class="empty-state">Sin clientes en este filtro.</div>';return;}
   const lines=orderedLines();
   grid.innerHTML=list.map((c,i)=>{
     const tr=tier(c.pctN,pace), info=TIER_INFO[tr];
@@ -988,10 +1011,9 @@ function clientLineTable(rec,lines,pace){
 function renderLineFocus(base,grid,line,pace){
   const conObj=[],sinObj=[];
   base.forEach(c=>{const ld=lineData(c.rec,line);const it={...c,ld};if(ld.obj.n!=null&&ld.obj.n>0)conObj.push(it);else if(ld.real.n!=null&&ld.real.n!==0)sinObj.push(it);});
-  sortByProgress(conObj,c=>c.ld.pctN);
+  sortList(conObj,pace,c=>c.ld.pctN);
   const nBehind=conObj.filter(c=>isBehind(c.ld.pctN,pace)).length;
   document.getElementById('cliCount').textContent=`${conObj.length} con objetivo · ${nBehind} rezagado${nBehind!==1?'s':''} · ${sinObj.length} venta s/obj`;
-  renderTotals(conObj.concat(sinObj).map(c=>c.rec));
   const rowCon=(c,i)=>{const cls=paceClass(c.ld.pctN,pace),behind=isBehind(c.ld.pctN,pace);const mk=(pace!=null)?`<span class="mk" style="left:${Math.min(100,pace)}%"></span>`:'';const pctTxt=c.ld.pctN!=null?Math.round(c.ld.pctN)+'%':'—';
     return `<div class="line-row reveal ${behind?'behind':(c.ld.pctN!=null?'aok':'')}" data-cli="${c.uid}" style="animation-delay:${Math.min(i,20)*.02}s">
       <div class="lr-rank mono">${i+1}</div>
@@ -1013,6 +1035,8 @@ function renderLineFocus(base,grid,line,pace){
 }
  
 /* ---- FICHA ---- */
+const HIST_ORDER=['PREM','AGM','ESTANDAR','TOTAL','LUB','MOTO','FILTRO','AUTO','CTA','CAMION','LLANTAS'];
+function histLines(){const seen=new Set();const out=[];HIST_ORDER.forEach(k=>{const l=LINES.find(x=>x.key===k);if(l){out.push(l);seen.add(k);}});LINES.forEach(l=>{if(!seen.has(l.key))out.push(l);});return out;}
 function historyTable(rec){
   const H=DB.H;
   const code=getCell(rec.group[rec.group.length-1],'COD CLIENTE',H)||rec.text('CLIENTE');
@@ -1022,7 +1046,7 @@ function historyTable(rec){
   const periods=[...pmap.values()].sort((a,b)=>a.rank-b.rank);
   if(!periods.length)return '<div class="empty-state">Sin historial de compra registrado.</div>';
   const head=`<th class="l">Línea</th>`+periods.map(p=>`<th>${esc(p.label)}</th>`).join('')+`<th>Total año</th>`;
-  const body=orderedLines().map(line=>{
+  const body=histLines().map(line=>{
     let tot=null;const cells=periods.map(p=>{const v=parseNum(getCell(p.row,line.real,H));if(v!=null)tot=(tot==null?0:tot)+v;return `<td>${v!=null?fmtNum(v):'·'}</td>`;}).join('');
     return `<tr><td class="l"><span class="lt-dot" style="background:${lineColor(line.key)}"></span>${esc(line.label)}</td>${cells}<td class="r">${tot!=null?fmtNum(tot):'—'}</td></tr>`;
   }).join('');
@@ -1049,6 +1073,7 @@ function renderFicha(rec){
   const desc=dl(DESCUENTOS.map(n=>[n.replace(' (HI TEC)',' (Hi-Tec)'),rec.text(n)]));
   const cMid=rec.text('COMENTARIO A MITAD DE MES'),cEnd=rec.text('COMENTARIOS A FINAL DE MES');
   document.getElementById('fichaBody').innerHTML=`
+    <div class="print-head ficha-ph"><div class="ph-org">${esc(org(STATE.org).label)}</div><div class="ph-title">Ficha informativa de cliente · ${esc(cliente||SD)}</div></div>
     <div class="ficha-head">
       <div class="card" style="--sc:#ffd21e">
         <div class="fh-name display">${esc(cliente||SD)}</div><div class="fh-neg">${esc(negocio||SD)}</div>
@@ -1125,22 +1150,23 @@ function renderComparativo(){
   const lines=orderedLines();
   const realN=(rec,line)=>rec?rec.numLit(line.real).n:null;
   const objN=(rec,line)=>rec?rec.numLit(line.obj).n:null;
-  // encabezados: por línea -> Obj | A(real) | B(real)
+  const shortLab=k=>{const p=labelOf(k).split(/\s+/);const m=(p[0]||'').slice(0,3);const y=p[1]?` '${p[1].slice(-2)}`:'';return (m.charAt(0)+m.slice(1).toLowerCase())+y;};
+  const la=shortLab(CMP_A), lb=shortLab(CMP_B);
+  // encabezados: por línea -> [Mes A] [Mes B] [Dif A-B]
   const headTop=lines.map(l=>`<th colspan="3" class="gh" style="--lc:${lineColor(l.key)}">${esc(l.label)}</th>`).join('');
-  const headSub=lines.map(()=>`<th class="cmp-grp">Obj</th><th>A</th><th>B</th>`).join('');
+  const headSub=lines.map(()=>`<th class="cmp-grp">${esc(la)}</th><th>${esc(lb)}</th><th class="difcol">Dif</th>`).join('');
+  const cellMonth=(rec,l,grp)=>{const r=realN(rec,l),o=objN(rec,l);return `<td class="${grp?'cmp-grp':''}"><span class="cm-real">${r!=null?fmtNum(r):'·'}</span>${o!=null?`<span class="cm-obj">obj ${fmtNum(o)}</span>`:''}</td>`;};
+  const difCell=(a,b)=>{if(a==null&&b==null)return `<td class="difcol delta flat">·</td>`;const d=(a||0)-(b||0);const cls=d>0?'up':(d<0?'down':'flat');const ar=d>0?'▲':(d<0?'▼':'=');return `<td class="difcol delta ${cls}">${ar} ${esc(fmtNum(Math.abs(d))||'0')}</td>`;};
   const rows=codes.map(code=>{
     const ra=mapA.get(code),rb=mapB.get(code),ref=ra||rb;
-    const cells=lines.map(l=>{const ob=objN(ra,l)??objN(rb,l);const a=realN(ra,l),b=realN(rb,l);
-      const up=(a!=null||b!=null)&&((a||0)>(b||0)),dn=(a!=null||b!=null)&&((a||0)<(b||0));
-      const acls=up?'delta up':(dn?'delta down':'');
-      return `<td class="cmp-grp o">${ob!=null?fmtNum(ob):'·'}</td><td class="${acls}">${a!=null?fmtNum(a):'·'}</td><td>${b!=null?fmtNum(b):'·'}</td>`;}).join('');
+    const cells=lines.map(l=>cellMonth(ra,l,true)+cellMonth(rb,l,false)+difCell(realN(ra,l),realN(rb,l))).join('');
     return `<tr><td class="name">${esc(ref.text('CLIENTE')||SD)}<br><span style="color:var(--muted);font-size:11px">${esc(ref.text('ZONA')||'')}</span></td>${cells}</tr>`;
   }).join('');
   // totales
-  const subCells=lines.map(l=>{let oa=0,sa=0,sb=0;codes.forEach(code=>{const ra=mapA.get(code),rb=mapB.get(code);const o=objN(ra,l)??objN(rb,l);if(o!=null)oa+=o;const a=realN(ra,l),b=realN(rb,l);if(a!=null)sa+=a;if(b!=null)sb+=b;});return `<td class="cmp-grp o">${fmtNum(oa)}</td><td>${fmtNum(sa)}</td><td>${fmtNum(sb)}</td>`;}).join('');
+  const subCells=lines.map(l=>{let sa=0,sb=0;codes.forEach(code=>{const a=realN(mapA.get(code),l),b=realN(mapB.get(code),l);if(a!=null)sa+=a;if(b!=null)sb+=b;});const d=sa-sb,cls=d>0?'up':(d<0?'down':'flat'),ar=d>0?'▲':(d<0?'▼':'=');return `<td class="cmp-grp"><span class="cm-real">${fmtNum(sa)}</span></td><td><span class="cm-real">${fmtNum(sb)}</span></td><td class="difcol delta ${cls}">${ar} ${esc(fmtNum(Math.abs(d)))}</td>`;}).join('');
   const sub=`<tr class="sub"><td class="name">Totales</td>${subCells}</tr>`;
   const ncols=1+lines.length*3;
-  body.innerHTML=controls+`<div class="rd-wrap"><div class="rep-note" style="margin-bottom:14px">Comparativo de <b>${esc(CMP_VENDOR)}</b> · unidades reales por línea: <b>${esc(labelOf(CMP_A))}</b> (A) vs <b>${esc(labelOf(CMP_B))}</b> (B). En verde subió, en rojo bajó respecto a B. "Obj" es el objetivo de la línea.</div>
+  body.innerHTML=controls+`<div class="rd-wrap"><div class="rep-note" style="margin-bottom:14px">Comparativo de <b>${esc(CMP_VENDOR)}</b> · unidades reales por línea. Cada línea muestra <b>${esc(la)}</b>, <b>${esc(lb)}</b> y la <b>diferencia</b> (${esc(la)} − ${esc(lb)}): ▲ verde si vendió más, ▼ rojo si bajó. Debajo de cada cantidad aparece su objetivo del mes.</div>
     <div class="rd-tblwrap"><table class="cmp-tbl cmp-lines">
     <thead><tr><th rowspan="2" class="l">Cliente</th>${headTop}</tr><tr>${headSub}</tr></thead>
     <tbody>${codes.length?rows+sub:`<tr><td colspan="${ncols}" style="text-align:center;color:var(--muted2);padding:24px">Sin clientes para comparar.</td></tr>`}</tbody></table></div></div>`;
@@ -1162,7 +1188,7 @@ function renderRutaDia(){
   const controls=`<div class="rd-controls">
     <div class="ctrl"><label>Vendedor</label><select class="inp" id="repVendSel">${vends.map(v=>`<option ${v.name===REP_VENDOR?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div>
     <div class="ctrl"><label>Día de visita</label><select class="inp" id="repDaySel">${DAYS.map(([col])=>`<option value="${col}" ${col===REP_DAY?'selected':''}>${DAYFULL[col]}</option>`).join('')}</select></div>
-    <button class="btn" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Exportar PDF (carta horizontal)</button>
+    <button class="btn" onclick="printRoute()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Exportar PDF (carta horizontal)</button>
   </div>`;
  
   const headTop=RUTA_LINES.map(k=>{const l=LINES.find(x=>x.key===k);return `<th colspan="3" class="lh" style="--lc:${lineColor(k)}">${esc(l.label)}</th>`;}).join('');
@@ -1252,7 +1278,7 @@ function goCli(v){
   }
   _goCli(v);
 }
-function _goCli(v){STATE.vendor=v;document.getElementById('cliSearch').value='';LINE_FILTER='ALL';OBJF='con';DAY_FILTER='ALL';document.getElementById('daySel').value='ALL';document.querySelectorAll('#objSeg .seg-btn').forEach(b=>b.classList.toggle('act',b.dataset.obj==='con'));buildLineSelector();renderClients();showScreen('cli');}
+function _goCli(v){STATE.vendor=v;document.getElementById('cliSearch').value='';LINE_FILTER='ALL';OBJF='con';DAY_FILTER='ALL';ORDER='regular';document.getElementById('daySel').value='ALL';document.getElementById('orderSel').value='regular';document.querySelectorAll('#objSeg .seg-btn').forEach(b=>b.classList.toggle('act',b.dataset.obj==='con'));buildLineSelector();renderClients();showScreen('cli');}
 function goFicha(uid){const c=CLI.find(x=>x.uid===uid);if(!c)return;renderFicha(c.rec);showScreen('ficha');}
 function goRep(){if(ROLE!=='directivo')return;renderReportes();showScreen('rep');}
  
@@ -1276,6 +1302,9 @@ function setRoleUI(){
 }
 function afterLogin(){setRoleUI();goHome();}
 function gotoWelcome(){showScreen('welcome');}
+function injectPage(orient){let s=document.getElementById('pageStyle');if(!s){s=document.createElement('style');s.id='pageStyle';document.head.appendChild(s);}s.textContent=`@page{size:Letter ${orient};margin:${orient==='landscape'?'7mm':'11mm'}}`;}
+function printRoute(){injectPage('landscape');document.body.classList.add('print-route');window.print();setTimeout(()=>document.body.classList.remove('print-route'),400);}
+function printFicha(){injectPage('portrait');document.body.classList.add('print-ficha');window.print();setTimeout(()=>document.body.classList.remove('print-ficha'),400);}
 function showWelcome(){ROLE=null;UNLOCKED.clear();setRoleUI();showScreen('welcome');}
 function logout(){showWelcome();}
  
@@ -1293,6 +1322,7 @@ document.getElementById('repBtn').addEventListener('click',goRep);
 document.getElementById('cliSearch').addEventListener('input',filterClients);
 document.getElementById('lineSel').addEventListener('change',e=>{LINE_FILTER=e.target.value;filterClients();});
 document.getElementById('daySel').addEventListener('change',e=>{DAY_FILTER=e.target.value;filterClients();});
+document.getElementById('orderSel').addEventListener('change',e=>{ORDER=e.target.value;filterClients();});
 document.getElementById('periodSel').addEventListener('change',e=>{STATE.period=e.target.value;rerender();});
 document.getElementById('cutoffSel').addEventListener('change',e=>{const v=e.target.value;if(v){const[y,m,d]=v.split('-').map(Number);CUTOFF=new Date(y,m-1,d);}rerender();});
 document.getElementById('refreshBtn').addEventListener('click',init);
