@@ -193,15 +193,19 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .acct .al{font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted2);font-weight:700;margin-top:6px}
 .cli-open{display:flex;justify-content:flex-end;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--accent);opacity:0;transition:.2s;margin-top:10px}
 .cli-card:hover .cli-open{opacity:1}
-.cli-coments{margin-top:13px;border-top:1px dashed var(--line2);padding-top:11px}
-.cco-head{display:flex;align-items:center;gap:7px;font-family:'Archivo';font-weight:800;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:8px}
-.cco-head svg{width:14px;height:14px}
-.cco-row{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:start;padding:6px 10px;border-left:3px solid var(--accent);background:rgba(255,210,30,.06);border-radius:0 8px 8px 0;margin-bottom:6px}
+.cli-coments{margin:2px 0 15px;border-bottom:1px solid var(--line2);padding-bottom:14px}
+.cco-head{display:flex;align-items:center;gap:7px;font-family:'Archivo';font-weight:800;font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin-bottom:9px}
+.cco-head svg{width:15px;height:15px}
+.cco-row{display:grid;grid-template-columns:104px 1fr;gap:11px;align-items:start;padding:9px 12px;border-left:3px solid var(--accent);background:rgba(255,210,30,.07);border-radius:0 9px 9px 0;margin-bottom:7px}
 .cco-row:last-child{margin-bottom:0}
 .cco-row.sininfo{border-left-color:var(--line2);background:rgba(255,255,255,.02)}
-.cco-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);padding-top:1px}
-.cco-txt{font-size:13px;color:var(--txt);line-height:1.45}
-.cco-row.sininfo .cco-txt{color:var(--muted2);font-style:italic}
+.cco-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);padding-top:2px}
+.cco-txt{font-size:15px;color:var(--txt);line-height:1.5;font-weight:500}
+.cco-row.sininfo .cco-txt{color:var(--muted2);font-style:italic;font-weight:400}
+@media(max-width:560px){
+  .cco-row{grid-template-columns:1fr;gap:3px;padding:8px 11px}
+  .cco-txt{font-size:14px}
+}
 /* tabla de líneas alineada en tarjeta de cliente */
 .lt{margin-top:6px}
 .lt-head,.lt-row{display:grid;grid-template-columns:minmax(96px,1.3fr) 80px 80px 70px;gap:10px;align-items:center}
@@ -221,8 +225,15 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .lt-bar{grid-column:1/-1;height:5px}
 .lt-bar .bar{height:5px}
 @media(max-width:560px){
-  .lt-head,.lt-row{grid-template-columns:1fr 58px 58px 50px;gap:7px}
-  .lt-o,.lt-r,.lt-a{font-size:12.5px}.lt-head span{font-size:9.5px}.lt-nm{font-size:12px}
+  .lt-head{display:none}
+  .lt-row{grid-template-columns:1fr auto;grid-template-areas:"nm av" "ob rl" "bar bar";gap:3px 10px;padding:10px 0;align-items:center}
+  .lt-nm{grid-area:nm;font-size:13.5px;font-weight:700}
+  .lt-a{grid-area:av;text-align:right;font-size:16px}
+  .lt-o{grid-area:ob;text-align:left;font-size:13px}
+  .lt-r{grid-area:rl;text-align:right;font-size:13px}
+  .lt-o::before{content:"OBJ ";color:var(--muted2);font-size:9.5px;font-weight:700}
+  .lt-r::before{content:"REAL ";color:var(--muted2);font-size:9.5px;font-weight:700}
+  .lt-bar{grid-area:bar;margin-top:2px}
 }
 /* botones segmentados con/sin objetivo */
 .segmented{display:inline-flex;gap:0;border:1px solid var(--line2);border-radius:12px;overflow:hidden;margin:2px 0 14px}
@@ -231,11 +242,11 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .seg-btn.act{background:var(--accent);color:#07142e}
 .seg-btn:not(.act):hover{background:rgba(255,255,255,.05);color:var(--txt)}
 /* historial de compra */
-.hist-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
-.hist-tbl th{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted2);padding:9px 10px;border-bottom:1.5px solid var(--line2);text-align:right;font-weight:800;white-space:nowrap}
+.hist-tbl{width:100%;border-collapse:collapse;font-size:15px;min-width:520px}
+.hist-tbl th{font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted2);padding:11px 12px;border-bottom:1.5px solid var(--line2);text-align:right;font-weight:800;white-space:nowrap}
 .hist-tbl th.l{text-align:left}
-.hist-tbl td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;font-family:'IBM Plex Mono';color:var(--txt)}
-.hist-tbl td.l{text-align:left;font-family:'Manrope';font-weight:600;white-space:nowrap}
+.hist-tbl td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;font-family:'IBM Plex Mono';color:var(--txt);font-size:15px}
+.hist-tbl td.l{text-align:left;font-family:'Manrope';font-weight:700;white-space:nowrap;font-size:14px}
 .hist-tbl td.r{font-weight:800;color:var(--accent)}
 .hist-tbl td.prom{font-weight:700;color:var(--cyan)}
 /* panel de totales del filtro */
@@ -420,29 +431,35 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 /* calendario semanal de ruta */
 .rep-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
 .rep-note{font-size:12.5px;color:var(--muted)}
-.cal{display:flex;gap:10px;overflow-x:auto;padding-bottom:10px}
-.cal-col{flex:1 0 184px;min-width:184px;background:linear-gradient(170deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px}
-.cal-col-head{display:flex;justify-content:space-between;align-items:center;font-family:'Archivo';font-weight:800;font-size:13px}
-.cal-col-head b{font-family:'IBM Plex Mono';color:var(--accent);background:rgba(255,210,30,.10);border-radius:7px;padding:1px 8px;font-size:12px}
-.cal-fact{font-family:'IBM Plex Mono';font-size:11px;color:var(--muted);margin:3px 0 9px;border-bottom:1px solid var(--line);padding-bottom:9px}
-.cal-fact b{color:var(--txt)}
-.cal-sub{display:block;font-family:'Manrope';font-size:10px;color:var(--muted2);margin-top:2px}
-.cc-fac{font-family:'IBM Plex Mono';font-weight:800;font-size:12px;color:var(--accent);white-space:nowrap}
+.cal{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x proximity}
+.cal-col{flex:1 0 230px;min-width:230px;background:linear-gradient(170deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px;scroll-snap-align:start}
+.cal-col-head{display:flex;justify-content:space-between;align-items:center;font-family:'Archivo';font-weight:800;font-size:15px}
+.cal-col-head b{font-family:'IBM Plex Mono';color:var(--accent);background:rgba(255,210,30,.10);border-radius:7px;padding:2px 9px;font-size:12px}
+.cal-fact{font-family:'IBM Plex Mono';font-size:12px;color:var(--muted);margin:6px 0 11px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.cal-fact b{color:var(--txt);font-size:14px}
+.cal-sub{display:block;font-family:'Manrope';font-size:10.5px;color:var(--muted2);margin-top:3px}
+.cc-fac{font-family:'IBM Plex Mono';font-weight:800;font-size:13px;color:var(--accent);white-space:nowrap}
 .cc-pend{font-family:'Manrope';font-weight:800;font-size:9.5px;color:var(--low);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
 .cal-card.nocompra{background:rgba(225,60,60,.07);border-color:rgba(225,60,60,.4)}
-.cal-body{display:flex;flex-direction:column;gap:8px}
+.cal-body{display:flex;flex-direction:column;gap:9px}
 .cal-empty{color:var(--muted2);font-size:12px;text-align:center;padding:14px 0}
-.cal-card{background:rgba(255,255,255,.03);border:1px solid var(--line2);border-left:4px solid var(--line2);border-radius:11px;padding:10px;cursor:pointer;transition:.15s}
+.cal-card{background:rgba(255,255,255,.03);border:1px solid var(--line2);border-left:4px solid var(--line2);border-radius:11px;padding:12px;cursor:pointer;transition:.15s}
 .cal-card:hover{background:rgba(255,255,255,.06)}
-.cc-head{display:flex;align-items:center;gap:8px}
+.cc-head{display:grid;grid-template-columns:auto 1fr auto auto;gap:9px;align-items:center}
 .cc-dot{width:10px;height:10px;border-radius:50%;flex:none}
-.cc-headtxt{min-width:0;flex:1}
-.cc-name{font-weight:700;font-size:12.5px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-headtxt{min-width:0}
+.cc-name{font-weight:700;font-size:13.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cc-zone{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
 .cc-chev{width:15px;height:15px;color:var(--muted2);flex:none;transition:.2s}
 .cal-card.open .cc-chev{transform:rotate(180deg)}
-.cc-detail{display:none;margin-top:9px;border-top:1px solid var(--line);padding-top:9px}
+.cc-detail{display:none;margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
 .cal-card.open .cc-detail{display:block}
+@media(max-width:760px){
+  .cal{flex-direction:column;overflow-x:visible}
+  .cal-col{flex:none;min-width:0;width:100%}
+  .cal-body{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+}
+@media(max-width:480px){.cal-body{grid-template-columns:1fr}}
 .cc-code{font-family:'IBM Plex Mono';font-size:10px;color:var(--muted2);margin-bottom:7px}
 .cc-lines{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
 .cc-line{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;align-items:baseline}
@@ -512,10 +529,13 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cmp-tbl th.gh{border-bottom:3px solid var(--accent)}
 .cmp-lines th.gh{border-bottom-color:var(--lc);font-size:10px}
 .cmp-lines td.o{color:var(--muted);font-size:11px}
-.cmp-lines .cm-real{display:block;font-weight:700;font-size:13px}
-.cmp-lines .cm-obj{display:block;font-size:9px;color:var(--muted2);font-weight:600;margin-top:1px}
+.cmp-lines .cm-real{display:block;font-weight:800;font-size:15px}
+.cmp-lines .cm-obj{display:block;font-size:9.5px;color:var(--muted2);font-weight:600;margin-top:1px}
 .cmp-lines .difcol{border-left:1px dashed var(--line2)}
+.cmp-lines td.difcol.delta{font-size:14px;font-weight:800}
 .cmp-lines th.difcol{color:var(--accent)}
+.cmp-tbl th.sortable{cursor:pointer;user-select:none;transition:.15s}
+.cmp-tbl th.sortable:hover{color:var(--accent);background:rgba(255,210,30,.06)}
 .delta{font-weight:700} .delta.up{color:var(--good)} .delta.down{color:var(--low)} .delta.flat{color:var(--muted2)}
 .cmp-tbl tr.sub td{font-weight:700;background:rgba(255,255,255,.03);border-top:2px solid var(--line2)}
 @media(max-width:820px){
@@ -638,16 +658,16 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
         <input id="cliSearch" type="text" placeholder="Buscar cliente, negocio, código o zona…">
       </div>
+      <div class="ctrl"><label>Orden</label><select class="inp" id="orderSel">
+        <option value="regular">Progreso regular primero</option>
+        <option value="medio">Progreso medio primero</option>
+        <option value="good">Progreso bueno primero</option>
+      </select></div>
       <div class="ctrl"><label>Línea</label><select class="inp" id="lineSel"></select></div>
       <div class="ctrl"><label>Día visita</label><select class="inp" id="daySel">
         <option value="ALL">Todos los días</option>
         <option value="LUNES">Lunes</option><option value="MARTES">Martes</option><option value="MIERCOLES">Miércoles</option>
         <option value="JUEVES">Jueves</option><option value="VIERNES">Viernes</option><option value="SABADO">Sábado</option><option value="ESPORADICO">Esporádico</option>
-      </select></div>
-      <div class="ctrl"><label>Orden</label><select class="inp" id="orderSel">
-        <option value="regular">Progreso regular primero</option>
-        <option value="medio">Progreso medio primero</option>
-        <option value="good">Progreso bueno primero</option>
       </select></div>
       <div class="count-pill" id="cliCount">0 clientes</div>
     </div>
@@ -1024,9 +1044,9 @@ function renderMatrix(base,grid,pace,note){
         <div class="cli-tags"><span class="tag">${esc(c.zona||'sin zona')}</span>${c.giro?`<span class="tag">${esc(c.giro)}</span>`:''}${badge}</div>
         <div class="cli-ring"><div class="big mono t-${ringCls}">${esc(ringTxt)}</div><div class="lbl">Avance Total</div></div>
       </div>
+      ${cardComments(c)}
       ${pendingChips(c.rec)}
       ${clientLineTable(c.rec,lines,pace)}
-      ${cardComments(c)}
       <span class="cli-open">Ver ficha completa <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </div>`;
   }).join('');
@@ -1170,7 +1190,7 @@ function renderReportes(){
 function renderActiveReport(){ if(REPORT==='ruta')renderRutaDia(); else if(REPORT==='fact')renderFactSemanal(); else renderComparativo(); }
  
 /* === Reporte 3: RENDIMIENTO POR CLIENTE ENTRE MESES === */
-let CMP_VENDOR=null,CMP_A=null,CMP_B=null;
+let CMP_VENDOR=null,CMP_A=null,CMP_B=null,CMP_SORT={key:null,dir:'desc'};
 function cmpMetric(rec,kind){if(!rec)return null;const f=rec.numLit('REAL FACT'),c=rec.numLit('COSTO'),d=rec.numLit('DIF');
   if(kind==='tot')return rec.numLit('REAL TOTAL').n;
   if(kind==='fac')return f.n;
@@ -1208,24 +1228,27 @@ function renderComparativo(){
   const objN=(rec,line)=>rec?rec.numLit(line.obj).n:null;
   const shortLab=k=>{const p=labelOf(k).split(/\s+/);const m=(p[0]||'').slice(0,3);const y=p[1]?` '${p[1].slice(-2)}`:'';return (m.charAt(0)+m.slice(1).toLowerCase())+y;};
   const la=shortLab(CMP_A), lb=shortLab(CMP_B);
-  // encabezados: por línea -> [Mes A] [Mes B] [Dif A-B]
+  // modelo de filas
+  let model=codes.map(code=>{const ra=mapA.get(code),rb=mapB.get(code),ref=ra||rb;const cells={};lines.forEach(l=>{const a=realN(ra,l),b=realN(rb,l);cells[l.key]={a,b,oa:objN(ra,l),ob:objN(rb,l),dif:(a||0)-(b||0)};});return {name:ref.text('CLIENTE')||SD,zona:ref.text('ZONA')||'',cells};});
+  // ordenamiento por columna
+  const arrowFor=key=>CMP_SORT.key===key?(CMP_SORT.dir==='desc'?' ▼':' ▲'):'';
+  if(CMP_SORT.key==='name')model.sort((a,b)=>a.name.localeCompare(b.name)*(CMP_SORT.dir==='desc'?-1:1));
+  else if(CMP_SORT.key){const[lk,fld]=CMP_SORT.key.split('|');const val=r=>{const c=r.cells[lk];return c?(c[fld]==null?-Infinity:c[fld]):-Infinity;};model.sort((a,b)=>(val(b)-val(a))*(CMP_SORT.dir==='desc'?1:-1));}
   const headTop=lines.map(l=>`<th colspan="3" class="gh" style="--lc:${lineColor(l.key)}">${esc(l.label)}</th>`).join('');
-  const headSub=lines.map(()=>`<th class="cmp-grp">${esc(la)}</th><th>${esc(lb)}</th><th class="difcol">Dif</th>`).join('');
-  const cellMonth=(rec,l,grp)=>{const r=realN(rec,l),o=objN(rec,l);return `<td class="${grp?'cmp-grp':''}"><span class="cm-real">${r!=null?fmtNum(r):'·'}</span>${o!=null?`<span class="cm-obj">obj ${fmtNum(o)}</span>`:''}</td>`;};
-  const difCell=(a,b)=>{if(a==null&&b==null)return `<td class="difcol delta flat">·</td>`;const d=(a||0)-(b||0);const cls=d>0?'up':(d<0?'down':'flat');const ar=d>0?'▲':(d<0?'▼':'=');return `<td class="difcol delta ${cls}">${ar} ${esc(fmtNum(Math.abs(d))||'0')}</td>`;};
-  const rows=codes.map(code=>{
-    const ra=mapA.get(code),rb=mapB.get(code),ref=ra||rb;
-    const cells=lines.map(l=>cellMonth(ra,l,true)+cellMonth(rb,l,false)+difCell(realN(ra,l),realN(rb,l))).join('');
-    return `<tr><td class="name">${esc(ref.text('CLIENTE')||SD)}<br><span style="color:var(--muted);font-size:11px">${esc(ref.text('ZONA')||'')}</span></td>${cells}</tr>`;
+  const headSub=lines.map(l=>`<th class="cmp-grp sortable" data-cmpsort="${l.key}|a">${esc(la)}${arrowFor(l.key+'|a')}</th><th class="sortable" data-cmpsort="${l.key}|b">${esc(lb)}${arrowFor(l.key+'|b')}</th><th class="difcol sortable" data-cmpsort="${l.key}|dif">Dif${arrowFor(l.key+'|dif')}</th>`).join('');
+  const cellMonth=(c,fld,grp)=>{const r=c[fld],o=fld==='a'?c.oa:c.ob;return `<td class="${grp?'cmp-grp':''}"><span class="cm-real">${r!=null?fmtNum(r):'·'}</span>${o!=null?`<span class="cm-obj">obj ${fmtNum(o)}</span>`:''}</td>`;};
+  const difCell=(c)=>{const a=c.a,b=c.b;if(a==null&&b==null)return `<td class="difcol delta flat">·</td>`;const d=c.dif,cls=d>0?'up':(d<0?'down':'flat'),ar=d>0?'▲':(d<0?'▼':'=');return `<td class="difcol delta ${cls}">${ar} ${esc(fmtNum(Math.abs(d))||'0')}</td>`;};
+  const rows=model.map(m=>{
+    const cells=lines.map(l=>{const c=m.cells[l.key];return cellMonth(c,'a',true)+cellMonth(c,'b',false)+difCell(c);}).join('');
+    return `<tr><td class="name">${esc(m.name)}<br><span style="color:var(--muted);font-size:11px">${esc(m.zona)}</span></td>${cells}</tr>`;
   }).join('');
-  // totales
-  const subCells=lines.map(l=>{let sa=0,sb=0;codes.forEach(code=>{const a=realN(mapA.get(code),l),b=realN(mapB.get(code),l);if(a!=null)sa+=a;if(b!=null)sb+=b;});const d=sa-sb,cls=d>0?'up':(d<0?'down':'flat'),ar=d>0?'▲':(d<0?'▼':'=');return `<td class="cmp-grp"><span class="cm-real">${fmtNum(sa)}</span></td><td><span class="cm-real">${fmtNum(sb)}</span></td><td class="difcol delta ${cls}">${ar} ${esc(fmtNum(Math.abs(d)))}</td>`;}).join('');
+  const subCells=lines.map(l=>{let sa=0,sb=0;model.forEach(m=>{const c=m.cells[l.key];if(c.a!=null)sa+=c.a;if(c.b!=null)sb+=c.b;});const d=sa-sb,cls=d>0?'up':(d<0?'down':'flat'),ar=d>0?'▲':(d<0?'▼':'=');return `<td class="cmp-grp"><span class="cm-real">${fmtNum(sa)}</span></td><td><span class="cm-real">${fmtNum(sb)}</span></td><td class="difcol delta ${cls}">${ar} ${esc(fmtNum(Math.abs(d)))}</td>`;}).join('');
   const sub=`<tr class="sub"><td class="name">Totales</td>${subCells}</tr>`;
   const ncols=1+lines.length*3;
-  body.innerHTML=controls+`<div class="rd-wrap"><div class="rep-note" style="margin-bottom:14px">Comparativo de <b>${esc(CMP_VENDOR)}</b> · unidades reales por línea. Cada línea muestra <b>${esc(la)}</b>, <b>${esc(lb)}</b> y la <b>diferencia</b> (${esc(la)} − ${esc(lb)}): ▲ verde si vendió más, ▼ rojo si bajó. Debajo de cada cantidad aparece su objetivo del mes.</div>
+  body.innerHTML=controls+`<div class="rd-wrap"><div class="rep-note" style="margin-bottom:14px">Comparativo de <b>${esc(CMP_VENDOR)}</b> · unidades reales por línea. Muestra <b>${esc(la)}</b>, <b>${esc(lb)}</b> y la <b>diferencia</b> (${esc(la)} − ${esc(lb)}): ▲ verde si vendió más, ▼ rojo si bajó. <b>Clic en cualquier encabezado de columna para ordenar de mayor a menor.</b></div>
     <div class="rd-tblwrap"><table class="cmp-tbl cmp-lines">
-    <thead><tr><th rowspan="2" class="l">Cliente</th>${headTop}</tr><tr>${headSub}</tr></thead>
-    <tbody>${codes.length?rows+sub:`<tr><td colspan="${ncols}" style="text-align:center;color:var(--muted2);padding:24px">Sin clientes para comparar.</td></tr>`}</tbody></table></div></div>`;
+    <thead><tr><th rowspan="2" class="l sortable" data-cmpsort="name">Cliente${arrowFor('name')}</th>${headTop}</tr><tr>${headSub}</tr></thead>
+    <tbody>${model.length?rows+sub:`<tr><td colspan="${ncols}" style="text-align:center;color:var(--muted2);padding:24px">Sin clientes para comparar.</td></tr>`}</tbody></table></div></div>`;
 }
  
 /* === Reporte 1: RUTA FIJA PERMANENTE (por vendedor y día) === */
@@ -1395,6 +1418,7 @@ document.addEventListener('click',e=>{
   const ck=e.target.closest('[data-check]');if(ck){const id=parseInt(ck.dataset.check);if(REVIEWED.has(id))REVIEWED.delete(id);else REVIEWED.add(id);const card=ck.closest('.cli-card');if(card)card.classList.toggle('done');e.stopPropagation();return;}
   const cl=e.target.closest('[data-cli]');if(cl){goFicha(parseInt(cl.dataset.cli));return;}
   const fs=e.target.closest('#factSeg .seg-btn');if(fs){FACT_FILTER=fs.dataset.fact;renderFactSemanal();return;}
+  const cs=e.target.closest('[data-cmpsort]');if(cs){const k=cs.dataset.cmpsort;if(CMP_SORT.key===k)CMP_SORT.dir=CMP_SORT.dir==='desc'?'asc':'desc';else{CMP_SORT.key=k;CMP_SORT.dir='desc';}renderComparativo();return;}
   const sg=e.target.closest('#objSeg .seg-btn');if(sg){OBJF=sg.dataset.obj;document.querySelectorAll('#objSeg .seg-btn').forEach(b=>b.classList.toggle('act',b===sg));filterClients();return;}
   const wc=e.target.closest('[data-welcome]');if(wc){gotoWelcome();return;}
   const bk=e.target.closest('[data-go]');if(bk){const g=bk.dataset.go;if(g==='home')goHome();else if(g==='vend')goVend(STATE.org);else if(g==='cli')goCli(STATE.vendor);return;}
