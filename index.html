@@ -202,6 +202,10 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cco-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);padding-top:2px}
 .cco-txt{font-size:15px;color:var(--txt);line-height:1.5;font-weight:500}
 .cco-row.sininfo .cco-txt{color:var(--muted2);font-style:italic;font-weight:400}
+.cco-row.ger{border-left-color:var(--cyan);background:rgba(34,211,238,.07)}
+.cco-row.ger .cco-lbl{color:var(--cyan)}
+.cco-row.ger.sininfo{border-left-color:var(--line2);background:rgba(255,255,255,.02)}
+.cco-row.ger.sininfo .cco-lbl{color:var(--muted)}
 @media(max-width:560px){
   .cco-row{grid-template-columns:1fr;gap:3px;padding:8px 11px}
   .cco-txt{font-size:14px}
@@ -262,10 +266,11 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .tot-chip .tl{display:flex;align-items:center;gap:6px}
 .tdot{width:8px;height:8px;border-radius:50%;flex:none}
 /* pendientes por cumplir */
-.pend-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:4px 0 12px}
-.pend-lbl{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
-.pend-chip{font-size:11px;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-left:3px solid var(--lc);border-radius:8px;padding:5px 9px;color:var(--muted)}
-.pend-chip b{color:var(--lc);font-weight:700} .pend-chip i{font-family:'IBM Plex Mono';font-style:normal;color:var(--txt);font-weight:600}
+.pend-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:6px 0 16px;padding:12px 14px;background:linear-gradient(135deg,rgba(255,210,30,.05),rgba(255,255,255,.015));border:1px solid var(--line2);border-radius:12px}
+.pend-lbl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--accent);width:100%;display:flex;align-items:center;gap:7px;margin-bottom:2px}
+.pend-lbl::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.pend-chip{font-size:13.5px;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-left:4px solid var(--lc);border-radius:9px;padding:8px 13px;color:var(--muted);line-height:1.3}
+.pend-chip b{color:var(--lc);font-weight:800;font-size:13.5px} .pend-chip i{font-family:'IBM Plex Mono';font-style:normal;color:var(--txt);font-weight:700;font-size:14px}
 /* reporte ruta por día */
 .rd-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
 .rd-wrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
@@ -409,6 +414,7 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .coment{font-size:13.5px;line-height:1.6;background:rgba(255,255,255,.025);border-left:3px solid var(--accent);padding:13px 15px;border-radius:0 10px 10px 0}
 .coment.empty{color:var(--muted2);font-style:italic;border-color:var(--line2)}
+.coment.ger{border-left-color:var(--cyan);background:rgba(34,211,238,.06)}
  
 /* reportes */
 .rep-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
@@ -536,6 +542,13 @@ select.inp{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xm
 .cmp-lines th.difcol{color:var(--accent)}
 .cmp-tbl th.sortable{cursor:pointer;user-select:none;transition:.15s}
 .cmp-tbl th.sortable:hover{color:var(--accent);background:rgba(255,210,30,.06)}
+/* resaltado glass al pasar el cursor por filas/columnas (datos sin acción) */
+.hl-table tbody tr:hover{background:rgba(255,255,255,.07)}
+.hl-table tbody td.col-hl{background:rgba(255,255,255,.05)}
+.hl-table thead th.col-hl{background:rgba(255,210,30,.09)}
+.hl-table tbody tr:hover td{box-shadow:inset 0 0 0 100px rgba(255,255,255,.015)}
+.hl-table tbody tr:hover td.col-hl{background:rgba(255,210,30,.12);color:var(--txt)}
+.lt-row:hover{background:rgba(255,255,255,.04);border-radius:7px}
 .delta{font-weight:700} .delta.up{color:var(--good)} .delta.down{color:var(--low)} .delta.flat{color:var(--muted2)}
 .cmp-tbl tr.sub td{font-weight:700;background:rgba(255,255,255,.03);border-top:2px solid var(--line2)}
 @media(max-width:820px){
@@ -1001,7 +1014,7 @@ function renderClients(){
   document.getElementById('cliTitle').textContent=STATE.vendor;
   document.getElementById('cliPace').innerHTML=paceText();
   const groups=clientGroups(STATE.org).filter(rec=>rec.vendor===STATE.vendor);
-  CLI=groups.map((rec,i)=>{const hl=lineData(rec,LINES.find(l=>l.key===HEADLINE_KEY));return {rec,uid:i,code:getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H),cliente:rec.text('CLIENTE'),negocio:rec.text('NOMBRE DE NEGOCIO'),zona:rec.text('ZONA'),giro:rec.text('GIRO'),cMid:rec.text('COMMENTARIO A MITAD DE MES')||rec.text('COMENTARIO A MITAD DE MES'),cEnd:rec.text('COMENTARIOS A FINAL DE MES')||rec.text('COMENTARIO A FINAL DE MES'),pctN:hl.pctN,hlStatus:hl.status,search:keyName([rec.text('CLIENTE'),rec.text('NOMBRE DE NEGOCIO'),rec.text('COD CLIENTE'),rec.text('ZONA'),rec.text('GIRO')].join(' '))};});
+  CLI=groups.map((rec,i)=>{const hl=lineData(rec,LINES.find(l=>l.key===HEADLINE_KEY));return {rec,uid:i,code:getCell(rec.group[rec.group.length-1],'COD CLIENTE',rec.H),cliente:rec.text('CLIENTE'),negocio:rec.text('NOMBRE DE NEGOCIO'),zona:rec.text('ZONA'),giro:rec.text('GIRO'),cMid:rec.text('COMMENTARIO A MITAD DE MES')||rec.text('COMENTARIO A MITAD DE MES'),cEnd:rec.text('COMENTARIOS A FINAL DE MES')||rec.text('COMENTARIO A FINAL DE MES'),cGer:rec.text('COMENTARIO GERENTE')||rec.text('COMENTARIOS GERENTE')||rec.text('COMENTARIO DEL GERENTE')||rec.text('COMENTARIOS DEL GERENTE')||rec.text('RETROALIMENTACION GERENTE')||rec.text('RETROALIMENTACION DEL GERENTE')||rec.text('COMENTARIO GERENTE DE VENTAS')||rec.text('GERENTE DE VENTAS'),pctN:hl.pctN,hlStatus:hl.status,search:keyName([rec.text('CLIENTE'),rec.text('NOMBRE DE NEGOCIO'),rec.text('COD CLIENTE'),rec.text('ZONA'),rec.text('GIRO')].join(' '))};});
   REVIEWED.clear();
   filterClients();
 }
@@ -1053,9 +1066,9 @@ function renderMatrix(base,grid,pace,note){
 }
 function cardComments(c){
   const per=document.getElementById('periodSel'); const perTxt=per&&per.selectedOptions[0]?per.selectedOptions[0].textContent:'';
-  const mid=isEmpty(c.cMid)?null:c.cMid, end=isEmpty(c.cEnd)?null:c.cEnd;
-  const row=(lbl,val)=>`<div class="cco-row ${val?'':'sininfo'}"><span class="cco-lbl">${lbl}</span><span class="cco-txt">${val?esc(val):'Sin información'}</span></div>`;
-  return `<div class="cli-coments"><div class="cco-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comentarios del vendedor${perTxt?` · ${esc(perTxt)}`:''}</div>${row('Mitad de mes',mid)}${row('Final de mes',end)}</div>`;
+  const mid=isEmpty(c.cMid)?null:c.cMid, end=isEmpty(c.cEnd)?null:c.cEnd, ger=isEmpty(c.cGer)?null:c.cGer;
+  const row=(lbl,val,cls)=>`<div class="cco-row ${cls||''} ${val?'':'sininfo'}"><span class="cco-lbl">${lbl}</span><span class="cco-txt">${val?esc(val):'Sin información'}</span></div>`;
+  return `<div class="cli-coments"><div class="cco-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comentarios${perTxt?` · ${esc(perTxt)}`:''}</div>${row('Vendedor · mitad',mid)}${row('Vendedor · final',end)}${row('Gerente de ventas',ger,'ger')}</div>`;
 }
 /* chips de lo que falta por cumplir, por línea */
 function pendingChips(rec){
@@ -1125,7 +1138,7 @@ function historyTable(rec){
     const prom=tot!=null?Math.round(tot/periods.length):null;
     return `<tr><td class="l"><span class="lt-dot" style="background:${lineColor(line.key)}"></span>${esc(line.label)}</td>${cells}<td class="r">${tot!=null?fmtNum(tot):'—'}</td><td class="prom">${prom!=null?fmtNum(prom):'—'}</td></tr>`;
   }).join('');
-  return `<div class="rd-tblwrap"><table class="hist-tbl"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
+  return `<div class="rd-tblwrap"><table class="hist-tbl hl-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
 }
 function dl(pairs){return '<dl class="dl">'+pairs.map(([k,v])=>{const e=isEmpty(v);return `<dt>${esc(k)}</dt><dd class="${e?'empty':''}">${esc(e?SD:v)}</dd>`;}).join('')+'</dl>';}
 function fotoBlock(rec){
@@ -1146,7 +1159,7 @@ function renderFicha(rec){
     return `<div class="perf-item"><div class="perf-top"><span class="perf-name">${esc(line.label)}${flag}</span><span class="perf-pct t-${cls}">${pctTxt}</span></div><div class="bar ${cls}"><i style="width:${clampW(ld.pctN)}%"></i>${mk}</div><div class="perf-nums"><span><span class="nlbl">Objetivo</span><b>${esc(ld.obj.lit||SD)}</b></span><span style="text-align:right"><span class="nlbl">Real</span><b>${esc(ld.real.lit||SD)}</b></span></div></div>`;}).join('');
   const apoyo=APOYO.map(n=>{const v=rec.text(n);const on=!isEmpty(v);const s=n.replace('MINUTA CREDITO / DESCUENTO','Minuta crédito/desc.').replace('MINUTA DE POP','Minuta POP').replace('EXHIBIDOR ','Exh. ').replace('ACTIVACIONES','Activaciones').replace('FACHADA','Fachada');return `<span class="chip ${on?'on':''}"><b>${esc(s)}:</b> ${esc(on?v:SD)}</span>`;}).join('');
   const desc=dl(DESCUENTOS.map(n=>[n.replace(' (HI TEC)',' (Hi-Tec)'),rec.text(n)]));
-  const cMid=rec.text('COMMENTARIO A MITAD DE MES')||rec.text('COMENTARIO A MITAD DE MES'),cEnd=rec.text('COMENTARIOS A FINAL DE MES')||rec.text('COMENTARIO A FINAL DE MES');
+  const cMid=rec.text('COMMENTARIO A MITAD DE MES')||rec.text('COMENTARIO A MITAD DE MES'),cEnd=rec.text('COMENTARIOS A FINAL DE MES')||rec.text('COMENTARIO A FINAL DE MES'),cGer=rec.text('COMENTARIO GERENTE')||rec.text('COMENTARIOS GERENTE')||rec.text('COMENTARIO DEL GERENTE')||rec.text('COMENTARIOS DEL GERENTE')||rec.text('RETROALIMENTACION GERENTE')||rec.text('RETROALIMENTACION DEL GERENTE')||rec.text('COMENTARIO GERENTE DE VENTAS')||rec.text('GERENTE DE VENTAS');
   document.getElementById('fichaBody').innerHTML=`
     <div class="print-head ficha-ph"><div class="ph-org">${esc(org(STATE.org).label)}</div><div class="ph-title">Ficha informativa de cliente · ${esc(cliente||SD)}</div></div>
     <div class="ficha-head">
@@ -1170,9 +1183,10 @@ function renderFicha(rec){
       <div class="card flat" style="--sc:#2dd4bf"><div class="card-title"><span class="dot"></span>Descuentos otorgados</div>${desc}</div>
     </div>
     <div class="two-col section-block">
-      <div class="card flat" style="--sc:#f472b6"><div class="card-title"><span class="dot"></span>Comentario a mitad de mes</div><div class="coment ${isEmpty(cMid)?'empty':''}">${esc(isEmpty(cMid)?SD:cMid)}</div></div>
-      <div class="card flat" style="--sc:#fb923c"><div class="card-title"><span class="dot"></span>Comentario a final de mes</div><div class="coment ${isEmpty(cEnd)?'empty':''}">${esc(isEmpty(cEnd)?SD:cEnd)}</div></div>
-    </div>`;
+      <div class="card flat" style="--sc:#f472b6"><div class="card-title"><span class="dot"></span>Comentario del vendedor · mitad de mes</div><div class="coment ${isEmpty(cMid)?'empty':''}">${esc(isEmpty(cMid)?SD:cMid)}</div></div>
+      <div class="card flat" style="--sc:#fb923c"><div class="card-title"><span class="dot"></span>Comentario del vendedor · final de mes</div><div class="coment ${isEmpty(cEnd)?'empty':''}">${esc(isEmpty(cEnd)?SD:cEnd)}</div></div>
+    </div>
+    <div class="card section-block" style="--sc:#22d3ee"><div class="card-title"><span class="dot"></span>Retroalimentación del gerente de ventas</div><div class="coment ger ${isEmpty(cGer)?'empty':''}">${esc(isEmpty(cGer)?SD:cGer)}</div></div>`;
 }
  
 /* ---- REPORTES ---- */
@@ -1246,7 +1260,7 @@ function renderComparativo(){
   const sub=`<tr class="sub"><td class="name">Totales</td>${subCells}</tr>`;
   const ncols=1+lines.length*3;
   body.innerHTML=controls+`<div class="rd-wrap"><div class="rep-note" style="margin-bottom:14px">Comparativo de <b>${esc(CMP_VENDOR)}</b> · unidades reales por línea. Muestra <b>${esc(la)}</b>, <b>${esc(lb)}</b> y la <b>diferencia</b> (${esc(la)} − ${esc(lb)}): ▲ verde si vendió más, ▼ rojo si bajó. <b>Clic en cualquier encabezado de columna para ordenar de mayor a menor.</b></div>
-    <div class="rd-tblwrap"><table class="cmp-tbl cmp-lines">
+    <div class="rd-tblwrap"><table class="cmp-tbl cmp-lines hl-table">
     <thead><tr><th rowspan="2" class="l sortable" data-cmpsort="name">Cliente${arrowFor('name')}</th>${headTop}</tr><tr>${headSub}</tr></thead>
     <tbody>${model.length?rows+sub:`<tr><td colspan="${ncols}" style="text-align:center;color:var(--muted2);padding:24px">Sin clientes para comparar.</td></tr>`}</tbody></table></div></div>`;
 }
@@ -1301,7 +1315,7 @@ function renderRutaDia(){
         <div><span>Clientes</span><b>${dayClients.length}</b></div>
       </div>
     </div>
-    <div class="rd-tblwrap"><table class="rd-tbl rd-grouped">
+    <div class="rd-tblwrap"><table class="rd-tbl rd-grouped hl-table">
       <thead>
         <tr><th rowspan="2" class="l">Cliente</th><th rowspan="2" class="l">Zona</th>${headTop}</tr>
         <tr>${headSub}</tr>
@@ -1424,6 +1438,16 @@ document.addEventListener('click',e=>{
   const bk=e.target.closest('[data-go]');if(bk){const g=bk.dataset.go;if(g==='home')goHome();else if(g==='vend')goVend(STATE.org);else if(g==='cli')goCli(STATE.vendor);return;}
 });
 document.getElementById('repBtn').addEventListener('click',goRep);
+/* resaltado de columna al pasar el cursor por tablas de datos */
+let _colHL=[];
+document.addEventListener('mouseover',e=>{
+  const cell=e.target&&e.target.closest?e.target.closest('.hl-table td, .hl-table th'):null;
+  if(_colHL.length){_colHL.forEach(c=>c.classList.remove('col-hl'));_colHL=[];}
+  if(!cell)return;
+  const table=cell.closest('table');if(!table)return;
+  const idx=cell.cellIndex;if(idx<0)return;
+  table.querySelectorAll('tbody tr').forEach(tr=>{const c=tr.children[idx];if(c){c.classList.add('col-hl');_colHL.push(c);}});
+});
 document.getElementById('cliSearch').addEventListener('input',filterClients);
 document.getElementById('lineSel').addEventListener('change',e=>{LINE_FILTER=e.target.value;filterClients();});
 document.getElementById('daySel').addEventListener('change',e=>{DAY_FILTER=e.target.value;filterClients();});
