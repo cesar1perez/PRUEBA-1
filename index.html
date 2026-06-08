@@ -799,9 +799,9 @@ function clampW(p){return p==null?0:Math.min(100,Math.max(3,p));}
 function paceClass(pctN,pace){if(pctN==null)return 'na';const ref=(pace==null?100:pace);if(pctN>=ref)return 'good';if(pctN>=ref-15)return 'mid';return 'low';}
 function isBehind(pctN,pace){if(pctN==null)return false;const ref=(pace==null?100:pace);return pctN<ref;}
  
-/* días hábiles (lun-vie, sin sábado ni domingo) */
+/* días hábiles (lunes a sábado; solo se excluyen domingos) */
 function daysInMonth(y,m){return new Date(y,m,0).getDate();}
-function workdays(y,m,from,to){let c=0;for(let d=from;d<=to;d++){const wd=new Date(y,m-1,d).getDay();if(wd!==0&&wd!==6)c++;}return c;}
+function workdays(y,m,from,to){let c=0;for(let d=from;d<=to;d++){const wd=new Date(y,m-1,d).getDay();if(wd!==0)c++;}return c;}
  
 /* CSV */
 function parseCSV(text){const rows=[];let row=[],f='',i=0,q=false;while(i<text.length){const c=text[i];if(q){if(c==='"'){if(text[i+1]==='"'){f+='"';i+=2;continue;}q=false;i++;continue;}f+=c;i++;continue;}if(c==='"'){q=true;i++;continue;}if(c===','){row.push(f);f='';i++;continue;}if(c==='\r'){i++;continue;}if(c==='\n'){row.push(f);rows.push(row);row=[];f='';i++;continue;}f+=c;i++;}if(f!==''||row.length){row.push(f);rows.push(row);}return rows;}
